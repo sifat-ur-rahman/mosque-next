@@ -106,16 +106,16 @@ const ResponsiveHeader = () => {
                             <div>
                                 <Image
                                     alt="logo"
-                                    src={'/logo/HIHUB-TECH-LOGO.png'}
+                                    src={'/logo/logo01.png'}
                                     width={1000}
                                     height={700}
-                                    className="w-[130px] sm:w-[165px]"
+                                    className="w-[40px] sm:w-[55px]"
                                 />
                             </div>
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden items-center space-x-6 font-roboto font-medium sm:flex">
+                        <div className="font-bangla hidden items-center space-x-6 font-medium sm:flex">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.path}

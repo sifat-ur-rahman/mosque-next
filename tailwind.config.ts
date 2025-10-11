@@ -16,6 +16,7 @@ const config: Config = {
                 rubik: ['var(--font-rubik)', 'sans-serif'],
                 inter: ['var(--font-inter)', 'sans-serif'],
                 roboto: ['var(--font-roboto)', 'sans-serif'],
+                bangla: ['var(--font-tiro-bangla)', 'sans-serif'],
             },
         },
     },

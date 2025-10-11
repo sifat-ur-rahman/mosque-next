@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { Inter, Roboto, Rubik } from 'next/font/google';
+import { Inter, Roboto, Rubik, Tiro_Bangla } from 'next/font/google';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -15,9 +15,14 @@ const rubik = Rubik({
     subsets: ['latin'],
     variable: '--font-rubik',
 });
+const tiroBangla = Tiro_Bangla({
+    subsets: ['bengali'],
+    weight: ['400'], // Add other weights if needed
+    variable: '--font-tiro-bangla',
+});
 export const metadata: Metadata = {
-    title: 'HIHUB GLOBAL TECHNOLOGIES',
-    description: 'your business partner',
+    title: 'মনোহরপুর বায়তুন - নূর কেন্দ্রীয় জামে মসজিদ',
+    description: 'Manoharpur Baytun-Noor Central Jame Mosque',
 };
 
 export default function RootLayout({
@@ -30,12 +35,12 @@ export default function RootLayout({
             <head>
                 <link
                     rel="shortcut icon"
-                    href="/logo.png"
+                    href="/logo01.png"
                     type="image/x-icon"
                 />
             </head>
             <body
-                className={`${inter.variable} ${rubik.variable} ${roboto.variable} font-sans antialiased`}
+                className={`${inter.variable} ${rubik.variable} ${roboto.variable} ${tiroBangla.variable} font-bangla antialiased`}
             >
                 {children}
             </body>
