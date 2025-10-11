@@ -1,56 +1,15 @@
 'use client';
 
-import { Globe } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 
-// Translation object
-const translations = {
-    en: {
-        home: 'Home',
-        services: 'Services',
-        clients: 'Clients',
-        contact: 'Contact',
-    },
-    es: {
-        home: 'Inicio',
-        services: 'Servicios',
-        clients: 'Clientes',
-        contact: 'Contacto',
-    },
-};
-
-type Language = 'en' | 'es';
-
 const ResponsiveHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [language, setLanguage] = useState<Language>('en');
-    const [langDropdownOpen, setLangDropdownOpen] = useState(false);
     const pathname = usePathname();
-
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-        const langFromQuery = searchParams.get('lang');
-        if (langFromQuery === 'en' || langFromQuery === 'es') {
-            setLanguage(langFromQuery);
-        }
-    }, [searchParams]); // <-- Add searchParams here
-
-    // Get navigation links with translations
-    const getNavLinks = (lang: Language) => [
-        { path: `/?lang=${lang}`, label: translations[lang].home },
-        { path: `/?lang=${lang}#services`, label: translations[lang].services },
-        { path: `/?lang=${lang}#clients`, label: translations[lang].clients },
-        { path: `/?lang=${lang}#contact`, label: translations[lang].contact },
-    ];
-
-    const navLinks = getNavLinks(language);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -62,46 +21,29 @@ const ResponsiveHeader = () => {
             ) {
                 setMenuOpen(false);
             }
-            if (
-                langDropdownOpen &&
-                !target.closest('.language-dropdown') &&
-                !target.closest('.language-button')
-            ) {
-                setLangDropdownOpen(false);
-            }
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () =>
             document.removeEventListener('mousedown', handleClickOutside);
-    }, [menuOpen, langDropdownOpen]);
+    }, [menuOpen]);
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    const toggleMenu = () => setMenuOpen(!menuOpen);
 
-    const toggleLanguageDropdown = () => {
-        setLangDropdownOpen(!langDropdownOpen);
-    };
-
-    const changeLanguage = (lang: Language) => {
-        setLanguage(lang);
-        setLangDropdownOpen(false);
-
-        // Construct new URL with correct query string
-        const hash = window.location.hash || '';
-        const [hashPath] = hash.split('?'); // get just '#services'
-        const newUrl = `${window.location.pathname}?lang=${lang}${hashPath}`;
-        router.replace(newUrl, { scroll: false });
-    };
+    const navLinks = [
+        { path: '/', label: 'হোম' },
+        { path: '/#', label: 'সার্ভিস' },
+        { path: '/#', label: 'ক্লায়েন্ট' },
+        { path: '/#', label: 'যোগাযোগ' },
+    ];
 
     const isActive = (path: string) => pathname === path;
 
     return (
-        <header className="w-full duration-300 md:sticky md:top-0 md:z-50 md:bg-white/50 md:backdrop-blur-md md:transition-all md:ease-in-out">
+        <header className="w-full bg-[#29173F] duration-300 md:sticky md:top-0 md:z-50 md:backdrop-blur-md md:transition-all md:ease-in-out">
             <section className="container mx-auto">
                 {/* Header Section */}
                 <div className="">
-                    <div className="mx-4 flex items-center justify-between py-4 text-black sm:mx-6">
+                    <div className="mx-4 flex items-center justify-between py-4 text-white sm:mx-6">
                         <Link href={'/'} className="flex items-center">
                             <div>
                                 <Image
@@ -115,71 +57,25 @@ const ResponsiveHeader = () => {
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <div className="font-bangla hidden items-center space-x-6 font-medium sm:flex">
+                        <div className="hidden items-center space-x-6 font-bangla font-medium sm:flex">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.path}
                                     href={link.path}
                                     className={`p-2 ${
                                         isActive(link.path)
-                                            ? 'text-black/90'
+                                            ? 'text-white/80'
                                             : ''
-                                    } transition-colors duration-300 ease-in-out hover:text-black/80`}
+                                    } transition-colors duration-300 ease-in-out hover:text-white/80`}
                                 >
                                     {link.label}
                                 </Link>
                             ))}
-
-                            {/* Desktop Language Selector */}
-                            <div className="relative">
-                                <button
-                                    className="language-button flex items-center space-x-1 rounded-md p-2 transition-colors duration-300 ease-in-out"
-                                    onClick={toggleLanguageDropdown}
-                                >
-                                    <Globe className="h-4 w-4" />
-                                    <span className="text-sm font-medium capitalize">
-                                        {language === 'es'
-                                            ? 'Spanish'
-                                            : 'English'}
-                                    </span>
-                                </button>
-
-                                {langDropdownOpen && (
-                                    <div className="language-dropdown absolute right-0 top-full mt-1 w-20 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                                        <div className="py-1">
-                                            <button
-                                                onClick={() =>
-                                                    changeLanguage('en')
-                                                }
-                                                className={`block w-full px-4 py-2 text-left text-sm transition-colors hover:bg-gray-100 ${
-                                                    language === 'en'
-                                                        ? 'bg-gray-100 font-medium text-gray-600'
-                                                        : ''
-                                                }`}
-                                            >
-                                                English
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    changeLanguage('es')
-                                                }
-                                                className={`block w-full px-4 py-2 text-left text-sm transition-colors hover:bg-gray-100 ${
-                                                    language === 'es'
-                                                        ? 'bg-gray-100 font-medium text-gray-600'
-                                                        : ''
-                                                }`}
-                                            >
-                                                Spanish
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
                         </div>
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="menu-button block text-xl text-black sm:hidden"
+                            className="menu-button block text-xl text-white sm:hidden"
                             onClick={toggleMenu}
                         >
                             {!menuOpen && (
@@ -213,41 +109,13 @@ const ResponsiveHeader = () => {
                                 key={link.path}
                                 href={link.path}
                                 onClick={() => setMenuOpen(false)}
-                                className={`hover:text-purple-300 ${isActive(link.path) ? 'text-purple-300' : ''}`}
+                                className={`hover:text-purple-300 ${
+                                    isActive(link.path) ? 'text-purple-300' : ''
+                                }`}
                             >
                                 {link.label}
                             </Link>
                         ))}
-
-                        {/* Mobile Language Selector */}
-                        <div className="mt-6 border-t border-gray-700 pt-4">
-                            <div className="mb-2 flex items-center space-x-2 text-sm text-gray-300">
-                                <Globe className="h-4 w-4" />
-                                <span>Language</span>
-                            </div>
-                            <div className="flex space-x-2">
-                                <button
-                                    onClick={() => changeLanguage('en')}
-                                    className={`rounded px-3 py-1 text-sm transition-colors ${
-                                        language === 'en'
-                                            ? 'bg-purple-600 text-white'
-                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                                    }`}
-                                >
-                                    English
-                                </button>
-                                <button
-                                    onClick={() => changeLanguage('es')}
-                                    className={`rounded px-3 py-1 text-sm transition-colors ${
-                                        language === 'es'
-                                            ? 'bg-purple-600 text-white'
-                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                                    }`}
-                                >
-                                    Spanish
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
