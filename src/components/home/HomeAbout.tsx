@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 function HomeAbout() {
     return (
         <section className="bg-[#29173F] px-6 py-20">
@@ -117,8 +119,11 @@ function HomeAbout() {
 
                     {/* Image Side */}
                     <div className="relative">
-                        <div className="relative overflow-hidden rounded-lg border-4 border-[#D4AF37] shadow-2xl">
-                            <img
+                        <div className="relative overflow-hidden rounded-lg border-2 border-[#D4AF37] shadow-2xl">
+                            <Image
+                                loading="lazy"
+                                width={1500}
+                                height={500}
                                 src="/mosque-inside-view.png"
                                 alt="মনোহরপুর মসজিদ"
                                 className="h-[500px] w-full object-cover"

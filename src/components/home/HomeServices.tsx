@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 function HomeServices() {
     return (
         <section id="services" className="bg-[#1A0F2E] px-6 py-20">
@@ -14,7 +16,10 @@ function HomeServices() {
                     {/* Service 1 */}
                     <div className="rounded-lg border border-[#4A3366] bg-[#29173F] p-8 transition-all duration-300 hover:border-[#D4AF37]">
                         <div className="mb-6">
-                            <img
+                            <Image
+                                loading="lazy"
+                                width={500}
+                                height={500}
                                 src="/mosque-donation-box.png"
                                 alt="মাসিক চাঁদার তথ্য"
                                 className="h-48 w-full rounded-lg object-cover"
@@ -33,7 +38,10 @@ function HomeServices() {
                     {/* Service 2 */}
                     <div className="rounded-lg border border-[#4A3366] bg-[#29173F] p-8 transition-all duration-300 hover:border-[#D4AF37]">
                         <div className="mb-6">
-                            <img
+                            <Image
+                                loading="lazy"
+                                width={500}
+                                height={500}
                                 src="/qurbani-cow.png"
                                 alt="নামাজ শিক্ষা"
                                 className="h-48 w-full rounded-lg object-cover"
@@ -52,7 +60,10 @@ function HomeServices() {
                     {/* Service 3 */}
                     <div className="rounded-lg border border-[#4A3366] bg-[#29173F] p-8 transition-all duration-300 hover:border-[#D4AF37]">
                         <div className="mb-6">
-                            <img
+                            <Image
+                                loading="lazy"
+                                width={500}
+                                height={500}
                                 src="/iftar-arrangement.png"
                                 alt="ইফতার আয়োজন"
                                 className="h-48 w-full rounded-lg object-cover"
