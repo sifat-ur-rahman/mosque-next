@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 function HomeHero() {
     return (
         <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
@@ -16,10 +18,12 @@ function HomeHero() {
             {/* Main Content */}
             <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center">
                 {/* Islamic Calligraphy Image */}
-                <div className="mb-12 flex justify-center">
-                    <div className="relative h-32 w-32 md:h-40 md:w-40">
-                        <img
-                            src="/bismillah-calligraphy-gold.png"
+                <div className="flex justify-center">
+                    <div className="relative h-56 w-72">
+                        <Image
+                            width={500}
+                            height={500}
+                            src="/basmalah-gold.png"
                             alt="বিসমিল্লাহ"
                             className="h-full w-full object-contain"
                         />
@@ -27,7 +31,7 @@ function HomeHero() {
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="mb-6 text-5xl font-bold leading-tight text-[#D4AF37] md:text-7xl">
+                <h1 className="mb-6 text-5xl font-bold leading-[1.2] text-[#D4AF37] md:text-[72px]">
                     মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদে আপনাকে স্বাগতম
                 </h1>
 

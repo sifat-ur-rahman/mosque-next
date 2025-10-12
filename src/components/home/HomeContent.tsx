@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 function HomeContent() {
     return (
         <section className="bg-[#29173F] px-6 py-20">
@@ -5,19 +7,14 @@ function HomeContent() {
                 <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
                     {/* Image Side */}
                     <div className="relative">
-                        <div className="relative overflow-hidden rounded-lg border-4 border-[#D4AF37]">
-                            <img
+                        <div className="relative overflow-hidden rounded-lg border-2 border-[#D4AF37]">
+                            <Image
+                                loading="lazy"
+                                width={1500}
+                                height={500}
                                 src="/beautiful-mosque-night-golden-dome.png"
                                 alt="মসজিদ"
                                 className="h-[500px] w-full object-cover"
-                            />
-                        </div>
-                        {/* Decorative Pattern */}
-                        <div className="absolute -bottom-6 -right-6 h-32 w-32 opacity-20">
-                            <img
-                                src="/islamic-star-pattern-gold.png"
-                                alt="pattern"
-                                className="h-full w-full"
                             />
                         </div>
                     </div>
