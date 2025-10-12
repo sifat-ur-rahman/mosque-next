@@ -28,16 +28,19 @@ function HomeHero() {
 
                 {/* Main Heading */}
                 <h1 className="mb-6 text-5xl font-bold leading-tight text-[#D4AF37] md:text-7xl">
-                    আসসালামু আলাইকুম
+                    মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদে আপনাকে স্বাগতম
                 </h1>
 
                 <p className="mx-auto mb-8 max-w-3xl text-xl leading-relaxed text-[#F5F3F0] md:text-2xl">
-                    ইসলামিক জ্ঞান ও শিক্ষার এক নির্ভরযোগ্য উৎস। আল্লাহর পথে চলার
-                    জন্য সঠিক দিকনির্দেশনা পান।
+                    আমাদের এই ওয়েবসাইটের মাধ্যমে আপনি প্রতি মাসের নির্ধারিত
+                    চাঁদার পরিমাণ জানতে পারবেন, কোরবানিতে অংশগ্রহণকারীদের তালিকা
+                    দেখতে পারবেন এবং রমজান মাসে প্রতিদিনের ইফতার আয়োজনের সময়সূচি
+                    জানতে পারবেন। মসজিদের কার্যক্রমে স্বচ্ছতা ও একতার পথে এটি
+                    একটি ছোট উদ্যোগ।
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                {/* <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a
                         href="#services"
                         className="rounded-lg bg-[#D4AF37] px-8 py-4 font-semibold text-[#29173F] transition-colors duration-300 hover:bg-[#C4A037]"
@@ -50,7 +53,7 @@ function HomeHero() {
                     >
                         যোগাযোগ করুন
                     </a>
-                </div>
+                </div> */}
             </div>
 
             {/* Decorative Bottom Wave */}

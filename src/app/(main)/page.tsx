@@ -1,6 +1,8 @@
-import HomeContact from '@/components/home/HomeContact';
+import HomeAbout from '@/components/home/HomeAbout';
+
 import HomeContent from '@/components/home/HomeContent';
 import HomeHero from '@/components/home/HomeHero';
+import HomeNotice from '@/components/home/HomeNotice';
 import HomeServices from '@/components/home/HomeServices';
 
 const Home = async () => {
@@ -8,8 +10,9 @@ const Home = async () => {
         <div className="min-h-screen bg-[#29173F]">
             <HomeHero />
             <HomeServices />
+            <HomeAbout />
             <HomeContent />
-            <HomeContact />
+            <HomeNotice />
         </div>
     );
 };
