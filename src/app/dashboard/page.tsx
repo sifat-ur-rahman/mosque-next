@@ -1,147 +1,124 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import {
+    FaCalendarAlt,
+    FaDonate,
+    FaList,
+    FaMosque,
+    FaUsers,
+} from 'react-icons/fa';
+
 function DashboardHome() {
-    const stats = [
-        {
-            title: 'Total Users',
-            value: '2,543',
-            change: '+12.5%',
-        },
-        {
-            title: 'Revenue',
-            value: '$45,231',
-            change: '+8.2%',
-        },
-        {
-            title: 'Active Sessions',
-            value: '1,234',
-            change: '+4.3%',
-        },
-        {
-            title: 'Growth Rate',
-            value: '23.5%',
-            change: '+2.1%',
-        },
-    ];
     return (
-        <div>
-            {' '}
-            <div className="mb-8">
-                <h1 className="mb-2 text-3xl font-bold text-white">
-                    Welcome Back!
+        <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#1E0E33] to-[#29173F] px-5 pb-8 text-[#F5F3F0] md:px-10">
+            {/* Decorative Glow Circles */}
+            <div className="absolute left-[-50px] top-10 h-72 w-72 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+            <div className="absolute bottom-0 right-[-60px] h-80 w-80 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+
+            {/* Header Section */}
+            <motion.div
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="relative z-10 mb-10 text-center"
+            >
+                <div className="mb-4 flex justify-center">
+                    <div className="relative h-44 w-60 drop-shadow-lg">
+                        <Image
+                            width={500}
+                            height={500}
+                            src="/basmalah-gold.png"
+                            alt="বিসমিল্লাহ"
+                            className="h-full w-full object-contain"
+                        />
+                    </div>
+                </div>
+
+                <h1 className="mb-3 text-2xl font-bold leading-snug text-[#D4AF37] sm:text-3xl">
+                    মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদের
+                    <br />
+                    ড্যাশবোর্ডে স্বাগতম
                 </h1>
-                <p className="text-[#b8b8b8]">
-                    Here's what's happening with your dashboard today.
+
+                <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#C4B5A0] sm:text-base">
+                    এখান থেকে আপনি সকল তথ্য, চাঁদা, কোরবানি, ইফতার তালিকা ও
+                    অন্যান্য কনটেন্ট সহজে নিয়ন্ত্রণ করতে পারবেন।
                 </p>
-            </div>
-            {/* Stats Grid */}
-            <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                {stats.map((stat) => (
-                    <div
-                        key={stat.title}
-                        className="rounded-lg border border-[#4a3464] bg-[#3a2454] p-6"
-                    >
-                        <div className="mb-4 flex items-center justify-between">
-                            <h3 className="text-sm font-medium text-[#b8b8b8]">
-                                {stat.title}
-                            </h3>
-                            <svg
-                                className="h-5 w-5 text-[#d4af37]"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                                />
-                            </svg>
-                        </div>
-                        <div className="text-2xl font-bold text-white">
-                            {stat.value}
-                        </div>
-                        <p className="mt-1 text-xs text-[#d4af37]">
-                            {stat.change} from last month
-                        </p>
-                    </div>
-                ))}
-            </div>
-            {/* Content Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div className="rounded-lg border border-[#4a3464] bg-[#3a2454] p-6">
-                    <h3 className="mb-2 text-lg font-semibold text-white">
-                        Recent Activity
-                    </h3>
-                    <p className="mb-4 text-sm text-[#b8b8b8]">
-                        Your latest updates and changes
-                    </p>
-                    <div className="space-y-4">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="flex items-start gap-3">
-                                <div className="mt-2 h-2 w-2 rounded-full bg-[#d4af37]" />
-                                <div className="flex-1">
-                                    <p className="text-sm font-medium text-white">
-                                        Activity Item {i}
-                                    </p>
-                                    <p className="text-xs text-[#b8b8b8]">
-                                        2 hours ago
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            </motion.div>
 
-                <div className="rounded-lg border border-[#4a3464] bg-[#3a2454] p-6">
-                    <h3 className="mb-2 text-lg font-semibold text-white">
-                        Quick Actions
-                    </h3>
-                    <p className="mb-4 text-sm text-[#b8b8b8]">
-                        Frequently used features
-                    </p>
-                    <div className="space-y-2">
-                        {['Create New', 'View Reports', 'Manage Settings'].map(
-                            (action) => (
-                                <button
-                                    key={action}
-                                    className="w-full rounded-lg bg-[#4a3464] px-4 py-2 text-left text-sm font-medium text-white transition-colors hover:bg-[#d4af37] hover:text-[#29173f]"
-                                >
-                                    {action}
-                                </button>
-                            ),
-                        )}
-                    </div>
-                </div>
+            {/* Quick Actions Section */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="relative z-10 rounded-2xl border border-[#D4AF37]/20 bg-[#3C245A]/80 p-5 shadow-lg backdrop-blur-sm"
+            >
+                <h2 className="mb-5 text-center text-xl font-semibold tracking-wide text-[#D4AF37]">
+                    দ্রুত কাজের অপশন সমূহ
+                </h2>
 
-                <div className="rounded-lg border border-[#4a3464] bg-[#3a2454] p-6">
-                    <h3 className="mb-2 text-lg font-semibold text-white">
-                        System Status
-                    </h3>
-                    <p className="mb-4 text-sm text-[#b8b8b8]">
-                        Current system health
-                    </p>
-                    <div className="space-y-3">
-                        {['API Status', 'Database', 'Storage'].map((system) => (
-                            <div
-                                key={system}
-                                className="flex items-center justify-between"
-                            >
-                                <span className="text-sm text-white">
-                                    {system}
-                                </span>
-                                <div className="flex items-center gap-2">
-                                    <div className="h-2 w-2 rounded-full bg-[#d4af37]" />
-                                    <span className="text-xs text-[#d4af37]">
-                                        Operational
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {/* Card */}
+                    <ActionCard
+                        href="/admin/members"
+                        icon={<FaUsers />}
+                        title="আয়-ব্যয়"
+                    />
+                    <ActionCard
+                        href="/admin/chanda"
+                        icon={<FaDonate />}
+                        title="মাসিক চাঁদা"
+                    />
+                    <ActionCard
+                        href="/admin/qurbani"
+                        icon={<FaMosque />}
+                        title="কোরবানির তালিকা"
+                    />
+                    <ActionCard
+                        href="/admin/iftar"
+                        icon={<FaCalendarAlt />}
+                        title="ইফতারির তালিকা"
+                    />
+                    <ActionCard
+                        href="/admin/all-data"
+                        icon={<FaList />}
+                        title="সকল তথ্য"
+                    />
                 </div>
-            </div>
-        </div>
+            </motion.div>
+
+            {/* Footer */}
+            <p className="mt-10 text-center text-xs text-[#BBA985]">
+                এই ড্যাশবোর্ডের মাধ্যমে সকল তথ্য রিয়েল-টাইমে আপডেট ও নিয়ন্ত্রণ
+                করা যাবে।
+            </p>
+        </section>
     );
 }
 
 export default DashboardHome;
+
+// 🔹 Reusable Quick Action Card
+const ActionCard = ({
+    href,
+    icon,
+    title,
+}: {
+    href: string;
+    icon: React.ReactNode;
+    title: string;
+}) => (
+    <Link
+        href={href}
+        className="hover:shadow-[0_0_15px_#D4AF37]/40 group flex flex-col items-center justify-center rounded-xl border border-[#D4AF37]/30 bg-[#29173F]/80 py-5 transition-all duration-300 hover:bg-[#3C245A]/90"
+    >
+        <div className="mb-2 text-3xl text-[#D4AF37] transition-transform duration-300 group-hover:scale-110">
+            {icon}
+        </div>
+        <span className="text-sm font-medium text-[#E8E6E3] group-hover:text-[#FFF9E6]">
+            {title}
+        </span>
+    </Link>
+);

@@ -1,4 +1,4 @@
-import ComingSoon from '@/components/shared/ComingSoon';
+import ComingSoon from '@/components/common/ComingSoon';
 
 function QurbaniPage() {
     return (

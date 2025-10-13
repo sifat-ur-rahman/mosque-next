@@ -105,10 +105,14 @@ export function DashboardSidebar() {
             >
                 <div className="flex h-full flex-col">
                     {/* Logo/Header */}
-                    <div className="flex h-16 items-center justify-center border-b border-[#4a3464]">
-                        <h1 className="text-xl font-bold text-[#d4af37]">
-                            Dashboard
-                        </h1>
+                    <div className="ms-9 flex h-16 items-center justify-center border-b border-[#4a3464] md:ms-0">
+                        <h2 className="text-xl font-bold leading-[1.2] text-[#d4af37]">
+                            মনোহরপুর বায়তুন-নূর <br />
+                            <span className="text-sm">
+                                {' '}
+                                কেন্দ্রীয় জামে মসজিদ
+                            </span>
+                        </h2>
                     </div>
 
                     {/* Navigation */}

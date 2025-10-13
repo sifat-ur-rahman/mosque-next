@@ -11,7 +11,7 @@ function DashboardLayout({ children }: { children: ReactNode }) {
             <div className="flex-1 lg:ml-64">
                 <DashboardTopbar />
 
-                <main className="p-4 lg:p-6">{children}</main>
+                <main className="">{children}</main>
             </div>
         </div>
     );

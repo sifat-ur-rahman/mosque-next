@@ -30,8 +30,9 @@ export function DashboardTopbar() {
 
                 {/* Title or empty space */}
                 <div className="flex-1">
-                    <h2 className="text-lg font-semibold text-white">
-                        Dashboard
+                    <h2 className="text-base font-semibold text-white md:hidden">
+                        মনোহরপুর বায়তুন-নূর <br />
+                        <span className="text-sm"> কেন্দ্রীয় জামে মসজিদ</span>
                     </h2>
                 </div>
 
