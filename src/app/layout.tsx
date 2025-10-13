@@ -22,7 +22,8 @@ const tiroBangla = Tiro_Bangla({
 });
 export const metadata: Metadata = {
     title: 'মনোহরপুর বায়তুন - নূর কেন্দ্রীয় জামে মসজিদ',
-    description: 'Manoharpur Baytun-Noor Central Jame Mosque',
+    description:
+        'আমাদের এই ওয়েবসাইটের মাধ্যমে আপনি প্রতি মাসের নির্ধারিত চাঁদার পরিমাণ জানতে পারবেন, কোরবানিতে অংশগ্রহণকারীদের তালিকা দেখতে পারবেন এবং রমজান মাসে প্রতিদিনের ইফতার আয়োজনের সময়সূচি জানতে পারবেন। মসজিদের কার্যক্রমে স্বচ্ছতা ও একতার পথে এটি একটি ছোট উদ্যোগ।',
 };
 
 export default function RootLayout({
