@@ -24,6 +24,10 @@ export const metadata: Metadata = {
     title: 'মনোহরপুর বায়তুন - নূর কেন্দ্রীয় জামে মসজিদ',
     description:
         'আমাদের এই ওয়েবসাইটের মাধ্যমে আপনি প্রতি মাসের নির্ধারিত চাঁদার পরিমাণ জানতে পারবেন, কোরবানিতে অংশগ্রহণকারীদের তালিকা দেখতে পারবেন এবং রমজান মাসে প্রতিদিনের ইফতার আয়োজনের সময়সূচি জানতে পারবেন। মসজিদের কার্যক্রমে স্বচ্ছতা ও একতার পথে এটি একটি ছোট উদ্যোগ।',
+    themeColor: '#d4af37',
+    icons: {
+        icon: '/logo01.png',
+    },
 };
 
 export default function RootLayout({
@@ -33,6 +37,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <meta name="theme-color" content="#d4af37" />
             <head>
                 <link
                     rel="shortcut icon"
