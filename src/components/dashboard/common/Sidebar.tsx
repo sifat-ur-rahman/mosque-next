@@ -5,28 +5,110 @@ import { useState } from 'react';
 interface MenuItem {
     id: string;
     label: string;
-    subItems?: { id: string; label: string }[];
+    link?: string;
+    subItems?: { id: string; label: string; link?: string }[];
 }
 
 const menuItems: MenuItem[] = [
     {
-        id: 'item1',
-        label: 'Item 1',
+        id: '1',
+        label: 'ড্যাশবোর্ড',
+        link: '/dashboard',
+    },
+    {
+        id: '2',
+        label: 'সদস্য ব্যবস্থাপনা',
         subItems: [
-            { id: 'subitem1.1', label: 'Subitem 1.1' },
-            { id: 'subitem1.2', label: 'Subitem 1.2' },
+            {
+                id: 'subitem2.1',
+                label: 'সদস্য তালিকা',
+                link: '/dashboard/members',
+            },
+            {
+                id: 'subitem2.2',
+                label: 'নতুন সদস্য যোগ করুন',
+                link: '/dashboard/members/add',
+            },
         ],
     },
     {
-        id: 'item2',
-        label: 'Item 2',
+        id: '3',
+        label: 'চাঁদা ব্যবস্থাপনা',
+        subItems: [
+            {
+                id: 'subitem3.1',
+                label: 'চাঁদা তালিকা',
+                link: '/dashboard/chanda',
+            },
+            {
+                id: 'subitem3.2',
+                label: 'নতুন চাঁদা যোগ করুন',
+                link: '/dashboard/chanda/add',
+            },
+        ],
     },
     {
-        id: 'item3',
-        label: 'Item 3',
+        id: '4',
+        label: 'কোরবানি ব্যবস্থাপনা',
         subItems: [
-            { id: 'subitem3.1', label: 'Subitem 3.1' },
-            { id: 'subitem3.2', label: 'Subitem 3.2' },
+            {
+                id: 'subitem4.1',
+                label: 'কোরবানি তালিকা',
+                link: '/dashboard/qurbani',
+            },
+            {
+                id: 'subitem4.2',
+                label: 'নতুন কোরবানি যোগ করুন',
+                link: '/dashboard/qurbani/add',
+            },
+        ],
+    },
+    {
+        id: '5',
+        label: 'ইফতার ব্যবস্থাপনা',
+        subItems: [
+            {
+                id: 'subitem5.1',
+                label: 'ইফতার তালিকা',
+                link: '/dashboard/iftar',
+            },
+            {
+                id: 'subitem5.2',
+                label: 'নতুন ইফতার যুক্ত করুন',
+                link: '/dashboard/iftar/add',
+            },
+        ],
+    },
+    {
+        id: '6',
+        label: 'আয়-ব্যয় রিপোর্ট',
+        subItems: [
+            {
+                id: 'subitem6.1',
+                label: 'রিপোর্ট দেখুন',
+                link: '/dashboard/reports',
+            },
+            {
+                id: 'subitem6.2',
+                label: 'নতুন তথ্য যোগ করুন',
+                link: '/dashboard/reports/add',
+            },
+        ],
+    },
+    {
+        id: '7',
+        label: 'সকল তথ্য',
+        subItems: [
+            {
+                id: 'subitem7.1',
+                label: 'সমস্ত ডাটা দেখুন',
+                link: '/dashboard/all-data',
+            },
+            {
+                id: 'subitem7.2',
+                label: 'ডাটা আপডেট করুন',
+                link: '/dashboard/all-data/edit',
+            },
         ],
     },
 ];
@@ -46,6 +128,7 @@ export function DashboardSidebar() {
 
     const handleItemClick = (itemId: string, hasSubItems: boolean) => {
         setActiveItem(itemId);
+
         if (hasSubItems) {
             toggleExpanded(itemId);
         }
@@ -105,7 +188,7 @@ export function DashboardSidebar() {
             >
                 <div className="flex h-full flex-col">
                     {/* Logo/Header */}
-                    <div className="ms-9 flex h-16 items-center justify-center border-b border-[#4a3464] md:ms-0">
+                    <div className="flex h-16 items-center justify-center border-b border-[#4a3464] ps-9 md:ps-0">
                         <h2 className="text-xl font-bold leading-[1.2] text-[#d4af37]">
                             মনোহরপুর বায়তুন-নূর <br />
                             <span className="text-sm">
@@ -116,8 +199,8 @@ export function DashboardSidebar() {
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 overflow-y-auto p-4">
-                        <ul className="space-y-2">
+                    <nav className="flex-1 overflow-y-auto px-4 py-2">
+                        <ul className="space-y-1">
                             {menuItems.map((item) => (
                                 <li key={item.id}>
                                     <button
@@ -154,7 +237,7 @@ export function DashboardSidebar() {
                                     {/* Sub Items */}
                                     {item.subItems &&
                                         expandedItems.includes(item.id) && (
-                                            <ul className="ml-4 mt-1 space-y-1">
+                                            <ul className="ml-1 mt-1 space-y-1">
                                                 {item.subItems.map(
                                                     (subItem) => (
                                                         <li key={subItem.id}>
@@ -171,7 +254,7 @@ export function DashboardSidebar() {
                                                                         : 'text-[#b8b8b8] hover:bg-[#3a2454]/50 hover:text-white'
                                                                 }`}
                                                             >
-                                                                <span className="ml-8">
+                                                                <span className="ml-1">
                                                                     {
                                                                         subItem.label
                                                                     }
