@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const NotFound = () => {
@@ -8,13 +9,14 @@ const NotFound = () => {
     useEffect(() => {
         setMounted(true);
     }, []);
+
     return (
-        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 p-4">
+        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#29173F] via-[#3C245A] to-[#1C0F2E] p-4 text-[#F5F3F0]">
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="animate-blob absolute -right-40 -top-40 h-80 w-80 rounded-full bg-purple-300 opacity-70 mix-blend-multiply blur-xl filter"></div>
-                <div className="animate-blob animation-delay-2000 absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-[#04101E] opacity-70 mix-blend-multiply blur-xl filter"></div>
-                <div className="animate-blob animation-delay-4000 absolute left-40 top-40 h-80 w-80 rounded-full bg-blue-300 opacity-70 mix-blend-multiply blur-xl filter"></div>
+                <div className="animate-blob absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[#D4AF37]/30 mix-blend-multiply blur-3xl filter"></div>
+                <div className="animate-blob animation-delay-2000 absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-[#3C245A]/40 mix-blend-multiply blur-3xl filter"></div>
+                <div className="animate-blob animation-delay-4000 absolute left-40 top-40 h-80 w-80 rounded-full bg-[#A67C52]/30 mix-blend-multiply blur-3xl filter"></div>
             </div>
 
             {/* Floating particles */}
@@ -22,7 +24,7 @@ const NotFound = () => {
                 {[...Array(6)].map((_, i) => (
                     <div
                         key={i}
-                        className={`animate-float absolute h-2 w-2 rounded-full bg-white opacity-60`}
+                        className="animate-float absolute h-2 w-2 rounded-full bg-[#D4AF37]/60"
                         style={{
                             left: `${Math.random() * 100}%`,
                             top: `${Math.random() * 100}%`,
@@ -33,47 +35,51 @@ const NotFound = () => {
                 ))}
             </div>
 
+            {/* Main Content */}
             <div className="relative z-10 mx-auto max-w-2xl text-center">
-                {/* Main 404 Text */}
+                {/* Subtitle */}
                 <div
-                    className={`transition-all duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-                >
-                    <h1 className="mb-4 animate-pulse bg-gradient-to-r from-purple-700 via-purple-400 to-blue-600 bg-clip-text text-8xl font-bold text-transparent md:text-9xl">
-                        404
-                    </h1>
-                </div>
-
-                {/* Animated subtitle */}
-                <div
-                    className={`transition-all delay-300 duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                    className={`transition-all delay-300 duration-1000 ${
+                        mounted
+                            ? 'translate-y-0 opacity-100'
+                            : 'translate-y-10 opacity-0'
+                    }`}
                 >
                     <div className="relative mb-6">
-                        <h2 className="mb-2 animate-bounce text-2xl font-semibold text-gray-800 md:text-3xl">
-                            Oops! Page Not Found
+                        <h2 className="mb-2 animate-bounce text-2xl font-semibold text-[#E8E6E3] md:text-3xl">
+                            দুঃখিত! পেইজটি পাওয়া যায়নি
                         </h2>
-                        <div className="mx-auto h-1 w-24 animate-pulse rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                        <div className="mx-auto h-1 w-24 animate-pulse rounded-full bg-gradient-to-r from-[#D4AF37] to-[#E0C879]"></div>
                     </div>
                 </div>
 
                 {/* Description */}
                 <div
-                    className={`transition-all delay-500 duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                    className={`transition-all delay-500 duration-1000 ${
+                        mounted
+                            ? 'translate-y-0 opacity-100'
+                            : 'translate-y-10 opacity-0'
+                    }`}
                 >
-                    <p className="mb-8 text-lg leading-relaxed text-gray-600">
-                        The page you're looking for seems to have wandered off
-                        into the digital void. Don't worry, even the best
-                        explorers sometimes take a wrong turn!
+                    <p className="mb-8 text-lg leading-relaxed text-[#C4B5A0]">
+                        আপনি যে পেইজে যেতে চেয়েছিলেন তা বর্তমানে অনুপস্থিত।
+                        অনুগ্রহ করে আগের ঠিকানায় ফিরে যান অথবা হোম পেইজে ফিরে
+                        আসুন।
                     </p>
                 </div>
 
-                {/* Animated buttons */}
+                {/* Buttons */}
                 <div
-                    className={`transition-all delay-700 duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                    className={`transition-all delay-700 duration-1000 ${
+                        mounted
+                            ? 'translate-y-0 opacity-100'
+                            : 'translate-y-10 opacity-0'
+                    }`}
                 >
                     <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <button
-                            onClick={() => (window.location.href = '/')}
-                            className="group flex transform items-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-3 text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg"
+                        <Link
+                            href="/"
+                            className="group flex items-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B68D40] px-8 py-3 text-[#29173F] transition-all duration-300 hover:scale-105 hover:from-[#E0C879] hover:to-[#D4AF37]"
                         >
                             <svg
                                 className="mr-2 h-6 w-6 group-hover:animate-pulse"
@@ -82,11 +88,11 @@ const NotFound = () => {
                             >
                                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                             </svg>
-                            Go Home
-                        </button>
+                            হোম পেইজে যান
+                        </Link>
                         <button
                             onClick={() => window.history.back()}
-                            className="group flex transform items-center rounded-full border-2 border-purple-300 px-8 py-3 text-purple-600 transition-all duration-300 hover:scale-105 hover:bg-purple-50"
+                            className="group flex items-center rounded-full border-2 border-[#D4AF37]/60 px-8 py-3 text-[#F5F3F0] transition-all duration-300 hover:scale-105 hover:bg-[#3C245A]"
                         >
                             <svg
                                 className="mr-2 h-4 w-4 group-hover:animate-pulse"
@@ -95,7 +101,7 @@ const NotFound = () => {
                             >
                                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
                             </svg>
-                            Go Back
+                            ফিরে যান
                         </button>
                     </div>
                 </div>
