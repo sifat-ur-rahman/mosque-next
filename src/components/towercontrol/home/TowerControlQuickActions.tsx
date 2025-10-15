@@ -23,6 +23,11 @@ function TowerControlQuickActions() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                 {/* Card */}
                 <TowerControlActionCard
+                    href="/towercontrol/users"
+                    icon={<FaUsers />}
+                    title="ব্যবহারকারীর "
+                />
+                <TowerControlActionCard
                     href="/towercontrol/members"
                     icon={<FaUsers />}
                     title="আয়-ব্যয়"

@@ -5,8 +5,8 @@ import { useState } from 'react';
 interface MenuItem {
     id: string;
     label: string;
-    link?: string;
-    subItems?: { id: string; label: string; link?: string }[];
+    link: string;
+    subItems?: { id: string; label: string; link: string }[];
 }
 
 const menuItems: MenuItem[] = [
@@ -15,101 +15,31 @@ const menuItems: MenuItem[] = [
         label: 'ড্যাশবোর্ড',
         link: '/dashboard',
     },
-    {
-        id: '2',
-        label: 'সদস্য ব্যবস্থাপনা',
-        subItems: [
-            {
-                id: 'subitem2.1',
-                label: 'সদস্য তালিকা',
-                link: '/dashboard/members',
-            },
-            {
-                id: 'subitem2.2',
-                label: 'নতুন সদস্য যোগ করুন',
-                link: '/dashboard/members/add',
-            },
-        ],
-    },
+
     {
         id: '3',
         label: 'চাঁদা ব্যবস্থাপনা',
-        subItems: [
-            {
-                id: 'subitem3.1',
-                label: 'চাঁদা তালিকা',
-                link: '/dashboard/chanda',
-            },
-            {
-                id: 'subitem3.2',
-                label: 'নতুন চাঁদা যোগ করুন',
-                link: '/dashboard/chanda/add',
-            },
-        ],
+        link: '/dashboard/chanda',
     },
     {
         id: '4',
         label: 'কোরবানি ব্যবস্থাপনা',
-        subItems: [
-            {
-                id: 'subitem4.1',
-                label: 'কোরবানি তালিকা',
-                link: '/dashboard/qurbani',
-            },
-            {
-                id: 'subitem4.2',
-                label: 'নতুন কোরবানি যোগ করুন',
-                link: '/dashboard/qurbani/add',
-            },
-        ],
+        link: '/dashboard/korban',
     },
     {
         id: '5',
         label: 'ইফতার ব্যবস্থাপনা',
-        subItems: [
-            {
-                id: 'subitem5.1',
-                label: 'ইফতার তালিকা',
-                link: '/dashboard/iftar',
-            },
-            {
-                id: 'subitem5.2',
-                label: 'নতুন ইফতার যুক্ত করুন',
-                link: '/dashboard/iftar/add',
-            },
-        ],
+        link: '/dashboard/iftar',
     },
     {
         id: '6',
         label: 'আয়-ব্যয় রিপোর্ট',
-        subItems: [
-            {
-                id: 'subitem6.1',
-                label: 'রিপোর্ট দেখুন',
-                link: '/dashboard/reports',
-            },
-            {
-                id: 'subitem6.2',
-                label: 'নতুন তথ্য যোগ করুন',
-                link: '/dashboard/reports/add',
-            },
-        ],
+        link: '/dashboard/report',
     },
     {
         id: '7',
         label: 'সকল তথ্য',
-        subItems: [
-            {
-                id: 'subitem7.1',
-                label: 'সমস্ত ডাটা দেখুন',
-                link: '/dashboard/all-data',
-            },
-            {
-                id: 'subitem7.2',
-                label: 'ডাটা আপডেট করুন',
-                link: '/dashboard/all-data/edit',
-            },
-        ],
+        link: '/dashboard/info',
     },
 ];
 
