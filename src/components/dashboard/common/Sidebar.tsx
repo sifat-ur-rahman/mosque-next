@@ -1,68 +1,27 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-
+import { FiMenu, FiX } from 'react-icons/fi';
 interface MenuItem {
     id: string;
     label: string;
     link: string;
-    subItems?: { id: string; label: string; link: string }[];
 }
 
 const menuItems: MenuItem[] = [
-    {
-        id: '1',
-        label: 'ড্যাশবোর্ড',
-        link: '/dashboard',
-    },
-
-    {
-        id: '3',
-        label: 'চাঁদা ব্যবস্থাপনা',
-        link: '/dashboard/chanda',
-    },
-    {
-        id: '4',
-        label: 'কোরবানি ব্যবস্থাপনা',
-        link: '/dashboard/korban',
-    },
-    {
-        id: '5',
-        label: 'ইফতার ব্যবস্থাপনা',
-        link: '/dashboard/iftar',
-    },
-    {
-        id: '6',
-        label: 'আয়-ব্যয় রিপোর্ট',
-        link: '/dashboard/report',
-    },
-    {
-        id: '7',
-        label: 'সকল তথ্য',
-        link: '/dashboard/info',
-    },
+    { id: '1', label: 'ড্যাশবোর্ড', link: '/dashboard' },
+    { id: '3', label: 'চাঁদা ব্যবস্থাপনা', link: '/dashboard/chanda' },
+    { id: '4', label: 'কোরবানি ব্যবস্থাপনা', link: '/dashboard/korban' },
+    { id: '5', label: 'ইফতার ব্যবস্থাপনা', link: '/dashboard/iftar' },
+    { id: '6', label: 'আয়-ব্যয় রিপোর্ট', link: '/dashboard/report' },
+    { id: '7', label: 'সকল তথ্য', link: '/dashboard/info' },
 ];
 
 export function DashboardSidebar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [expandedItems, setExpandedItems] = useState<string[]>(['item1']);
-    const [activeItem, setActiveItem] = useState('item1');
-
-    const toggleExpanded = (itemId: string) => {
-        setExpandedItems((prev) =>
-            prev.includes(itemId)
-                ? prev.filter((id) => id !== itemId)
-                : [...prev, itemId],
-        );
-    };
-
-    const handleItemClick = (itemId: string, hasSubItems: boolean) => {
-        setActiveItem(itemId);
-
-        if (hasSubItems) {
-            toggleExpanded(itemId);
-        }
-    };
+    const pathname = usePathname();
 
     return (
         <>
@@ -71,35 +30,7 @@ export function DashboardSidebar() {
                 className="fixed left-4 top-4 z-50 rounded-lg bg-[#1f0f2e] p-2 text-white transition-colors hover:bg-[#3a2454] lg:hidden"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {isOpen ? (
-                    <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                ) : (
-                    <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    </svg>
-                )}
+                {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
 
             {/* Overlay for mobile */}
@@ -119,10 +50,9 @@ export function DashboardSidebar() {
                 <div className="flex h-full flex-col">
                     {/* Logo/Header */}
                     <div className="flex h-16 items-center justify-center border-b border-[#4a3464] ps-9 md:ps-0">
-                        <h2 className="text-xl font-bold leading-[1.2] text-[#d4af37]">
+                        <h2 className="text-center text-xl font-bold leading-[1.2] text-[#d4af37]">
                             মনোহরপুর বায়তুন-নূর <br />
                             <span className="text-sm">
-                                {' '}
                                 কেন্দ্রীয় জামে মসজিদ
                             </span>
                         </h2>
@@ -131,72 +61,24 @@ export function DashboardSidebar() {
                     {/* Navigation */}
                     <nav className="flex-1 overflow-y-auto px-4 py-2">
                         <ul className="space-y-1">
-                            {menuItems.map((item) => (
-                                <li key={item.id}>
-                                    <button
-                                        onClick={() =>
-                                            handleItemClick(
-                                                item.id,
-                                                !!item.subItems,
-                                            )
-                                        }
-                                        className={`flex w-full items-center justify-between rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-                                            activeItem === item.id
-                                                ? 'bg-[#d4af37] text-[#29173f]'
-                                                : 'text-white hover:bg-[#3a2454]'
-                                        }`}
-                                    >
-                                        <span>{item.label}</span>
-                                        {item.subItems && (
-                                            <svg
-                                                className={`h-4 w-4 transition-transform ${expandedItems.includes(item.id) ? 'rotate-90' : ''}`}
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M9 5l7 7-7 7"
-                                                />
-                                            </svg>
-                                        )}
-                                    </button>
-
-                                    {/* Sub Items */}
-                                    {item.subItems &&
-                                        expandedItems.includes(item.id) && (
-                                            <ul className="ml-1 mt-1 space-y-1">
-                                                {item.subItems.map(
-                                                    (subItem) => (
-                                                        <li key={subItem.id}>
-                                                            <button
-                                                                onClick={() =>
-                                                                    setActiveItem(
-                                                                        subItem.id,
-                                                                    )
-                                                                }
-                                                                className={`flex w-full items-center rounded-lg px-4 py-2 text-sm transition-colors ${
-                                                                    activeItem ===
-                                                                    subItem.id
-                                                                        ? 'bg-[#3a2454] font-medium text-[#d4af37]'
-                                                                        : 'text-[#b8b8b8] hover:bg-[#3a2454]/50 hover:text-white'
-                                                                }`}
-                                                            >
-                                                                <span className="ml-1">
-                                                                    {
-                                                                        subItem.label
-                                                                    }
-                                                                </span>
-                                                            </button>
-                                                        </li>
-                                                    ),
-                                                )}
-                                            </ul>
-                                        )}
-                                </li>
-                            ))}
+                            {menuItems.map((item) => {
+                                const isActive = pathname === item.link;
+                                return (
+                                    <li key={item.id}>
+                                        <Link
+                                            href={item.link}
+                                            className={`flex w-full items-center rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                                                isActive
+                                                    ? 'bg-[#d4af37] text-[#29173f]'
+                                                    : 'text-white hover:bg-[#3a2454]'
+                                            }`}
+                                            onClick={() => setIsOpen(false)} // Close menu on mobile
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </nav>
 
