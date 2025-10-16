@@ -1,8 +1,10 @@
 export interface IUser {
+    _id: string;
+    name: string;
     phone: string;
     password: string;
-    createdAt: Date;
     role: 'Admin' | 'Moderator' | 'User';
+    loginTimeStamp: [Date];
     isDeleted: boolean;
-    _id: string;
+    createdAt: Date;
 }

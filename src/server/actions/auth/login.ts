@@ -43,6 +43,17 @@ export default async function loginAction(data: {
         { expiresIn: '30d' },
     );
     (await cookies()).set('mosque_token', token, { maxAge: 2592000 });
-
-    redirect('/dashboard');
+    if (!user.role) {
+        redirect('/');
+    }
+    // Redirect User According To Their Role
+    switch (user.role) {
+        case 'Admin':
+            redirect('/towercontrol');
+        case 'Moderator':
+            redirect('/dashboard');
+        case 'User':
+        default:
+            redirect('/');
+    }
 }

@@ -19,7 +19,8 @@ const menuItems: MenuItem[] = [
     { id: '7', label: 'সকল তথ্য', link: '/dashboard/info' },
 ];
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ loginUserRole }: any) {
+    console.log({ loginUserRole });
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
