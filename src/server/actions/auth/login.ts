@@ -32,17 +32,38 @@ export default async function loginAction(data: {
             error: 'দুঃখিত! আপনি যে পাসওয়ার্ডটি দিয়েছেন তা সঠিক নয়। অনুগ্রহ করে আবার চেষ্টা করুন।',
         };
     }
+    // Save login timestamp
+    const now = new Date();
+    user.loginTimeStamp.push(now);
+    await user.save();
 
     // We omit the password using destructuring
     const { password, ...cleanUserObject } = user.toObject();
+    const secret = process.env.TOKEN_SECRET as string;
+    if (!secret) {
+        throw new Error('Token secret not found');
+    }
 
     // Create Token & Set Token To Cookies
-    const token = jwt.sign(
-        { user: cleanUserObject },
-        process.env.TOKEN_SECRET as string,
-        { expiresIn: '30d' },
-    );
-    (await cookies()).set('mosque_token', token, { maxAge: 2592000 });
+    const token = jwt.sign({ user: cleanUserObject }, secret, {
+        expiresIn: '30d',
+    });
+    if (!token) {
+        new Error('Token not found');
+    }
 
-    redirect('/dashboard');
+    (await cookies()).set('mosque_token', token, { maxAge: 2592000 });
+    if (!user.role) {
+        redirect('/');
+    }
+    // Redirect User According To Their Role
+    switch (user.role) {
+        case 'Admin':
+            redirect('/towercontrol');
+        case 'Moderator':
+            redirect('/dashboard');
+        case 'User':
+        default:
+            redirect('/');
+    }
 }

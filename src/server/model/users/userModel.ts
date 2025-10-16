@@ -3,10 +3,12 @@ import { IUser } from './userType';
 
 const userSchema: Schema<IUser> = new Schema<IUser>(
     {
+        name: String,
         phone: String,
         password: String,
         role: { type: String, default: 'User' },
         isDeleted: { type: Boolean, default: false },
+        loginTimeStamp: { type: [Date], default: [] },
     },
     { timestamps: true },
 );

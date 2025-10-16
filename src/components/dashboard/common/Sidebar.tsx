@@ -12,14 +12,15 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { id: '1', label: 'ড্যাশবোর্ড', link: '/dashboard' },
-    { id: '3', label: 'চাঁদা ব্যবস্থাপনা', link: '/dashboard/chanda' },
-    { id: '4', label: 'কোরবানি ব্যবস্থাপনা', link: '/dashboard/korban' },
-    { id: '5', label: 'ইফতার ব্যবস্থাপনা', link: '/dashboard/iftar' },
-    { id: '6', label: 'আয়-ব্যয় রিপোর্ট', link: '/dashboard/report' },
+    { id: '3', label: 'মাসিক টাকা আদায়', link: '/dashboard/chanda' },
+    { id: '4', label: 'কোরবানির তালিকা', link: '/dashboard/korban' },
+    { id: '5', label: 'ইফতারির তালিকা', link: '/dashboard/iftar' },
+    { id: '6', label: 'আয়-ব্যয় হিসাব', link: '/dashboard/report' },
     { id: '7', label: 'সকল তথ্য', link: '/dashboard/info' },
 ];
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ loginUserRole }: any) {
+    console.log({ loginUserRole });
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
@@ -79,6 +80,17 @@ export function DashboardSidebar() {
                                     </li>
                                 );
                             })}
+                            {loginUserRole === 'Admin' && (
+                                <li>
+                                    <Link
+                                        href={'/towercontrol'}
+                                        className={`flex w-full items-center rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#3a2454]`}
+                                        onClick={() => setIsOpen(false)} // Close menu on mobile
+                                    >
+                                        আডমিন ড্যাশবোর্ড
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </nav>
 

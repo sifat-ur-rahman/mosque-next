@@ -1,8 +1,14 @@
+import AccessDenied from '@/components/common/AccessDenied';
 import { TowerControlSidebar } from '@/components/towercontrol/common/TowercontrolSidebar';
 import { TowerControlTopBar } from '@/components/towercontrol/common/TowercontrolTopbar';
+import getLoginUserRole from '@/server/actions/users/userRole';
+import isLogin from '@/utils/isLogin';
 import type { ReactNode } from 'react';
 
-function TowerControlLayout({ children }: { children: ReactNode }) {
+async function TowerControlLayout({ children }: { children: ReactNode }) {
+    const loginUserRole = await getLoginUserRole();
+    if (loginUserRole !== 'Admin') return <AccessDenied />;
+
     return (
         <div className="flex min-h-screen bg-[#29173f]">
             <TowerControlSidebar />
@@ -17,4 +23,4 @@ function TowerControlLayout({ children }: { children: ReactNode }) {
     );
 }
 
-export default TowerControlLayout;
+export default isLogin(TowerControlLayout);
