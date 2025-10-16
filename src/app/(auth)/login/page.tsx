@@ -25,12 +25,13 @@ export default function LoginPage() {
         setLoading(true);
 
         const res = await loginAction(data);
-        console.log(res);
-        setLoading(false);
+
         if (!res.success) {
             toast.error(res.error);
+            setLoading(false);
         } else {
             toast.success('লগইন সফল হয়েছে');
+            setLoading(false);
         }
     };
 

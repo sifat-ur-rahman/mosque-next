@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 
 async function DashboardLayout({ children }: { children: ReactNode }) {
     const loginUserRole = await getLoginUserRole();
-    console.log(loginUserRole);
+    //console.log(loginUserRole);
     return (
         <div className="flex min-h-screen bg-[#29173f]">
             <DashboardSidebar loginUserRole={loginUserRole ?? ''} />

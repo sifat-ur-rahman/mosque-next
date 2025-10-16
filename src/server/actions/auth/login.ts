@@ -39,13 +39,19 @@ export default async function loginAction(data: {
 
     // We omit the password using destructuring
     const { password, ...cleanUserObject } = user.toObject();
+    const secret = process.env.TOKEN_SECRET as string;
+    if (!secret) {
+        throw new Error('Token secret not found');
+    }
 
     // Create Token & Set Token To Cookies
-    const token = jwt.sign(
-        { user: cleanUserObject },
-        process.env.TOKEN_SECRET as string,
-        { expiresIn: '30d' },
-    );
+    const token = jwt.sign({ user: cleanUserObject }, secret, {
+        expiresIn: '30d',
+    });
+    if (!token) {
+        new Error('Token not found');
+    }
+
     (await cookies()).set('mosque_token', token, { maxAge: 2592000 });
     if (!user.role) {
         redirect('/');
