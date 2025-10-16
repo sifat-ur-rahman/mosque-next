@@ -4,4 +4,5 @@ export interface IUser {
     createdAt: Date;
     role: 'Admin' | 'Moderator' | 'User';
     isDeleted: boolean;
+    _id: string;
 }

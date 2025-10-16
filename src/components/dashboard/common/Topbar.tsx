@@ -1,5 +1,6 @@
 'use client';
 
+import LogoutAction from '@/server/actions/auth/logoutActions';
 import { useEffect, useRef, useState } from 'react';
 
 export function DashboardTopbar() {
@@ -71,8 +72,8 @@ export function DashboardTopbar() {
                             </button>
                             <button
                                 onClick={() => {
-                                    console.log('Logout clicked');
                                     setIsDropdownOpen(false);
+                                    LogoutAction();
                                 }}
                                 className="flex w-full items-center gap-3 border-t border-[#4a3464] px-4 py-3 text-left text-sm text-white transition-colors hover:bg-[#4a3464]"
                             >
