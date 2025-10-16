@@ -1,5 +1,6 @@
 import { DashboardSidebar } from '@/components/dashboard/common/Sidebar';
 import { DashboardTopbar } from '@/components/dashboard/common/Topbar';
+import isLogin from '@/utils/isLogin';
 import type { ReactNode } from 'react';
 
 function DashboardLayout({ children }: { children: ReactNode }) {
@@ -17,4 +18,4 @@ function DashboardLayout({ children }: { children: ReactNode }) {
     );
 }
 
-export default DashboardLayout;
+export default isLogin(DashboardLayout);

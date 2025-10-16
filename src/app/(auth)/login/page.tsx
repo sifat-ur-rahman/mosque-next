@@ -1,5 +1,6 @@
 'use client';
 
+import loginAction from '@/server/actions/auth/login';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,11 +23,15 @@ export default function LoginPage() {
 
     const onSubmit = async (data: LoginFormData) => {
         setLoading(true);
-        console.log('লগইন ডাটা:', data);
-        setTimeout(() => setLoading(false), 1500);
 
-        // toast.success('লগইন সফল হয়েছে');
-        toast.error('লগইন সফল হয়েছে');
+        const res = await loginAction(data);
+        console.log(res);
+        setLoading(false);
+        if (!res.success) {
+            toast.error(res.error);
+        } else {
+            toast.success('লগইন সফল হয়েছে');
+        }
     };
 
     return (
