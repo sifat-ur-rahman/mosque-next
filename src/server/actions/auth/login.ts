@@ -32,6 +32,10 @@ export default async function loginAction(data: {
             error: 'দুঃখিত! আপনি যে পাসওয়ার্ডটি দিয়েছেন তা সঠিক নয়। অনুগ্রহ করে আবার চেষ্টা করুন।',
         };
     }
+    // Save login timestamp
+    const now = new Date();
+    user.loginTimeStamp.push(now);
+    await user.save();
 
     // We omit the password using destructuring
     const { password, ...cleanUserObject } = user.toObject();

@@ -10,16 +10,17 @@ export default async function getLoginUserRole() {
     await connectMongo();
 
     const token = (await cookies()).get('mosque_token')?.value;
-
+    //console.log({ token });
     if (!token) {
         return null;
     }
     const decodedToken: any = jwt.decode(token);
-
+    //console.log({ decodedToken });
     if (!decodedToken) {
         return null;
     }
-    const user = await User.findById(decodedToken._id);
+    const user = await User.findById(decodedToken.user._id);
+    //  console.log({ user });
     if (!user) {
         return null;
     }
