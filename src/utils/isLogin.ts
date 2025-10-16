@@ -8,7 +8,10 @@ export default function isLogin(Component: any) {
 
         if (!token) {
             redirect('/login');
-        } else if (token?.user?.role === 'Admin') {
+        } else if (
+            token?.user?.role === 'Admin' ||
+            token?.user?.role === 'Moderator'
+        ) {
             return Component(props);
         } else {
             redirect('/');

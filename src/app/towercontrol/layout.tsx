@@ -1,5 +1,6 @@
 import { TowerControlSidebar } from '@/components/towercontrol/common/TowercontrolSidebar';
 import { TowerControlTopBar } from '@/components/towercontrol/common/TowercontrolTopbar';
+import isLogin from '@/utils/isLogin';
 import type { ReactNode } from 'react';
 
 function TowerControlLayout({ children }: { children: ReactNode }) {
@@ -17,4 +18,4 @@ function TowerControlLayout({ children }: { children: ReactNode }) {
     );
 }
 
-export default TowerControlLayout;
+export default isLogin(TowerControlLayout);
