@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter, Roboto, Rubik, Tiro_Bangla } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -49,6 +50,7 @@ export default function RootLayout({
                 className={`${inter.variable} ${rubik.variable} ${roboto.variable} ${tiroBangla.variable} font-bangla antialiased`}
             >
                 {children}
+                <Toaster position="top-right" theme="dark" richColors />
             </body>
         </html>
     );
