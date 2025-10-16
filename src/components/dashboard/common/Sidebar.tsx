@@ -80,6 +80,17 @@ export function DashboardSidebar({ loginUserRole }: any) {
                                     </li>
                                 );
                             })}
+                            {loginUserRole === 'Admin' && (
+                                <li>
+                                    <Link
+                                        href={'/towercontrol'}
+                                        className={`flex w-full items-center rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#3a2454]`}
+                                        onClick={() => setIsOpen(false)} // Close menu on mobile
+                                    >
+                                        আডমিন ড্যাশবোর্ড
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </nav>
 

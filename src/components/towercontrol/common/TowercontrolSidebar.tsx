@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface MenuItem {
@@ -12,38 +13,38 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
     {
         id: '1',
-        label: 'ড্যাশবোর্ড',
-        link: '/dashboard',
+        label: 'আডমিন ড্যাশবোর্ড',
+        link: '/towercontrol',
     },
     {
         id: '2',
         label: 'সদস্য ব্যবস্থাপনা',
         subItems: [
             {
-                id: 'subitem2.1',
+                id: '2.1',
                 label: 'সদস্য তালিকা',
-                link: '/dashboard/members',
+                link: '/towercontrol/members',
             },
             {
-                id: 'subitem2.2',
-                label: 'নতুন সদস্য যোগ করুন',
-                link: '/dashboard/members/add',
+                id: '2.2',
+                label: 'নতুন সদস্য যোগ',
+                link: '/towercontrol/members/add',
             },
         ],
     },
     {
         id: '3',
-        label: 'চাঁদা ব্যবস্থাপনা',
+        label: 'মাসিক টাকা আদায়',
         subItems: [
             {
-                id: 'subitem3.1',
-                label: 'চাঁদা তালিকা',
-                link: '/dashboard/chanda',
+                id: '3.1',
+                label: 'দাতার তালিকা',
+                link: '/towercontrol/chanda',
             },
             {
-                id: 'subitem3.2',
-                label: 'নতুন চাঁদা যোগ করুন',
-                link: '/dashboard/chanda/add',
+                id: '3.2',
+                label: 'নতুন দাতা যোগ করুন',
+                link: '/towercontrol/chanda/add',
             },
         ],
     },
@@ -52,14 +53,14 @@ const menuItems: MenuItem[] = [
         label: 'কোরবানি ব্যবস্থাপনা',
         subItems: [
             {
-                id: 'subitem4.1',
+                id: '4.1',
                 label: 'কোরবানি তালিকা',
-                link: '/dashboard/qurbani',
+                link: '/towercontrol/qurbani',
             },
             {
-                id: 'subitem4.2',
+                id: '4.2',
                 label: 'নতুন কোরবানি যোগ করুন',
-                link: '/dashboard/qurbani/add',
+                link: '/towercontrol/qurbani/add',
             },
         ],
     },
@@ -68,14 +69,14 @@ const menuItems: MenuItem[] = [
         label: 'ইফতার ব্যবস্থাপনা',
         subItems: [
             {
-                id: 'subitem5.1',
+                id: '5.1',
                 label: 'ইফতার তালিকা',
-                link: '/dashboard/iftar',
+                link: '/towercontrol/iftar',
             },
             {
-                id: 'subitem5.2',
+                id: '5.2',
                 label: 'নতুন ইফতার যুক্ত করুন',
-                link: '/dashboard/iftar/add',
+                link: '/towercontrol/iftar/add',
             },
         ],
     },
@@ -84,14 +85,14 @@ const menuItems: MenuItem[] = [
         label: 'আয়-ব্যয় রিপোর্ট',
         subItems: [
             {
-                id: 'subitem6.1',
+                id: '6.1',
                 label: 'রিপোর্ট দেখুন',
-                link: '/dashboard/reports',
+                link: '/towercontrol/reports',
             },
             {
-                id: 'subitem6.2',
+                id: '6.2',
                 label: 'নতুন তথ্য যোগ করুন',
-                link: '/dashboard/reports/add',
+                link: '/towercontrol/reports/add',
             },
         ],
     },
@@ -100,23 +101,28 @@ const menuItems: MenuItem[] = [
         label: 'সকল তথ্য',
         subItems: [
             {
-                id: 'subitem7.1',
+                id: '7.1',
                 label: 'সমস্ত ডাটা দেখুন',
-                link: '/dashboard/all-data',
+                link: '/towercontrol/all-data',
             },
             {
-                id: 'subitem7.2',
+                id: '7.2',
                 label: 'ডাটা আপডেট করুন',
-                link: '/dashboard/all-data/edit',
+                link: '/towercontrol/all-data/edit',
             },
         ],
+    },
+    {
+        id: '8',
+        label: 'ড্যাশবোর্ড',
+        link: '/dashboard',
     },
 ];
 
 export function TowerControlSidebar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [expandedItems, setExpandedItems] = useState<string[]>(['item1']);
-    const [activeItem, setActiveItem] = useState('item1');
+    const [expandedItems, setExpandedItems] = useState<string[]>([]);
+    const [activeItem, setActiveItem] = useState('');
 
     const toggleExpanded = (itemId: string) => {
         setExpandedItems((prev) =>
@@ -128,10 +134,7 @@ export function TowerControlSidebar() {
 
     const handleItemClick = (itemId: string, hasSubItems: boolean) => {
         setActiveItem(itemId);
-
-        if (hasSubItems) {
-            toggleExpanded(itemId);
-        }
+        if (hasSubItems) toggleExpanded(itemId);
     };
 
     return (
@@ -189,37 +192,45 @@ export function TowerControlSidebar() {
                 <div className="flex h-full flex-col">
                     {/* Logo/Header */}
                     <div className="flex h-16 items-center justify-center border-b border-[#4a3464] ps-9 md:ps-0">
-                        <h2 className="text-xl font-bold leading-[1.2] text-[#d4af37]">
+                        <Link
+                            href="/"
+                            className="text-xl font-bold leading-[1.2] text-[#d4af37]"
+                        >
                             মনোহরপুর বায়তুন-নূর <br />
                             <span className="text-sm">
-                                {' '}
                                 কেন্দ্রীয় জামে মসজিদ
                             </span>
-                        </h2>
+                        </Link>
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 overflow-y-auto px-4 py-2">
+                    <nav className="hide-scrollbar flex-1 overflow-y-auto px-4 py-2">
                         <ul className="space-y-1">
-                            {menuItems.map((item) => (
-                                <li key={item.id}>
-                                    <button
+                            {menuItems.map((item) => {
+                                const ItemContent = (
+                                    <div
+                                        className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                                            activeItem === item.id
+                                                ? 'bg-[#d4af37] text-[#29173f]'
+                                                : 'text-white hover:bg-[#3a2454]'
+                                        }`}
                                         onClick={() =>
                                             handleItemClick(
                                                 item.id,
                                                 !!item.subItems,
                                             )
                                         }
-                                        className={`flex w-full items-center justify-between rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-                                            activeItem === item.id
-                                                ? 'bg-[#d4af37] text-[#29173f]'
-                                                : 'text-white hover:bg-[#3a2454]'
-                                        }`}
                                     >
                                         <span>{item.label}</span>
                                         {item.subItems && (
                                             <svg
-                                                className={`h-4 w-4 transition-transform ${expandedItems.includes(item.id) ? 'rotate-90' : ''}`}
+                                                className={`h-4 w-4 transition-transform ${
+                                                    expandedItems.includes(
+                                                        item.id,
+                                                    )
+                                                        ? 'rotate-90'
+                                                        : ''
+                                                }`}
                                                 fill="none"
                                                 viewBox="0 0 24 24"
                                                 stroke="currentColor"
@@ -232,60 +243,71 @@ export function TowerControlSidebar() {
                                                 />
                                             </svg>
                                         )}
-                                    </button>
+                                    </div>
+                                );
 
-                                    {/* Sub Items */}
-                                    {item.subItems &&
-                                        expandedItems.includes(item.id) && (
-                                            <ul className="ml-1 mt-1 space-y-1">
-                                                {item.subItems.map(
-                                                    (subItem) => (
-                                                        <li key={subItem.id}>
-                                                            <button
-                                                                onClick={() =>
-                                                                    setActiveItem(
-                                                                        subItem.id,
-                                                                    )
-                                                                }
-                                                                className={`flex w-full items-center rounded-lg px-4 py-2 text-sm transition-colors ${
-                                                                    activeItem ===
-                                                                    subItem.id
-                                                                        ? 'bg-[#3a2454] font-medium text-[#d4af37]'
-                                                                        : 'text-[#b8b8b8] hover:bg-[#3a2454]/50 hover:text-white'
-                                                                }`}
-                                                            >
-                                                                <span className="ml-1">
-                                                                    {
-                                                                        subItem.label
-                                                                    }
-                                                                </span>
-                                                            </button>
-                                                        </li>
-                                                    ),
-                                                )}
-                                            </ul>
+                                return (
+                                    <li key={item.id}>
+                                        {item.link ? (
+                                            <Link href={item.link}>
+                                                {ItemContent}
+                                            </Link>
+                                        ) : (
+                                            ItemContent
                                         )}
-                                </li>
-                            ))}
+
+                                        {/* Sub Items */}
+                                        {item.subItems &&
+                                            expandedItems.includes(item.id) && (
+                                                <ul className="ml-1 mt-1 space-y-1">
+                                                    {item.subItems.map(
+                                                        (subItem) => (
+                                                            <li
+                                                                key={subItem.id}
+                                                            >
+                                                                {subItem.link ? (
+                                                                    <Link
+                                                                        href={
+                                                                            subItem.link
+                                                                        }
+                                                                    >
+                                                                        <div
+                                                                            className={`flex w-full cursor-pointer items-center rounded-lg px-4 py-2 text-sm transition-colors ${
+                                                                                activeItem ===
+                                                                                subItem.id
+                                                                                    ? 'bg-[#3a2454] font-medium text-[#d4af37]'
+                                                                                    : 'text-[#b8b8b8] hover:bg-[#3a2454]/50 hover:text-white'
+                                                                            }`}
+                                                                            onClick={() =>
+                                                                                setActiveItem(
+                                                                                    subItem.id,
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <span className="ml-1">
+                                                                                {
+                                                                                    subItem.label
+                                                                                }
+                                                                            </span>
+                                                                        </div>
+                                                                    </Link>
+                                                                ) : (
+                                                                    <div className="px-4 py-2 text-sm text-[#b8b8b8]">
+                                                                        {
+                                                                            subItem.label
+                                                                        }
+                                                                    </div>
+                                                                )}
+                                                            </li>
+                                                        ),
+                                                    )}
+                                                </ul>
+                                            )}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </nav>
-
-                    {/* Footer */}
-                    <div className="border-t border-[#4a3464] p-4">
-                        <div className="flex items-center gap-3 px-4 py-2">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d4af37] font-semibold text-[#29173f]">
-                                U
-                            </div>
-                            <div className="min-w-0 flex-1">
-                                <p className="truncate text-sm font-medium text-white">
-                                    User Name
-                                </p>
-                                <p className="truncate text-xs text-[#b8b8b8]">
-                                    user@example.com
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </aside>
         </>
