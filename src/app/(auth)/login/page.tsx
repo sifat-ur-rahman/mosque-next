@@ -24,24 +24,14 @@ export default function LoginPage() {
     const onSubmit = async (data: LoginFormData) => {
         setLoading(true);
 
-        try {
-            const res = await loginAction(data);
+        const res = await loginAction(data);
 
-            if (!res.success) {
-                toast.error(res.error);
-                setLoading(false);
-            } else {
-                toast.success('লগইন সফল হয়েছে');
-                setLoading(false);
-            }
-        } catch (error) {
+        if (!res.success) {
+            toast.error(res.error);
             setLoading(false);
-            console.error(error);
-            toast.error('লগইন সফল হয়নি', {
-                description: `আমাদের সার্ভারে আপাতত কিছু টেকনিক্যাল সমস্যা হয়েছে।
-                        অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।  
-                        ইনশা’আল্লাহ সব কিছু দ্রুত ঠিক হয়ে যাবে।`,
-            });
+        } else {
+            toast.success('লগইন সফল হয়েছে');
+            setLoading(false);
         }
     };
 

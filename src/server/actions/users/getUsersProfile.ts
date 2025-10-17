@@ -19,13 +19,11 @@ export default async function getUserProfile() {
     if (!decodedToken) {
         return null;
     }
-    const user = await User.findById(decodedToken.user._id).select(
-        'name phone role',
-    );
+    const user = await User.findById(decodedToken.user._id).select('-password');
     //  console.log({ user });
     if (!user) {
         return null;
     }
-
+    //   console.log(user);
     return user;
 }
