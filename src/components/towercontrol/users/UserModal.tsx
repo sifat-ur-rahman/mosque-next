@@ -100,7 +100,24 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
             toast.error('Error deleting user!');
         }
     };
-
+    const handleRemoveDelete = async () => {
+        try {
+            const res = await deleteUserAction(user._id, false);
+            if (!res.success) {
+                toast.error(
+                    res.error || 'ব্যবহারকারী পুনরুদ্ধার করতে ব্যর্থ হয়েছে।',
+                );
+                return;
+            }
+            toast.success(
+                res.message || 'ব্যবহারকারী সফলভাবে পুনরুদ্ধার হয়েছে।',
+            );
+            setShowDeleteModal(false);
+            onClose();
+        } catch {
+            toast.error('ত্রুটি ঘটেছে! অনুগ্রহ করে আবার চেষ্টা করুন।');
+        }
+    };
     return (
         <AnimatePresence>
             {isOpen && (
@@ -175,12 +192,23 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                                     >
                                         <FaPen /> Edit
                                     </button>
-                                    <button
-                                        onClick={() => setShowDeleteModal(true)}
-                                        className="flex items-center gap-1 rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
-                                    >
-                                        <FaRegTrashAlt size={14} /> Delete
-                                    </button>
+                                    {user.isDeleted ? (
+                                        <button
+                                            onClick={handleRemoveDelete}
+                                            className="flex items-center gap-1 rounded-md bg-green-500 px-3 py-1 font-semibold text-black hover:opacity-90"
+                                        >
+                                            পুনরুদ্ধার করুন {/* Restore */}
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={() =>
+                                                setShowDeleteModal(true)
+                                            }
+                                            className="flex items-center gap-1 rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
+                                        >
+                                            <FaRegTrashAlt size={14} /> Delete
+                                        </button>
+                                    )}
                                 </div>
                             </>
                         ) : (
