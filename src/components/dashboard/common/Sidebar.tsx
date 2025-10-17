@@ -17,6 +17,7 @@ const menuItems: MenuItem[] = [
     { id: '5', label: 'ইফতারির তালিকা', link: '/dashboard/iftar' },
     { id: '6', label: 'আয়-ব্যয় হিসাব', link: '/dashboard/report' },
     { id: '7', label: 'সকল তথ্য', link: '/dashboard/info' },
+    { id: '8', label: 'হোম পেইজ', link: '/' },
 ];
 
 export function DashboardSidebar({ loginUserRole }: any) {
