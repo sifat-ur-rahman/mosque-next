@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { FaUser } from 'react-icons/fa';
 import { FiMenu, FiX } from 'react-icons/fi';
 interface MenuItem {
     id: string;
@@ -20,8 +21,8 @@ const menuItems: MenuItem[] = [
     { id: '8', label: 'হোম পেইজ', link: '/' },
 ];
 
-export function DashboardSidebar({ loginUserRole }: any) {
-    console.log({ loginUserRole });
+export function DashboardSidebar({ userInfo }: any) {
+    console.log({ userInfo });
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
@@ -81,7 +82,7 @@ export function DashboardSidebar({ loginUserRole }: any) {
                                     </li>
                                 );
                             })}
-                            {loginUserRole === 'Admin' && (
+                            {userInfo.role === 'Admin' && (
                                 <li>
                                     <Link
                                         href={'/towercontrol'}
@@ -99,14 +100,14 @@ export function DashboardSidebar({ loginUserRole }: any) {
                     <div className="border-t border-[#4a3464] p-4">
                         <div className="flex items-center gap-3 px-4 py-2">
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d4af37] font-semibold text-[#29173f]">
-                                U
+                                <FaUser />
                             </div>
                             <div className="min-w-0 flex-1">
                                 <p className="truncate text-sm font-medium text-white">
-                                    User Name
+                                    {userInfo.name ?? 'User'}
                                 </p>
-                                <p className="truncate text-xs text-[#b8b8b8]">
-                                    user@example.com
+                                <p className="truncate font-roboto text-xs text-[#b8b8b8]">
+                                    {userInfo.phone}
                                 </p>
                             </div>
                         </div>

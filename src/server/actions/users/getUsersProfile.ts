@@ -5,8 +5,8 @@ import connectMongo from '@/server/utils/connection';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-// get user role from token
-export default async function getLoginUserRole() {
+// get user profile from token
+export default async function getUserProfile() {
     await connectMongo();
 
     const token = (await cookies()).get('mosque_token')?.value;
@@ -19,11 +19,13 @@ export default async function getLoginUserRole() {
     if (!decodedToken) {
         return null;
     }
-    const user = await User.findById(decodedToken.user._id).select('role');
+    const user = await User.findById(decodedToken.user._id).select(
+        'name phone role',
+    );
     //  console.log({ user });
     if (!user) {
         return null;
     }
 
-    return user.role;
+    return user;
 }
