@@ -6,6 +6,6 @@ import connectMongo from '@/server/utils/connection';
 // get all user from database
 export default async function getAllUsersAction() {
     await connectMongo();
-    const users = await User.find({ isDeleted: false }).select('-password');
+    const users = await User.find().select('-password').lean();
     return users;
 }

@@ -223,7 +223,7 @@ export default function AddUserForm() {
                                 Copy Info
                             </button>
                             <button
-                                onClick={() => setShowModal(false)}
+                                onClick={handleCopy}
                                 className="rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
                             >
                                 Close

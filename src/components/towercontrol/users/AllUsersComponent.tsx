@@ -34,7 +34,7 @@ export default function AllUsersComponent({ users }: AllUsersProps) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.4 }}
                         onClick={() => setSelectedUser(user)}
-                        className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform hover:scale-105 ${user.isDeleted ? 'border border-red-200' : ''}`}
+                        className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform hover:scale-105 ${user.isDeleted ? 'border border-red-400' : ''}`}
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37] text-lg font-bold text-[#29173F]">

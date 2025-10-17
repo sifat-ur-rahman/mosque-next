@@ -19,8 +19,13 @@ export default async function getLoginUserRole() {
     if (!decodedToken) {
         return null;
     }
-    const user = await User.findById(decodedToken.user._id).select('role');
-    //  console.log({ user });
+    const user = await User.findOne({
+        _id: decodedToken.user._id,
+        isDeleted: false,
+    })
+        .select('role')
+        .lean();
+    console.log({ user });
     if (!user) {
         return null;
     }

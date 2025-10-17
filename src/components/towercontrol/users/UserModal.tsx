@@ -1,5 +1,7 @@
 'use client';
 
+import deleteUserAction from '@/server/actions/users/deleteUserAction';
+import updateUserAction from '@/server/actions/users/updateUserAction';
 import { IUser } from '@/server/model/users/userType';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
@@ -18,10 +20,17 @@ type FormData = {
     name: string;
     phone: string;
     role: 'Admin' | 'Moderator' | 'User';
+    password: string;
 };
 
 export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
     const [isEditing, setIsEditing] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [userInfo, setUserInfo] = useState<{
+        phone: string;
+        password: string;
+    } | null>(null);
 
     const {
         register,
@@ -37,12 +46,58 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
 
     const onSubmit = async (data: FormData) => {
         try {
-            // call server action to update user here
-            console.log('Updated data:', data);
-            toast.success('User updated successfully!');
+            const res = await updateUserAction({
+                id: user._id,
+                name: data.name,
+                phone: data.phone,
+                role: data.role,
+                password: data.password, // only hashed if provided
+            });
+
+            if (!res.success) {
+                toast.error(res.error || 'Failed to update user!');
+                return;
+            }
+
+            toast.success(res.message || 'User updated successfully!');
             setIsEditing(false);
+
+            // If user changed password → show modal with new info
+            if (data.password && data.password.trim() !== '') {
+                setUserInfo({ phone: data.phone, password: data.password });
+                setShowModal(true);
+            } else {
+                // Otherwise close modal and refresh page
+                setIsEditing(false);
+                onClose();
+            }
         } catch (err) {
             toast.error('Failed to update user!');
+        }
+    };
+
+    const handleCopy = async () => {
+        if (!userInfo) return;
+        const text = `Phone: ${userInfo.phone}\nPassword: ${userInfo.password}\nURL: https://${window.location.host}/dashboard`;
+        await navigator.clipboard.writeText(text);
+        toast.success('Copied to clipboard!');
+        setShowModal(false);
+        setIsEditing(false);
+        onClose();
+    };
+
+    const handleDelete = async () => {
+        try {
+            const res = await deleteUserAction(user._id);
+            if (!res.success) {
+                toast.error(res.error || 'Failed to delete user!');
+                return;
+            }
+            toast.success(res.message || 'User deleted successfully!');
+            setShowDeleteModal(false);
+            onClose();
+        } catch {
+            toast.error('Error deleting user!');
         }
     };
 
@@ -121,9 +176,7 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                                         <FaPen /> Edit
                                     </button>
                                     <button
-                                        onClick={() =>
-                                            alert('Delete functionality')
-                                        }
+                                        onClick={() => setShowDeleteModal(true)}
                                         className="flex items-center gap-1 rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
                                     >
                                         <FaRegTrashAlt size={14} /> Delete
@@ -156,8 +209,14 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                                 <input
                                     {...register('phone', {
                                         required: 'Phone is required',
+                                        pattern: {
+                                            value: /^01[0-9]{9}$/,
+                                            message:
+                                                'সঠিক নাম্বার দিন (১১ ডিজিট)',
+                                        },
                                     })}
-                                    className="w-full rounded-lg bg-[#29173F] px-3 py-2 text-[#F5F3F0]"
+                                    inputMode="numeric"
+                                    className="w-full rounded-lg bg-[#29173F] px-3 py-2 font-roboto text-[#F5F3F0]"
                                     placeholder="Phone"
                                 />
                                 {errors.phone && (
@@ -181,7 +240,24 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                                         {errors.role.message}
                                     </p>
                                 )}
-
+                                <input
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                    {...register('password', {
+                                        minLength: {
+                                            value: 6,
+                                            message:
+                                                'কমপক্ষে ৬ অক্ষরের হতে হবে',
+                                        },
+                                    })}
+                                    className="w-full rounded-lg bg-[#29173F] px-3 py-2 font-roboto text-[#F5F3F0]"
+                                    placeholder="Password (leave blank if not changing)"
+                                />
+                                {errors.password && (
+                                    <p className="text-sm text-red-400">
+                                        {errors.password.message}
+                                    </p>
+                                )}
                                 <div className="mt-4 flex justify-between">
                                     <button
                                         type="submit"
@@ -204,6 +280,71 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                         )}
                     </motion.div>
                 </motion.div>
+            )}
+            {/* ✅ Success Modal (only when password updated) */}
+            {showModal && userInfo && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+                    <div className="w-80 rounded-lg bg-[#3C245A] p-6 text-[#F5F3F0] shadow-lg">
+                        <h3 className="mb-4 text-center text-lg font-semibold text-[#D4AF37]">
+                            User Info
+                        </h3>
+                        <p>
+                            <strong>URL:</strong>{' '}
+                            {`https://${window.location.host}/dashboard`}
+                        </p>
+                        <p>
+                            <strong>Phone:</strong> {userInfo.phone}
+                        </p>
+                        <p>
+                            <strong>Password:</strong> {userInfo.password}
+                        </p>
+
+                        <div className="mt-5 flex justify-between">
+                            <button
+                                onClick={handleCopy}
+                                className="rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-[#29173F] hover:opacity-90"
+                            >
+                                Copy Info
+                            </button>
+                            <button
+                                onClick={handleCopy}
+                                className="rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ⚠️ Delete Confirmation Modal */}
+            {showDeleteModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+                    <div className="w-80 rounded-lg bg-[#3C245A] p-6 text-[#F5F3F0] shadow-lg">
+                        <p className="mb-4 text-center">
+                            আপনি কি নিশ্চিত আপনি{' '}
+                            <strong className="text-[#D4AF37]">
+                                {user.name}
+                            </strong>{' '}
+                            কে মুছে ফেলতে চান?
+                        </p>
+
+                        <div className="flex justify-between">
+                            <button
+                                onClick={handleDelete}
+                                className="rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
+                            >
+                                Yes, Delete
+                            </button>
+                            <button
+                                onClick={() => setShowDeleteModal(false)}
+                                className="rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-black hover:opacity-90"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </AnimatePresence>
     );

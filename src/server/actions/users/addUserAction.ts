@@ -3,6 +3,7 @@
 import User from '@/server/model/users/userModel';
 import connectMongo from '@/server/utils/connection';
 import bcrypt from 'bcrypt';
+import { revalidatePath } from 'next/cache';
 
 // create a new user with hashed password
 export default async function addUserAction(data: {
@@ -16,7 +17,7 @@ export default async function addUserAction(data: {
     const existingUser = await User.findOne({
         phone: data.phone,
         isDeleted: false,
-    });
+    }).lean();
     if (existingUser) {
         return {
             success: false,
@@ -35,7 +36,7 @@ export default async function addUserAction(data: {
     });
 
     await user.save();
-
+    revalidatePath('/towercontrol/users');
     return {
         success: true,
         message: 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে।',
