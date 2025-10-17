@@ -1,9 +1,10 @@
 'use client';
 
 import addUserAction from '@/server/actions/users/addUserAction';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { RxCross2 } from 'react-icons/rx';
+import { RxArrowLeft, RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 
 type FormData = {
@@ -20,7 +21,7 @@ export default function AddUserForm() {
         formState: { errors, isSubmitting },
         reset,
     } = useForm<FormData>();
-
+    const router = useRouter();
     const [successMsg, setSuccessMsg] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [userInfo, setUserInfo] = useState<{
@@ -68,8 +69,15 @@ export default function AddUserForm() {
         <div className="flex min-h-screen items-center justify-center bg-[#29173F] p-4 font-roboto">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="w-full max-w-md space-y-4 rounded-2xl bg-[#3C245A] p-6 text-[#F5F3F0] shadow-xl"
+                className="relative w-full max-w-md space-y-4 rounded-2xl bg-[#3C245A] p-6 text-[#F5F3F0] shadow-xl"
             >
+                <button
+                    type="button"
+                    onClick={() => router.back()}
+                    className="absolute left-4 top-4 flex items-center gap-1 text-[#D4AF37] hover:opacity-80"
+                >
+                    <RxArrowLeft /> Back
+                </button>
                 <h2 className="mb-4 text-center text-2xl font-bold text-[#D4AF37]">
                     Add New User
                 </h2>
