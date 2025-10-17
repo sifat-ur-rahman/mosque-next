@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
 
     const onSubmit = async (data: ForgotFormData) => {
         setLoading(true);
-        console.log('রিকভার ডাটা:', data);
+        //  console.log('রিকভার ডাটা:', data);
 
         // Simulate request
         setTimeout(() => {

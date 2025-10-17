@@ -1,7 +1,9 @@
+import getLoginUserRole from '@/server/actions/users/userRole';
 import ResponsiveHeader from '../headerComponent/ResponsiveHeader';
 
-function Header() {
-    return <ResponsiveHeader />;
+async function Header() {
+    const userRole = await getLoginUserRole();
+    return <ResponsiveHeader userRole={userRole ?? ''} />;
 }
 
 export default Header;

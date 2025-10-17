@@ -1,15 +1,15 @@
 import { DashboardSidebar } from '@/components/dashboard/common/Sidebar';
 import { DashboardTopbar } from '@/components/dashboard/common/Topbar';
-import getLoginUserRole from '@/server/actions/users/userRole';
+import getUserProfile from '@/server/actions/users/getUsersProfile';
 import isLogin from '@/utils/isLogin';
 import type { ReactNode } from 'react';
 
 async function DashboardLayout({ children }: { children: ReactNode }) {
-    const loginUserRole = await getLoginUserRole();
+    const userinfo = await getUserProfile();
     //console.log(loginUserRole);
     return (
         <div className="flex min-h-screen bg-[#29173f]">
-            <DashboardSidebar loginUserRole={loginUserRole ?? ''} />
+            <DashboardSidebar userInfo={userinfo ?? ''} />
 
             {/* Main Content */}
             <div className="flex-1 lg:ml-64">

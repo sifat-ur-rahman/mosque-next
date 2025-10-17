@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 
 async function TowerControlLayout({ children }: { children: ReactNode }) {
     const loginUserRole = await getLoginUserRole();
+    //  console.log(loginUserRole);
     if (loginUserRole !== 'Admin') return <AccessDenied />;
 
     return (

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 
-const ResponsiveHeader = () => {
+const ResponsiveHeader = ({ userRole }: any) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
 
@@ -138,6 +138,20 @@ const ResponsiveHeader = () => {
                                     {link.label}
                                 </Link>
                             ))}
+                            {userRole === 'Admin' ||
+                                (userRole === 'Moderator' && (
+                                    <Link
+                                        href="/dashboard"
+                                        onClick={() => setMenuOpen(false)}
+                                        className={`hover:text-purple-300 ${
+                                            isActive('/dashboard')
+                                                ? 'text-[#D4AF37]'
+                                                : ''
+                                        }`}
+                                    >
+                                        ড্যাশবোর্ড
+                                    </Link>
+                                ))}
                         </div>
                     </div>
                 </section>

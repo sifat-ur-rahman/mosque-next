@@ -1,7 +1,9 @@
 'use client';
 
 import LogoutAction from '@/server/actions/auth/logoutActions';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { FaUser } from 'react-icons/fa';
 
 export function DashboardTopbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -42,15 +44,15 @@ export function DashboardTopbar() {
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         className="flex h-10 w-10 items-center justify-center rounded-full bg-[#d4af37] font-semibold text-[#29173f] transition-colors hover:bg-[#d4af37]/90"
                     >
-                        U
+                        <FaUser />
                     </button>
 
                     {/* Dropdown Menu */}
                     {isDropdownOpen && (
                         <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-lg border border-[#4a3464] bg-[#3a2454] shadow-lg">
-                            <button
+                            <Link
+                                href="/dashboard/profile"
                                 onClick={() => {
-                                    console.log('Profile clicked');
                                     setIsDropdownOpen(false);
                                 }}
                                 className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-white transition-colors hover:bg-[#4a3464]"
@@ -69,7 +71,7 @@ export function DashboardTopbar() {
                                     />
                                 </svg>
                                 Profile
-                            </button>
+                            </Link>
                             <button
                                 onClick={() => {
                                     setIsDropdownOpen(false);
