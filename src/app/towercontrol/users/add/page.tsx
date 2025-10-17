@@ -3,6 +3,7 @@
 import addUserAction from '@/server/actions/users/addUserAction';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 
 type FormData = {
@@ -28,7 +29,6 @@ export default function AddUserForm() {
     } | null>(null);
 
     const onSubmit = async (data: FormData) => {
-        console.log(data);
         try {
             setSuccessMsg('');
             // Example: after successful add
@@ -58,7 +58,12 @@ export default function AddUserForm() {
         toast.success('Copied to clipboard!');
         setShowModal(false);
     };
-
+    const handleReset = () => {
+        setShowModal(false);
+        setUserInfo(null);
+        reset();
+        setSuccessMsg('');
+    };
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#29173F] p-4 font-roboto">
             <form
@@ -77,8 +82,8 @@ export default function AddUserForm() {
                     <input
                         {...register('name', { required: 'Name is required' })}
                         type="text"
-                        placeholder="Enter name"
-                        className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 placeholder-[#AFA8B8] focus:border-[#D4AF37] focus:outline-none"
+                        placeholder="ইউজার নাম"
+                        className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-bangla placeholder-[#AFA8B8] focus:border-[#D4AF37] focus:outline-none"
                     />
                     {errors.name && (
                         <p className="mt-1 text-sm text-red-400">
@@ -101,6 +106,7 @@ export default function AddUserForm() {
                             },
                         })}
                         type="text"
+                        inputMode="numeric"
                         placeholder="Enter phone number"
                         className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 placeholder-[#AFA8B8] focus:border-[#D4AF37] focus:outline-none"
                     />
@@ -126,6 +132,7 @@ export default function AddUserForm() {
                             },
                         })}
                         type="text"
+                        inputMode="numeric"
                         placeholder="Enter password"
                         className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 placeholder-[#AFA8B8] focus:border-[#D4AF37] focus:outline-none"
                     />
@@ -167,9 +174,17 @@ export default function AddUserForm() {
                 </button>
 
                 {successMsg && (
-                    <p className="mt-3 text-center text-sm text-[#D4AF37]">
-                        {successMsg}
-                    </p>
+                    <div className="flex items-center justify-between rounded border border-[#D4AF37]/40 p-2">
+                        <p className="text-center text-sm text-[#D4AF37]">
+                            {successMsg}
+                        </p>
+                        <span
+                            onClick={handleReset}
+                            className="transition-colors duration-300 hover:text-red-400"
+                        >
+                            <RxCross2 />
+                        </span>
+                    </div>
                 )}
             </form>
 
@@ -185,7 +200,8 @@ export default function AddUserForm() {
                             {`https://${window.location.host}/dashboard`}
                         </p>
                         <p>
-                            <strong>Phone:</strong> {userInfo.phone}
+                            <strong className="">Phone:</strong>{' '}
+                            {userInfo.phone}
                         </p>
                         <p>
                             <strong>Password:</strong> {userInfo.password}
