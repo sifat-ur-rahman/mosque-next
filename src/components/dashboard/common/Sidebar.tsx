@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
 ];
 
 export function DashboardSidebar({ userInfo }: any) {
-    console.log({ userInfo });
+    // console.log({ userInfo });
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
