@@ -23,12 +23,12 @@ const menuItems: MenuItem[] = [
             {
                 id: '2.1',
                 label: 'সদস্য তালিকা',
-                link: '/towercontrol/members',
+                link: '/towercontrol/users',
             },
             {
                 id: '2.2',
                 label: 'নতুন সদস্য যোগ',
-                link: '/towercontrol/members/add',
+                link: '/towercontrol/users/add',
             },
         ],
     },
