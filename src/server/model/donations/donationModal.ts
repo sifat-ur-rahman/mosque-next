@@ -6,6 +6,8 @@ const donationSchema: Schema<IDonation> = new Schema<IDonation>(
         name: String,
         numbering: Number,
         amount: Number,
+        isRead: { type: Boolean, default: false },
+        due: { type: Number, default: 0 },
     },
     { timestamps: true },
 );
