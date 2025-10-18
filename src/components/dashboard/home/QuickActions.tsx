@@ -27,7 +27,7 @@ function QuickActions() {
                     title="আয়-ব্যয়"
                 />
                 <ActionCard
-                    href="/admin/chanda"
+                    href="/admin/donation"
                     icon={<FaDonate />}
                     title="মাসিক চাঁদা"
                 />

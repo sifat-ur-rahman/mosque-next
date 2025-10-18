@@ -13,7 +13,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { id: '1', label: 'ড্যাশবোর্ড', link: '/dashboard' },
-    { id: '3', label: 'মাসিক টাকা আদায়', link: '/dashboard/chanda' },
+    { id: '3', label: 'মাসিক টাকা আদায়', link: '/dashboard/donation' },
     { id: '4', label: 'কোরবানির তালিকা', link: '/dashboard/korban' },
     { id: '5', label: 'ইফতারির তালিকা', link: '/dashboard/iftar' },
     { id: '6', label: 'আয়-ব্যয় হিসাব', link: '/dashboard/report' },

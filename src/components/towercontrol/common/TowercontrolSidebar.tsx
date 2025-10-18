@@ -39,12 +39,12 @@ const menuItems: MenuItem[] = [
             {
                 id: '3.1',
                 label: 'দাতার তালিকা',
-                link: '/towercontrol/chanda',
+                link: '/towercontrol/donation',
             },
             {
                 id: '3.2',
                 label: 'নতুন দাতা যোগ করুন',
-                link: '/towercontrol/chanda/add',
+                link: '/towercontrol/donation/add',
             },
         ],
     },
