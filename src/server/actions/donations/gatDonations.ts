@@ -4,9 +4,9 @@ import Donation from '@/server/model/donations/donationModal';
 import connectMongo from '@/server/utils/connection';
 
 //  get all donation from database
-export default async function getDonations() {
+export default async function getAllDonations() {
     await connectMongo();
-    const donations = await Donation.find().lean();
+    const donations = await Donation.find().sort({ numbering: 1 }).lean();
     return donations;
 }
 

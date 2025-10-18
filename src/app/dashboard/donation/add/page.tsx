@@ -37,7 +37,7 @@ export default function AddDonationForm() {
             }
         };
         fetchDonationCount();
-    }, [setValue]);
+    }, []);
 
     const onSubmit = async (data: IDonation) => {
         const resData = {
@@ -45,6 +45,7 @@ export default function AddDonationForm() {
             amount: +data.amount,
             numbering: +data.numbering,
         };
+        console.log(resData);
         try {
             const res = await addDonationAction(resData);
 
@@ -134,18 +135,19 @@ export default function AddDonationForm() {
                                 required: 'সিরিয়াল নাম্বার দিন',
                                 valueAsNumber: true,
                             })}
+                            defaultValue={maxNumber} // <-- make select controlled
+                            onChange={(e) =>
+                                setValue('numbering', +e.target.value)
+                            }
                             className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
                         >
                             {[...Array(maxNumber)].map((_, i) => (
                                 <option
                                     key={i + 1}
                                     value={i + 1}
-                                    className="text-black"
+                                    className="text-white"
                                 >
-                                    <span className="font-roboto">
-                                        {' '}
-                                        {i + 1}
-                                    </span>{' '}
+                                    {i + 1}{' '}
                                     {i + 1 === maxNumber ? '(প্রস্তাবিত)' : ''}
                                 </option>
                             ))}
