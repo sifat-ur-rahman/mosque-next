@@ -45,7 +45,7 @@ const ResponsiveHeader = ({ userRole }: any) => {
     const navLinks = [
         { path: '/', label: 'হোম' },
 
-        { path: '/donation', label: 'মাসিক চাঁদা' },
+        { path: '/donation', label: 'মাসিক আদায়' },
         { path: '/qurbani', label: 'কোরবানি তালিকা' },
         { path: '/iftar', label: 'ইফতারি তালিকা' },
     ];
