@@ -37,7 +37,7 @@ export default function AddDonationForm() {
             }
         };
         fetchDonationCount();
-    }, []);
+    }, [setValue]);
 
     const onSubmit = async (data: IDonation) => {
         const resData = {
