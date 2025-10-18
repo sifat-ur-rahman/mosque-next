@@ -17,7 +17,7 @@ function AllDonationsComponent({
                     সকল মাসিক দাতার তালিকা
                 </h1>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {allDonations.map((item, index) => (
                     <motion.div
                         key={item._id}
