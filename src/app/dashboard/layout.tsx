@@ -1,3 +1,4 @@
+import AccessDenied from '@/components/common/AccessDenied';
 import { DashboardSidebar } from '@/components/dashboard/common/Sidebar';
 import { DashboardTopbar } from '@/components/dashboard/common/Topbar';
 import getUserProfile from '@/server/actions/users/getUsersProfile';
@@ -7,6 +8,9 @@ import type { ReactNode } from 'react';
 async function DashboardLayout({ children }: { children: ReactNode }) {
     const userinfo = await getUserProfile();
     //console.log(loginUserRole);
+    if (!userinfo) {
+        return <AccessDenied />;
+    }
     return (
         <div className="flex min-h-screen bg-[#29173f]">
             <DashboardSidebar userInfo={userinfo ?? ''} />

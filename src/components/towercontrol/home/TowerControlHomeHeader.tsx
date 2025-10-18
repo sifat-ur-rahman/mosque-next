@@ -25,7 +25,7 @@ function TowerControlHomeHeader() {
                 <h1 className="mb-3 text-2xl font-bold leading-snug text-[#D4AF37] sm:text-3xl">
                     মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদের
                     <br />
-                    ড্যাশবোর্ডে স্বাগতম
+                    অ্যাডমিন ড্যাশবোর্ডে স্বাগতম
                 </h1>
 
                 <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#C4B5A0] sm:text-base">

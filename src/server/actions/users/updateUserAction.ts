@@ -26,7 +26,6 @@ export default async function updateUserAction(data: UpdateUserInput) {
         const phoneInUse = await User.findOne({
             phone: data.phone,
             _id: { $ne: data.id },
-            isDeleted: false,
         }).lean();
         if (phoneInUse) {
             return {
