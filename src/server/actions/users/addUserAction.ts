@@ -16,7 +16,6 @@ export default async function addUserAction(data: {
     // Check if phone already exists
     const existingUser = await User.findOne({
         phone: data.phone,
-        isDeleted: false,
     }).lean();
     if (existingUser) {
         return {

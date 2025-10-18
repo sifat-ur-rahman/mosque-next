@@ -19,7 +19,10 @@ export default async function getUserProfile() {
     if (!decodedToken) {
         return null;
     }
-    const user = await User.findById(decodedToken.user._id)
+    const user = await User.findOne({
+        _id: decodedToken.user._id,
+        isDeleted: false,
+    })
         .select('-password')
         .lean();
     //  console.log({ user });
