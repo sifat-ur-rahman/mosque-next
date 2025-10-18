@@ -1,9 +1,11 @@
-import ComingSoon from '@/components/common/ComingSoon';
+import AllDonationsComponent from '@/components/main/donation/AllDonations';
+import getAllDonations from '@/server/actions/donations/gatDonations';
 
-function DonationPage() {
+async function DonationPage() {
+    const allDonations = await getAllDonations();
     return (
         <div>
-            <ComingSoon />
+            <AllDonationsComponent allDonations={allDonations} />
         </div>
     );
 }
