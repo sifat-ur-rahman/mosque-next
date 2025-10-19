@@ -33,9 +33,9 @@ function TowerControlQuickActions() {
                     title="আয়-ব্যয়"
                 />
                 <TowerControlActionCard
-                    href="/towercontrol/chanda"
+                    href="/towercontrol/donation"
                     icon={<FaDonate />}
-                    title="মাসিক চাঁদা"
+                    title="মাসিক টাকা আদায়"
                 />
                 <TowerControlActionCard
                     href="/towercontrol/qurbani"
