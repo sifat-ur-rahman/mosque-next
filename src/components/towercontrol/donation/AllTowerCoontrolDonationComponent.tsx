@@ -1,4 +1,5 @@
 'use client';
+import { updateDonationIsReadAction } from '@/server/actions/donations/updateDonationAction';
 import { IDonation } from '@/server/model/donations/donationType';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -10,7 +11,14 @@ function AllTowerControlDonationComponent({
     allDonations: IDonation[];
 }) {
     const [selected, setSelected] = useState<IDonation | null>(null);
+    const handleCardClick = async (donation: IDonation) => {
+        setSelected(donation);
 
+        // If donation is not read, mark it as read
+        if (!donation.isRead) {
+            await updateDonationIsReadAction(donation._id, true);
+        }
+    };
     return (
         <div className="min-h-screen bg-[#29173F] p-6 text-white">
             <div className="mb-6 flex items-center justify-between">
@@ -32,8 +40,12 @@ function AllTowerControlDonationComponent({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.4 }}
-                        onClick={() => setSelected(item)}
-                        className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform hover:scale-105`}
+                        onClick={() => handleCardClick(item)}
+                        className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform ${
+                            !item.isRead
+                                ? 'border border-[#D4AF37]'
+                                : 'bg-[#3C245A]'
+                        } `}
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D4AF37] font-roboto text-xl font-bold text-white">

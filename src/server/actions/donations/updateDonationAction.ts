@@ -30,6 +30,7 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
         donation.name = name ?? donation.name;
         donation.amount = amount ?? donation.amount;
         donation.due = due ?? donation.due;
+        donation.isRead = false;
         await donation.save();
         revalidatePath('/dashboard/donation');
 
@@ -60,11 +61,29 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
     donation.amount = amount ?? donation.amount;
     donation.due = due ?? donation.due;
     donation.numbering = numbering;
+    donation.isRead = false;
     await donation.save();
     revalidatePath('/dashboard/donation');
     return {
         success: true,
         message: `দাতার তথ্য সফলভাবে আপডেট হয়েছে।`,
+        donation,
+    };
+}
+
+// update donation action for isRead field
+export async function updateDonationIsReadAction(id: string, isRead: boolean) {
+    await connectMongo();
+    const donation = await Donation.findById(id);
+    if (!donation) {
+        return { success: false, message: 'দাতার তথ্য খুঁজে পাওয়া যায়নি!' };
+    }
+    donation.isRead = isRead;
+    await donation.save();
+    revalidatePath('/dashboard/donation');
+    return {
+        success: true,
+        message: 'দাতার তথ্য সফলভাবে আপডেট হয়েছে।',
         donation,
     };
 }
