@@ -2,13 +2,15 @@
 import { IDonation } from '@/server/model/donations/donationType';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useState } from 'react';
+import DashboardDonationModal from './DashboardDonationModal';
 
 function AllDashboardDonationComponent({
     allDonations,
 }: {
     allDonations: IDonation[];
 }) {
-    // const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    const [selected, setSelected] = useState<IDonation | null>(null);
 
     return (
         <div className="min-h-screen bg-[#29173F] p-6 text-white">
@@ -31,7 +33,7 @@ function AllDashboardDonationComponent({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.4 }}
-                        // onClick={() => setSelectedUser(user)}
+                        onClick={() => setSelected(item)}
                         className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform hover:scale-105`}
                     >
                         <div className="flex items-center gap-3">
@@ -63,7 +65,13 @@ function AllDashboardDonationComponent({
                     </motion.div>
                 ))}
             </div>
-            {/*  */}
+            {selected && (
+                <DashboardDonationModal
+                    donation={selected}
+                    isOpen={!!selected}
+                    onClose={() => setSelected(null)}
+                />
+            )}
         </div>
     );
 }
