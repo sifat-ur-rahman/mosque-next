@@ -18,22 +18,6 @@ html {
 }
 
 
-/* Hide page scrollbar only on mobile but keep scrolling */
-@media (max-width: 767px) {
-  html,
-  body {
-    overflow-y: scroll;          /* allow scrolling */
-    -ms-overflow-style: none;    /* IE and Edge */
-    scrollbar-width: none;       /* Firefox */
-  }
-
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    display: none;               /* Chrome, Safari, Opera */
-  }
-}
-
-
 .float-label-input:focus-within label,
 .float-label-input input:not(:placeholder-shown) + label {
     transform: translateY(-1.5rem) scale(0.75) translateX(-0.5rem);
