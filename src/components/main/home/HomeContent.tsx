@@ -50,7 +50,7 @@ function HomeContent() {
                                 </div>
                                 <div>
                                     <h4 className="mb-1 text-lg font-semibold text-[#D4AF37]">
-                                        মাসিক চাঁদা তথ্য
+                                        মাসিক টাকা আদায়
                                     </h4>
                                     <p className="text-[#C4B5A0]">
                                         প্রতি মাসে নির্ধারিত চাঁদার পরিমাণ ও
