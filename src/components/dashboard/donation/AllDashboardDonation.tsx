@@ -42,13 +42,22 @@ function AllDashboardDonationComponent({
                                 <h2 className="text-lg font-semibold">
                                     {item.name || 'নাম পাওয়া যায়নি'}
                                 </h2>
-                                <p className="text-sm">
-                                    নির্ধারিত:{' '}
-                                    <strong className="font-roboto">
-                                        {item.amount}
-                                    </strong>{' '}
-                                    ৳
-                                </p>
+                                <div className="mt-1 flex w-full items-center justify-between gap-8">
+                                    <p className="text-sm">
+                                        নির্ধারিত:{' '}
+                                        <strong className="font-roboto">
+                                            {item.amount}
+                                        </strong>{' '}
+                                        ৳
+                                    </p>
+                                    <p className="text-sm">
+                                        বকেয়াঃ{' '}
+                                        <strong className="font-roboto">
+                                            {item.due || 0}
+                                        </strong>{' '}
+                                        ৳
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
