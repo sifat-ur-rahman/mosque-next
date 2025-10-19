@@ -138,20 +138,20 @@ const ResponsiveHeader = ({ userRole }: any) => {
                                     {link.label}
                                 </Link>
                             ))}
-                            {userRole === 'Admin' ||
-                                (userRole === 'Moderator' && (
-                                    <Link
-                                        href="/dashboard"
-                                        onClick={() => setMenuOpen(false)}
-                                        className={`hover:text-purple-300 ${
-                                            isActive('/dashboard')
-                                                ? 'text-[#D4AF37]'
-                                                : ''
-                                        }`}
-                                    >
-                                        ড্যাশবোর্ড
-                                    </Link>
-                                ))}
+                            {(userRole === 'Admin' ||
+                                userRole === 'Moderator') && (
+                                <Link
+                                    href="/dashboard"
+                                    onClick={() => setMenuOpen(false)}
+                                    className={`hover:text-purple-300 ${
+                                        isActive('/dashboard')
+                                            ? 'text-[#D4AF37]'
+                                            : ''
+                                    }`}
+                                >
+                                    ড্যাশবোর্ড
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </section>
