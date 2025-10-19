@@ -3,9 +3,8 @@ import { IDonation } from '@/server/model/donations/donationType';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
-import DashboardDonationModal from './DashboardDonationModal';
-
-function AllDashboardDonationComponent({
+import TowerControlDonationModal from './TowerControlDonationModal';
+function AllTowerControlDonationComponent({
     allDonations,
 }: {
     allDonations: IDonation[];
@@ -66,7 +65,7 @@ function AllDashboardDonationComponent({
                 ))}
             </div>
             {selected && (
-                <DashboardDonationModal
+                <TowerControlDonationModal
                     donation={selected}
                     isOpen={!!selected}
                     onClose={() => setSelected(null)}
@@ -76,4 +75,4 @@ function AllDashboardDonationComponent({
     );
 }
 
-export default AllDashboardDonationComponent;
+export default AllTowerControlDonationComponent;

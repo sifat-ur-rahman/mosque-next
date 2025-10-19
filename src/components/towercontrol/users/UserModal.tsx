@@ -164,7 +164,10 @@ export default function UserModal({ user, isOpen, onClose }: UserModalProps) {
                                 </p>
                                 <div className="mt-2">
                                     <p className="font-semibold">
-                                        লগইন ইতিহাস:
+                                        লগইন ইতিহাস:{' '}
+                                        <span className="font-roboto font-bold">
+                                            ({user.loginTimeStamp.length})
+                                        </span>
                                     </p>
                                     {user.loginTimeStamp.length > 0 ? (
                                         <ul className="hide-scrollbar ml-2 max-h-[60px] list-disc overflow-y-auto text-sm">

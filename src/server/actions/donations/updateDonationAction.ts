@@ -2,18 +2,20 @@
 
 import Donation from '@/server/model/donations/donationModal';
 import connectMongo from '@/server/utils/connection';
+import { revalidatePath } from 'next/cache';
 
 interface UpdateDonationInput {
     id: string;
     name?: string;
     amount?: number;
     numbering?: number;
+    due?: number;
 }
 
 export default async function updateDonationAction(data: UpdateDonationInput) {
     await connectMongo();
 
-    const { id, name, amount, numbering } = data;
+    const { id, name, amount, numbering, due } = data;
 
     // Find current donation
     const donation = await Donation.findById(id);
@@ -27,7 +29,9 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
     if (numbering === undefined || numbering === oldNumbering) {
         donation.name = name ?? donation.name;
         donation.amount = amount ?? donation.amount;
+        donation.due = due ?? donation.due;
         await donation.save();
+        revalidatePath('/dashboard/donation');
 
         return {
             success: true,
@@ -54,9 +58,10 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
     // update current donation numbering and other fields
     donation.name = name ?? donation.name;
     donation.amount = amount ?? donation.amount;
+    donation.due = due ?? donation.due;
     donation.numbering = numbering;
     await donation.save();
-
+    revalidatePath('/dashboard/donation');
     return {
         success: true,
         message: `দাতার তথ্য সফলভাবে আপডেট হয়েছে।`,
