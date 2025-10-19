@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import ScrollToTop from '@/utils/ScrollToTop';
 import type { Metadata } from 'next';
 import { Inter, Roboto, Rubik, Tiro_Bangla } from 'next/font/google';
 import { Toaster } from 'sonner';
@@ -50,6 +51,7 @@ export default function RootLayout({
             <body
                 className={`${inter.variable} ${rubik.variable} ${roboto.variable} ${tiroBangla.variable} font-bangla antialiased`}
             >
+                <ScrollToTop />
                 {children}
                 <Toaster position="top-right" theme="dark" richColors />
             </body>

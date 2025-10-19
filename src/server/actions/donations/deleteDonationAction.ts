@@ -2,6 +2,7 @@
 
 import Donation from '@/server/model/donations/donationModal';
 import connectMongo from '@/server/utils/connection';
+import { revalidatePath } from 'next/cache';
 
 export default async function deleteDonationAction(id: string) {
     await connectMongo();
@@ -22,7 +23,7 @@ export default async function deleteDonationAction(id: string) {
         { numbering: { $gt: deletedNumbering } },
         { $inc: { numbering: -1 } },
     );
-
+    revalidatePath('/towercontrol/donation');
     return {
         success: true,
         message: `${deletedNumbering} নাম্বারের দাতা মুছে ফেলা হয়েছে `,

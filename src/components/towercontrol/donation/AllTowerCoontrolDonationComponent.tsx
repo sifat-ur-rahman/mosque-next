@@ -28,7 +28,7 @@ function AllTowerControlDonationComponent({
                 </h1>
                 <Link
                     className="rounded-lg border border-[#D4AF37]/50 p-2 text-center font-semibold text-[#D4AF37] transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#29173F]"
-                    href="/dashboard/donation/add"
+                    href="/towercontrol/donation/add"
                 >
                     নতুন দাতা যুক্ত করুন
                 </Link>

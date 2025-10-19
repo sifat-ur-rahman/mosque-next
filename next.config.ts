@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
         serverActions: {
             bodySizeLimit: '15mb',
         },
-        scrollRestoration: true,
+        scrollRestoration: false,
     },
     images: {
         // domains: []
