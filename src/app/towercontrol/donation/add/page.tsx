@@ -56,7 +56,7 @@ export default function AddDonationForm() {
             if (res.success) {
                 toast.success('দান সফলভাবে যুক্ত হয়েছে!');
                 reset();
-                router.push('/dashboard/donation');
+                router.push('/towercontrol/donation');
             } else {
                 toast.error(res.message || 'কিছু ভুল হয়েছে!');
             }

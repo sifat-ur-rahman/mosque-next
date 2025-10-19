@@ -1,12 +1,13 @@
 'use client';
 
+import deleteDonationAction from '@/server/actions/donations/deleteDonationAction';
 import { getDonationCount } from '@/server/actions/donations/gatDonations';
 import updateDonationAction from '@/server/actions/donations/updateDonationAction';
 import { IDonation } from '@/server/model/donations/donationType';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaPen } from 'react-icons/fa';
+import { FaPen, FaRegTrashAlt } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 
@@ -30,6 +31,7 @@ export default function TowerControlDonationModal({
 }: TowerControlDonationModalProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [donationCount, setDonationCount] = useState<number>(0);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const {
         register,
@@ -78,7 +80,20 @@ export default function TowerControlDonationModal({
             toast.error('দাতার তথ্য আপডেট করতে সমস্যা হয়েছে!');
         }
     };
-
+    const handleDelete = async () => {
+        try {
+            const res = await deleteDonationAction(donation._id);
+            if (!res.success) {
+                toast.error(res.message || 'Failed to delete!');
+                return;
+            }
+            toast.success(res.message || 'Deleted successfully!');
+            setShowDeleteModal(false);
+            onClose();
+        } catch {
+            toast.error('Error deleting!');
+        }
+    };
     return (
         <AnimatePresence>
             {isOpen && (
@@ -125,7 +140,7 @@ export default function TowerControlDonationModal({
                                     </p>
                                 </div>
 
-                                <div className="mt-6 flex justify-center">
+                                <div className="mt-6 flex justify-between">
                                     <button
                                         onClick={() => {
                                             reset();
@@ -134,6 +149,12 @@ export default function TowerControlDonationModal({
                                         className="flex items-center gap-1 rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-[#29173F] hover:opacity-90"
                                     >
                                         <FaPen /> পরিবর্তন করুন
+                                    </button>
+                                    <button
+                                        onClick={() => setShowDeleteModal(true)}
+                                        className="flex items-center gap-1 rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
+                                    >
+                                        <FaRegTrashAlt size={14} /> Delete
                                     </button>
                                 </div>
                             </>
@@ -263,6 +284,36 @@ export default function TowerControlDonationModal({
                         )}
                     </motion.div>
                 </motion.div>
+            )}
+
+            {/* ⚠️ Delete Confirmation Modal */}
+            {showDeleteModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+                    <div className="w-80 rounded-lg bg-[#3C245A] p-6 text-[#F5F3F0] shadow-lg">
+                        <p className="mb-4 text-center">
+                            আপনি কি নিশ্চিত আপনি{' '}
+                            <strong className="text-[#D4AF37]">
+                                {donation.name}
+                            </strong>{' '}
+                            কে মুছে ফেলতে চান?
+                        </p>
+
+                        <div className="flex justify-between">
+                            <button
+                                onClick={handleDelete}
+                                className="rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
+                            >
+                                Yes, Delete
+                            </button>
+                            <button
+                                onClick={() => setShowDeleteModal(false)}
+                                className="rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-black hover:opacity-90"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </AnimatePresence>
     );
