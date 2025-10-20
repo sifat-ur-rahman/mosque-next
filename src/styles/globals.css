@@ -85,3 +85,16 @@ html {
     font-size: 1.5rem; /* Increase size */
     color: black; /* Optional: Change color */
 }
+
+/* Hide scrollbar only on mobile but keep scrolling */
+@media (max-width: 767px) {
+    .hide-scrollbar-mobile {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        overflow-y: scroll; /* keep scrolling */
+    }
+
+    .hide-scrollbar-mobile::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+}

@@ -1,11 +1,18 @@
 import AllTowerControlDonationComponent from '@/components/towercontrol/donation/AllTowerCoontrolDonationComponent';
-import getAllDonations from '@/server/actions/donations/gatDonations';
+import {
+    getAllDonations,
+    getDonationSummaryAction,
+} from '@/server/actions/donations/gatDonations';
 
 async function page() {
     const allDonations = await getAllDonations();
+    const donationSummary = await getDonationSummaryAction();
     return (
         <>
-            <AllTowerControlDonationComponent allDonations={allDonations} />
+            <AllTowerControlDonationComponent
+                allDonations={allDonations}
+                donationSummary={donationSummary}
+            />
         </>
     );
 }

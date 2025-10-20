@@ -1,11 +1,18 @@
 import AllDonationsComponent from '@/components/main/donation/AllDonations';
-import getAllDonations from '@/server/actions/donations/gatDonations';
+import {
+    getAllDonations,
+    getDonationSummaryAction,
+} from '@/server/actions/donations/gatDonations';
 
 async function DonationPage() {
     const allDonations = await getAllDonations();
+    const donationSummary = await getDonationSummaryAction();
     return (
-        <div>
-            <AllDonationsComponent allDonations={allDonations} />
+        <div className="hide-scrollbar-mobile">
+            <AllDonationsComponent
+                allDonations={allDonations}
+                donationSummary={donationSummary}
+            />
         </div>
     );
 }
