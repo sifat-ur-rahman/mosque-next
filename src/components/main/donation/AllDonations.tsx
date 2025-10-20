@@ -4,19 +4,73 @@ import { motion } from 'framer-motion';
 
 function AllDonationsComponent({
     allDonations,
+    donationSummary,
 }: {
     allDonations: IDonation[];
+    donationSummary: {
+        totalCount: number;
+        totalAmount: number;
+        totalDue: number;
+    };
 }) {
-    // const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
-
     return (
-        <div className="min-h-screen bg-[#29173F] p-6 text-white">
+        <div className="hide-scrollbar-mobile min-h-screen bg-[#29173F] p-6 text-white">
             <div className="mb-6 flex items-center justify-center">
                 {' '}
                 <h1 className="text-xl font-bold md:text-3xl">
                     সকল মাসিক দাতার তালিকা
                 </h1>
             </div>
+            {/* Summary Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                // whileHover={{ scale: 1.05 }}
+                transition={{
+                    delay: 0.1,
+                    duration: 0.5,
+                    type: 'spring',
+                }}
+                viewport={{ once: true, amount: 0.2 }}
+                className="mb-6 flex justify-center"
+            >
+                <div className="w-full max-w-md rounded-2xl border border-[#D4AF37]/50 bg-[#3C245A] py-2 text-center shadow-lg">
+                    <div className="mb-2 border-b border-[#D4AF37]/50 pb-1">
+                        <p className="flex justify-between gap-2 px-4 text-base">
+                            <span className="font-semibold text-white">
+                                মোট দাতার সংখ্যা:
+                            </span>{' '}
+                            <span className="font-bold text-[#D4AF37]">
+                                <span className="font-roboto">
+                                    {' '}
+                                    {donationSummary?.totalCount || 0}
+                                </span>{' '}
+                                জন
+                            </span>
+                        </p>
+                    </div>
+                    <div className="mb-2 border-b border-[#D4AF37]/50 pb-1">
+                        <div className="flex justify-between gap-2 px-4 text-base">
+                            <p className="font-semibold text-white">
+                                মোট নির্ধারিত দান (প্রতি মাসে):
+                            </p>{' '}
+                            <p className="font-roboto font-bold text-[#D4AF37]">
+                                {donationSummary?.totalAmount || 0} ৳
+                            </p>
+                        </div>
+                    </div>
+                    <div className="">
+                        <p className="flex justify-between gap-2 px-4 text-base">
+                            <span className="font-semibold text-white">
+                                মোট বকেয়া:
+                            </span>{' '}
+                            <span className="font-roboto font-bold text-[#D4AF37]">
+                                {donationSummary?.totalDue || 0} ৳
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </motion.div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {allDonations.map((item, index) => (
                     <motion.div
