@@ -1,6 +1,7 @@
 'use client';
 import { updateDonationIsReadAction } from '@/server/actions/donations/updateDonationAction';
 import { IDonation } from '@/server/model/donations/donationType';
+import { formatBDT } from '@/utils/formatBDT';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -50,7 +51,9 @@ function AllTowerControlDonationComponent({
                             <span className="font-bold text-[#D4AF37]">
                                 <span className="font-roboto">
                                     {' '}
-                                    {donationSummary?.totalCount || 0}
+                                    {formatBDT(
+                                        donationSummary?.totalCount || 0,
+                                    )}
                                 </span>{' '}
                                 জন
                             </span>
@@ -62,7 +65,7 @@ function AllTowerControlDonationComponent({
                                 মোট নির্ধারিত দান (প্রতি মাসে):
                             </p>{' '}
                             <p className="font-roboto font-bold text-[#D4AF37]">
-                                {donationSummary?.totalAmount || 0} ৳
+                                {formatBDT(donationSummary?.totalAmount || 0)} ৳
                             </p>
                         </div>
                     </div>
@@ -72,7 +75,7 @@ function AllTowerControlDonationComponent({
                                 মোট বকেয়া:
                             </span>{' '}
                             <span className="font-roboto font-bold text-[#D4AF37]">
-                                {donationSummary?.totalDue || 0} ৳
+                                {formatBDT(donationSummary?.totalDue || 0)} ৳
                             </span>
                         </p>
                     </div>
