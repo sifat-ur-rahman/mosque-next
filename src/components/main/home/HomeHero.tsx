@@ -19,7 +19,7 @@ function HomeHero() {
             <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center">
                 {/* Islamic Calligraphy Image */}
                 <div className="flex justify-center">
-                    <div className="relative h-56 w-72">
+                    <div className="relative h-48 w-72 md:h-56">
                         <Image
                             width={500}
                             height={500}
@@ -31,7 +31,7 @@ function HomeHero() {
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="mb-6 text-5xl font-bold leading-[1.2] text-[#D4AF37] md:text-[72px]">
+                <h1 className="mb-6 text-4xl font-bold leading-[1.2] text-[#D4AF37] md:text-[72px]">
                     মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদে আপনাকে স্বাগতম
                 </h1>
 
