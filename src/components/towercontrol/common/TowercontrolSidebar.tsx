@@ -98,15 +98,32 @@ const menuItems: MenuItem[] = [
     },
     {
         id: '7',
-        label: 'সকল তথ্য',
+        label: 'স্লট ব্যবস্থাপনা',
         subItems: [
             {
                 id: '7.1',
+                label: 'সকল স্লট দেখুন',
+                link: '/towercontrol/slot',
+            },
+            {
+                id: '7.2',
+                label: 'নতুন স্লট যোগ করুন',
+                link: '/towercontrol/slot/add',
+            },
+        ],
+    },
+
+    {
+        id: '8',
+        label: 'সকল তথ্য',
+        subItems: [
+            {
+                id: '8.1',
                 label: 'সমস্ত ডাটা দেখুন',
                 link: '/towercontrol/all-data',
             },
             {
-                id: '7.2',
+                id: '8.2',
                 label: 'ডাটা আপডেট করুন',
                 link: '/towercontrol/all-data/edit',
             },
