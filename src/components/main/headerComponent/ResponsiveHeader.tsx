@@ -42,7 +42,7 @@ const ResponsiveHeader = ({ userRole }: ResponsiveHeaderProps) => {
     return (
         <>
             {/* Desktop Navbar */}
-            <header className="top-0 z-[100] w-full border-b border-[#D4AF37] bg-[#29173F] backdrop-blur-md md:sticky md:backdrop-blur-md">
+            <header className="sticky top-0 z-[100] w-full border-b border-[#D4AF37] bg-[#29173F] backdrop-blur-md">
                 <section className="container mx-auto">
                     <div className="mx-4 flex items-center justify-between py-2 text-white sm:mx-6 md:py-4">
                         {/* Mosque Name */}
