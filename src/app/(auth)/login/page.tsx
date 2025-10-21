@@ -2,6 +2,7 @@
 
 import loginAction from '@/server/actions/auth/login';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -132,8 +133,14 @@ export default function LoginPage() {
                 {/* Footer */}
                 <div className="mt-6 text-center text-xs text-[#C4B5A0]">
                     <p>
-                        © {new Date().getFullYear()} মনোহরপুর বায়তুন-নূর
-                        কেন্দ্রীয় জামে মসজিদ
+                        ©
+                        <span className="font-roboto">
+                            {' '}
+                            {new Date().getFullYear()}
+                        </span>
+                        <Link href="/" className="ml-1 hover:text-[#D4AF37]">
+                            মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদ
+                        </Link>
                     </p>
                 </div>
             </motion.div>
