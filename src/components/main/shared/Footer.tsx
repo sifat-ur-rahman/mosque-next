@@ -30,16 +30,20 @@ const Footer = () => {
                 </p>
 
                 {/* Copyright + Credit */}
-                <div className="border-t border-[#D4AF37]/20 pt-6">
+                <div className="border-t border-[#D4AF37]/20 pb-12 pt-6 md:pb-0">
                     <p className="mb-2 text-sm text-[#C4B5A0]">
-                        © {new Date().getFullYear()} মনোহরপুর বায়তুন-নূর
-                        কেন্দ্রীয় জামে মসজিদ — সর্বস্বত্ব সংরক্ষিত।
+                        ©{' '}
+                        <span className="font-roboto">
+                            {new Date().getFullYear()}
+                        </span>{' '}
+                        মনোহরপুর বায়তুন-নূর কেন্দ্রীয় জামে মসজিদ — সর্বস্বত্ব
+                        সংরক্ষিত।
                     </p>
                     <p>
                         <Link
                             href="https://sifat-4e9bc.web.app/"
                             target="_blank"
-                            className="font-medium text-[#F5F3F0] transition-all duration-300 hover:text-[#D4AF37]"
+                            className="font-roboto font-medium text-[#F5F3F0] transition-all duration-300 hover:text-[#D4AF37]"
                         >
                             Powered by Sifat
                         </Link>
