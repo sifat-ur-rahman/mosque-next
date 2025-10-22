@@ -1,0 +1,40 @@
+import mongoose, { Model, Schema } from 'mongoose';
+import { IIftar } from './IftarType';
+
+const IftarSchema = new Schema<IIftar>(
+    {
+        numbering: {
+            type: Number,
+            required: true,
+        },
+        slotId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Slot', // references the Slot model
+            required: true,
+        },
+        names: {
+            type: [String],
+            required: true,
+        },
+        date: {
+            type: Date,
+            required: true,
+        },
+        day: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+    },
+    {
+        timestamps: true,
+    },
+);
+
+export type IftarModel = Model<IIftar>;
+
+const Iftar =
+    (mongoose.models.Iftar as IftarModel) ||
+    mongoose.model<IIftar, IftarModel>('Iftar', IftarSchema);
+
+export default Iftar;
