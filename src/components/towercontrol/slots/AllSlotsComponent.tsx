@@ -4,6 +4,7 @@ import { ISlot } from '@/server/model/slots/slotType';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
+import ShotModal from './ShotModal';
 
 interface AllSlotsComponentProps {
     allSlots: {
@@ -100,7 +101,7 @@ export default function AllSlotsComponent({
                                         </p>
                                         <p>
                                             সাল:{' '}
-                                            <span className="font-bold">
+                                            <span className="font-roboto font-bold">
                                                 {slot.year}
                                             </span>
                                         </p>
@@ -109,7 +110,11 @@ export default function AllSlotsComponent({
                                         <p>
                                             নাম্বারিং:{' '}
                                             <span className="font-bold">
-                                                {slot.numbering} তম
+                                                <span className="font-roboto">
+                                                    {' '}
+                                                    {slot.numbering}
+                                                </span>{' '}
+                                                তম
                                             </span>
                                         </p>
                                         <p className="text-xs text-gray-300">
@@ -128,46 +133,10 @@ export default function AllSlotsComponent({
 
             {/* Simple Slot Modal */}
             {selectedSlot && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-                    onClick={() => setSelectedSlot(null)}
-                >
-                    <motion.div
-                        onClick={(e) => e.stopPropagation()}
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="w-96 rounded-2xl bg-[#3C245A] p-6 text-white shadow-lg"
-                    >
-                        <h2 className="mb-3 text-xl font-bold">
-                            {selectedSlot.title}
-                        </h2>
-                        <p>
-                            <strong>টাইপ:</strong> {selectedSlot.type}
-                        </p>
-                        <p>
-                            <strong>সময়:</strong> {selectedSlot.time}
-                        </p>
-                        <p>
-                            <strong>সাল:</strong> {selectedSlot.year}
-                        </p>
-                        <p>
-                            <strong>নাম্বারিং:</strong> {selectedSlot.numbering}{' '}
-                            তম
-                        </p>
-                        <p className="mt-3 text-sm text-gray-300">
-                            তৈরি:{' '}
-                            {new Date(selectedSlot.createdAt).toLocaleString(
-                                'bn-BD',
-                            )}
-                        </p>
-                        <button
-                            onClick={() => setSelectedSlot(null)}
-                            className="mt-5 w-full rounded-lg bg-[#D4AF37] py-2 font-bold text-[#29173F] hover:bg-[#e3c65d]"
-                        >
-                            Close
-                        </button>
-                    </motion.div>
-                </div>
+                <ShotModal
+                    selectedSlot={selectedSlot}
+                    setSelectedSlot={setSelectedSlot}
+                />
             )}
         </div>
     );
