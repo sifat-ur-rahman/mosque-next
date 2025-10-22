@@ -39,7 +39,7 @@ export async function getAllSlotsGroupedByType() {
 }
 
 // Fetch active slots by type Use=> //getActiveSlotsByType('Iftar')
-export async function getActiveSlotsByType(type: string) {
+export async function getActiveSlotByType(type: string) {
     try {
         await connectMongo();
 

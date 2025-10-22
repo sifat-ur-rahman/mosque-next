@@ -8,7 +8,7 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { IoArrowBack } from 'react-icons/io5';
 
 import { addIftarAction } from '@/server/actions/iftar/addIftarAction';
-import { getActiveSlotsByType } from '@/server/actions/slots/getSoltAction';
+import { getActiveSlotByType } from '@/server/actions/slots/getSoltAction';
 import { ISlot } from '@/server/model/slots/slotType';
 import mongoose, { Types } from 'mongoose';
 import { toast } from 'sonner';
@@ -52,7 +52,7 @@ export default function AddIftarForm() {
 
     useEffect(() => {
         async function fetchSlots() {
-            const activeSlots = await getActiveSlotsByType('Iftar');
+            const activeSlots = await getActiveSlotByType('Iftar');
             setSlots(activeSlots as ISlot);
             setLoading(false);
         }
