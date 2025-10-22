@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 
 export interface IIftar {
     _id: string;
-    numbering: number;
+    numbering: string;
     slotId: Types.ObjectId;
     names: string[];
     date: Date;

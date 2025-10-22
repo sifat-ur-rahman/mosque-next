@@ -4,12 +4,12 @@ import { IIftar } from './IftarType';
 const IftarSchema = new Schema<IIftar>(
     {
         numbering: {
-            type: Number,
+            type: String,
             required: true,
         },
         slotId: {
             type: Schema.Types.ObjectId,
-            ref: 'Slot', // references the Slot model
+            ref: 'Slot',
             required: true,
         },
         names: {
