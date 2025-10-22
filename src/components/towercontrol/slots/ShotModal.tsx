@@ -142,11 +142,18 @@ export default function ShotModal({
                                     <div className="flex justify-between">
                                         <p>
                                             <strong>সাল:</strong>{' '}
-                                            {selectedSlot.year}
+                                            <span className="font-roboto font-bold">
+                                                {' '}
+                                                {selectedSlot.year}
+                                            </span>
                                         </p>
                                         <p>
                                             <strong>নাম্বারিং:</strong>{' '}
-                                            {selectedSlot.numbering} তম
+                                            <span className="font-roboto font-bold">
+                                                {' '}
+                                                {selectedSlot.numbering}{' '}
+                                            </span>
+                                            তম
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-6">

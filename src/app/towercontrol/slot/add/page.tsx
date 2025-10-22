@@ -23,6 +23,7 @@ export default function AddSlotForm() {
         if (res.success) {
             toast.success('স্লট সফলভাবে যোগ করা হয়েছে');
             reset();
+            router.push('/towercontrol/slot');
         } else {
             toast.error('স্লট যোগ করতে ব্যর্থ হয়েছে');
         }

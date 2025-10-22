@@ -25,7 +25,7 @@ export default async function addSlotAction(data: Partial<ISlot>) {
         });
 
         // Optional: revalidate the page where slots are displayed
-        revalidatePath('/towercontrol/slots');
+        revalidatePath('/towercontrol/slot');
 
         return {
             success: true,

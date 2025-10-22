@@ -21,7 +21,7 @@ export async function updateSlotAction(id: string, data: Partial<ISlot>) {
         }
 
         // Revalidate slot list page if needed
-        revalidatePath('/towercontrol/slots');
+        revalidatePath('/towercontrol/slot');
 
         return {
             success: true,
@@ -65,7 +65,7 @@ export async function updateSlotActiveStatus(id: string, type: string) {
         }
 
         //  Revalidate page
-        revalidatePath('/towercontrol/slots');
+        revalidatePath('/towercontrol/slot');
 
         return {
             success: true,

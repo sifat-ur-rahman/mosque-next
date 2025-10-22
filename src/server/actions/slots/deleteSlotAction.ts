@@ -22,7 +22,7 @@ export async function deleteSlotAction(id: string) {
         }
 
         // Optional: Revalidate the slot list page
-        revalidatePath('/towercontrol/slots');
+        revalidatePath('/towercontrol/slot');
 
         return {
             success: true,
