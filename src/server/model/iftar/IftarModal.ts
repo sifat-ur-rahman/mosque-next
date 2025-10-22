@@ -14,10 +14,11 @@ const IftarSchema = new Schema<IIftar>(
         },
         names: {
             type: [String],
-            required: true,
+            //required: true,
+            default: [],
         },
         date: {
-            type: Date,
+            type: String,
             required: true,
         },
         day: {

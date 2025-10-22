@@ -5,7 +5,7 @@ import { IIftar } from '@/server/model/iftar/IftarType';
 import connectMongo from '@/server/utils/connection';
 import { revalidatePath } from 'next/cache';
 
-export async function addIftar(data: IIftar) {
+export async function addIftarAction(data: Partial<IIftar>) {
     try {
         // Ensure DB connection
         await connectMongo();

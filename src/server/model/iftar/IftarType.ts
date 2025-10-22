@@ -5,7 +5,7 @@ export interface IIftar {
     numbering: string;
     slotId: Types.ObjectId;
     names: string[];
-    date: Date;
+    date: string;
     day: string;
     createdAt: Date;
     updatedAt: Date;
