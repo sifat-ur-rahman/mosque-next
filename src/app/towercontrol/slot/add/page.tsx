@@ -123,6 +123,23 @@ export default function AddSlotForm() {
                             </p>
                         )}
                     </div>
+                    <div>
+                        <label className="mb-1 block text-sm text-[#D4AF37]">
+                            সাল
+                        </label>
+                        <input
+                            type="number"
+                            {...register('year', { required: true })}
+                            className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
+                            placeholder="যেমনঃ ২০২৬"
+                        />
+                        {errors.year && (
+                            <p className="mt-1 text-xs text-red-400">
+                                সাল প্রদান করতে হবে
+                            </p>
+                        )}
+                    </div>
+
                     <div className="flex flex-col gap-3 pt-4">
                         {/* Submit */}
                         <button

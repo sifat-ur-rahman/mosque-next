@@ -28,13 +28,6 @@ interface SlotModalProps {
     setSelectedSlot: (slot: ISlot | null) => void;
 }
 
-type SlotFormData = {
-    title: string;
-    time: string;
-    numbering: number;
-    isActive: boolean;
-};
-
 export default function ShotModal({
     selectedSlot,
     setSelectedSlot,
@@ -47,16 +40,16 @@ export default function ShotModal({
         handleSubmit,
         formState: { errors, isSubmitting },
         reset,
-    } = useForm<SlotFormData>({
+    } = useForm<Partial<ISlot>>({
         defaultValues: {
             title: selectedSlot.title,
             time: selectedSlot.time,
             numbering: selectedSlot.numbering,
-            isActive: selectedSlot.isActive,
+            year: selectedSlot.year,
         },
     });
 
-    const onSubmit = async (data: SlotFormData) => {
+    const onSubmit = async (data: Partial<ISlot>) => {
         try {
             // TODO: Replace this with your actual updateSlotAction()
             const res = await updateSlotAction(selectedSlot._id, data);
@@ -251,6 +244,20 @@ export default function ShotModal({
                                         {...register('numbering', {
                                             valueAsNumber: true,
                                             required: 'নাম্বারিং প্রয়োজন',
+                                        })}
+                                        className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-roboto text-sm text-white focus:border-[#D4AF37] focus:outline-none"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block text-sm text-[#D4AF37]">
+                                        সাল
+                                    </label>
+                                    <input
+                                        type="number"
+                                        {...register('year', {
+                                            valueAsNumber: true,
+                                            required: 'সাল প্রয়োজন',
                                         })}
                                         className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-roboto text-sm text-white focus:border-[#D4AF37] focus:outline-none"
                                     />
