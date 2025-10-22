@@ -1,5 +1,10 @@
 'use client';
 
+import { deleteSlotAction } from '@/server/actions/slots/deleteSlotAction';
+import {
+    updateSlotAction,
+    updateSlotActiveStatus,
+} from '@/server/actions/slots/updateSlotAction';
 import { ISlot } from '@/server/model/slots/slotType';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
@@ -54,12 +59,15 @@ export default function ShotModal({
     const onSubmit = async (data: SlotFormData) => {
         try {
             // TODO: Replace this with your actual updateSlotAction()
-            // const res = await updateSlotAction({ id: selectedSlot._id, ...data });
+            const res = await updateSlotAction(selectedSlot._id, data);
             console.log('Updating slot with:', data);
-
-            toast.success('স্লট সফলভাবে আপডেট হয়েছে!');
-            setIsEditing(false);
-            setSelectedSlot(null);
+            if (res.success) {
+                toast.success('স্লট সফলভাবে আপডেট হয়েছে!');
+                setIsEditing(false);
+                setSelectedSlot(null);
+            } else {
+                toast.error('আপডেট ব্যর্থ হয়েছে!');
+            }
         } catch {
             toast.error('আপডেট ব্যর্থ হয়েছে!');
         }
@@ -67,9 +75,8 @@ export default function ShotModal({
 
     const handleDelete = async () => {
         try {
-            // TODO: Replace this with your actual deleteSlotAction()
-            // const res = await deleteSlotAction(selectedSlot._id);
-            console.log('Deleting slot:', selectedSlot._id);
+            await deleteSlotAction(selectedSlot._id);
+            //  console.log('Deleting slot:', selectedSlot._id);
 
             toast.success('স্লট সফলভাবে মুছে ফেলা হয়েছে!');
             setShowDeleteModal(false);
@@ -80,12 +87,13 @@ export default function ShotModal({
     };
     const handleSlotActivation = async () => {
         try {
-            // TODO: Replace this with your actual deleteSlotAction()
-            // const res = await deleteSlotAction(selectedSlot._id);
-            console.log('Activating slot:', selectedSlot._id);
-
+            const res = await updateSlotActiveStatus(
+                selectedSlot._id,
+                selectedSlot.type,
+            );
+            // console.log('Slot activation response:', res);
             toast.success('স্লট সফলভাবে সক্রিয় করা হয়েছে!');
-            setShowDeleteModal(false);
+
             setSelectedSlot(null);
         } catch {
             toast.error('স্লট সক্রিয় করতে সমস্যা হয়েছে!');

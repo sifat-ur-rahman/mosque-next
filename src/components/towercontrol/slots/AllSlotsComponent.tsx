@@ -81,10 +81,10 @@ export default function AllSlotsComponent({
                                         {slot.title}
                                     </h3>
                                     <span
-                                        className={`rounded-full px-3 py-1 font-roboto text-xs font-bold ${
+                                        className={`rounded-full px-3 py-1 font-roboto text-xs font-bold text-white ${
                                             slot.isActive
-                                                ? 'bg-green-500 text-white'
-                                                : 'bg-gray-500 text-white'
+                                                ? 'bg-green-500'
+                                                : 'bg-gray-500'
                                         }`}
                                     >
                                         {slot.isActive ? 'Active' : 'Inactive'}
