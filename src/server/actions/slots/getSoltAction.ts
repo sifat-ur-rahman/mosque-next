@@ -31,17 +31,10 @@ export async function getAllSlotsGroupedByType() {
             (a, b) => typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type),
         );
 
-        return {
-            success: true,
-            data: groupedSlots,
-        };
+        return groupedSlots;
     } catch (error: any) {
         console.error('Error fetching grouped slots:', error);
-        return {
-            success: false,
-            message: 'Failed to fetch grouped slots.',
-            error: error.message,
-        };
+        return [];
     }
 }
 
