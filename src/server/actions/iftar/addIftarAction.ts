@@ -9,7 +9,7 @@ export async function addIftarAction(data: Partial<IIftar>) {
     try {
         // Ensure DB connection
         await connectMongo();
-        console.log('data', data);
+        // console.log('data', data);
         // Create new Iftar document
         const newIftar = await Iftar.create(data);
         const plainIftar = newIftar.toObject({ versionKey: false });

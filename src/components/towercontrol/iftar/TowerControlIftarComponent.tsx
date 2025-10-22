@@ -13,7 +13,7 @@ function TowerControlIftarComponent({
     allIftars: IIftar[];
     slot: ISlot;
 }) {
-    console.log(slot);
+    //  console.log(slot);
     const [selectedIftar, setSelectedIftar] = useState<IIftar | null>(null);
 
     const handleCardClick = (iftar: IIftar) => {
