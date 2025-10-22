@@ -10,12 +10,12 @@ import { IoArrowBack } from 'react-icons/io5';
 import { addIftarAction } from '@/server/actions/iftar/addIftarAction';
 import { getActiveSlotsByType } from '@/server/actions/slots/getSoltAction';
 import { ISlot } from '@/server/model/slots/slotType';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { toast } from 'sonner';
 
 interface IftarFormValues {
     numbering: string;
-    slotId: mongoose.Types.ObjectId;
+    slotId: Types.ObjectId;
     names: string[];
     date: string;
     day: string;
@@ -59,12 +59,20 @@ export default function AddIftarForm() {
         fetchSlots();
     }, []);
 
-    if (loading) return <div className="p-5 text-white">লোড হচ্ছে...</div>;
+    if (loading)
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div>
+            </div>
+        );
+
     if (!slots)
         return (
-            <div className="p-5 text-white">
-                কোনো সক্রিয় ইফতার স্লট পাওয়া যায়নি। দয়া করে প্রথমে স্লট যোগ
-                করুন।
+            <div className="flex h-screen items-center justify-center">
+                <p className="p-5 text-white">
+                    কোনো সক্রিয় ইফতার স্লট পাওয়া যায়নি। দয়া করে প্রথমে স্লট
+                    যোগ করুন।
+                </p>
             </div>
         );
 
@@ -72,22 +80,20 @@ export default function AddIftarForm() {
         try {
             const reqData: IftarFormValues = {
                 numbering: data.numbering,
-                slotId: new mongoose.Types.ObjectId(slots._id),
+                slotId: slots._id as any,
                 names: data.names.filter((n) => n.trim() !== ''),
                 date: data.date,
                 day: data.day,
             };
 
-            if (reqData.names.length === 0) {
-                toast.error('কমপক্ষে একটি নাম দিতে হবে');
-                return;
+            const res = await addIftarAction(reqData);
+            if (res.success) {
+                toast.success('ইফতার সফলভাবে যোগ করা হয়েছে');
+                reset();
+                router.push('/towercontrol/iftar');
+            } else {
+                toast.error(res.message || 'ইফতার যোগ করতে ব্যর্থ হয়েছে');
             }
-
-            await addIftarAction(reqData);
-
-            toast.success('ইফতার সফলভাবে যোগ করা হয়েছে');
-            reset();
-            router.push('/towercontrol/iftar');
         } catch (err) {
             console.error(err);
             toast.error('ইফতার যোগ করতে ব্যর্থ হয়েছে');
@@ -121,21 +127,62 @@ export default function AddIftarForm() {
                     {/* Numbering */}
                     <div>
                         <label className="mb-1 block text-sm text-[#D4AF37]">
-                            নম্বর
+                            রমজান
                         </label>
                         <input
                             type="number"
                             {...register('numbering', { required: true })}
                             className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
-                            placeholder="যেমনঃ ৪০"
+                            placeholder="যেমনঃ ০১"
                         />
                         {errors.numbering && (
                             <p className="mt-1 text-xs text-red-400">
-                                নম্বর প্রদান করতে হবে
+                                রমজান প্রদান করতে হবে
                             </p>
                         )}
                     </div>
 
+                    {/* Date */}
+                    <div>
+                        <label className="mb-1 block text-sm text-[#D4AF37]">
+                            তারিখ
+                        </label>
+                        <input
+                            type="date"
+                            {...register('date', { required: true })}
+                            className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
+                        />
+                        {errors.date && (
+                            <p className="mt-1 text-xs text-red-400">
+                                তারিখ প্রদান করতে হবে
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Day */}
+                    <div>
+                        <label className="mb-1 block text-sm text-[#D4AF37]">
+                            বার
+                        </label>
+                        <select
+                            {...register('day', { required: true })}
+                            className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
+                        >
+                            <option value="">দিন নির্বাচন করুন</option>
+                            <option value="শনিবার">শনিবার</option>
+                            <option value="রবিবার">রবিবার</option>
+                            <option value="সোমবার">সোমবার</option>
+                            <option value="মঙ্গলবার">মঙ্গলবার</option>
+                            <option value="বুধবার">বুধবার</option>
+                            <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
+                            <option value="শুক্রবার">শুক্রবার</option>
+                        </select>
+                        {errors.day && (
+                            <p className="mt-1 text-xs text-red-400">
+                                দিন নির্বাচন করতে হবে
+                            </p>
+                        )}
+                    </div>
                     {/* Names */}
                     <div>
                         <label className="mb-1 flex items-center justify-between text-sm text-[#D4AF37]">
@@ -183,49 +230,6 @@ export default function AddIftarForm() {
                             </p>
                         )}
                     </div>
-
-                    {/* Date */}
-                    <div>
-                        <label className="mb-1 block text-sm text-[#D4AF37]">
-                            তারিখ
-                        </label>
-                        <input
-                            type="date"
-                            {...register('date', { required: true })}
-                            className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
-                        />
-                        {errors.date && (
-                            <p className="mt-1 text-xs text-red-400">
-                                তারিখ প্রদান করতে হবে
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Day */}
-                    <div>
-                        <label className="mb-1 block text-sm text-[#D4AF37]">
-                            দিন
-                        </label>
-                        <select
-                            {...register('day', { required: true })}
-                            className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
-                        >
-                            <option value="">দিন নির্বাচন করুন</option>
-                            <option value="রবিবার">রবিবার</option>
-                            <option value="সোমবার">সোমবার</option>
-                            <option value="মঙ্গলবার">মঙ্গলবার</option>
-                            <option value="বুধবার">বুধবার</option>
-                            <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
-                            <option value="শুক্রবার">শুক্রবার</option>
-                            <option value="শনিবার">শনিবার</option>
-                        </select>
-                        {errors.day && (
-                            <p className="mt-1 text-xs text-red-400">
-                                দিন নির্বাচন করতে হবে
-                            </p>
-                        )}
-                    </div>
-
                     {/* Submit */}
                     <div className="flex flex-col gap-3 pt-4">
                         <button

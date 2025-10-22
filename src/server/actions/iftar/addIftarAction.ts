@@ -9,9 +9,10 @@ export async function addIftarAction(data: Partial<IIftar>) {
     try {
         // Ensure DB connection
         await connectMongo();
-
+        console.log('data', data);
         // Create new Iftar document
         const newIftar = await Iftar.create(data);
+        const plainIftar = newIftar.toObject({ versionKey: false });
 
         // Revalidate any page or route if needed
         revalidatePath('/towercontrol/iftar');
@@ -19,7 +20,7 @@ export async function addIftarAction(data: Partial<IIftar>) {
         return {
             success: true,
             message: 'Iftar added successfully!',
-            iftar: newIftar,
+            iftar: plainIftar,
         };
     } catch (error: any) {
         console.error('Error adding Iftar:', error);
