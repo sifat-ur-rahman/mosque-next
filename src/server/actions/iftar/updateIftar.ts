@@ -3,7 +3,6 @@
 import Iftar from '@/server/model/iftar/IftarModal';
 import { IIftar } from '@/server/model/iftar/IftarType';
 import connectMongo from '@/server/utils/connection';
-import { Types } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
 export async function updateIftarAction(
@@ -12,13 +11,6 @@ export async function updateIftarAction(
 ) {
     try {
         await connectMongo();
-
-        if (!Types.ObjectId.isValid(id)) {
-            return {
-                success: false,
-                message: 'Invalid Iftar ID format',
-            };
-        }
 
         const iftar = await Iftar.findByIdAndUpdate(id, updatedData, {
             new: true,
@@ -53,13 +45,6 @@ export async function updateIftarNamesAction(id: string, names: string[]) {
     try {
         await connectMongo();
 
-        if (!Types.ObjectId.isValid(id)) {
-            return {
-                success: false,
-                message: 'Invalid Iftar ID',
-            };
-        }
-
         const updatedIftar = await Iftar.findByIdAndUpdate(
             id,
             { names },
@@ -74,7 +59,7 @@ export async function updateIftarNamesAction(id: string, names: string[]) {
         }
 
         // Optional: revalidate the page if using ISR or caching
-        revalidatePath('/iftar'); // adjust path as needed
+        revalidatePath('/iftar');
 
         return {
             success: true,
