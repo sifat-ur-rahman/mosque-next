@@ -5,11 +5,16 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
 import FamilyModal from './FamilyModal';
-// import { formatBDT } from '@/utils/formatBDT';
-// import TowerControlFamilyModal from './TowerControlFamilyModal'; // create a modal for family details
 
 function AllFamilyComponent({ allFamilies }: { allFamilies: IFamily[] }) {
     const [selected, setSelected] = useState<IFamily | null>(null);
+
+    if (!allFamilies || allFamilies.length === 0)
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div>
+            </div>
+        );
 
     const totalMembers = allFamilies.reduce(
         (acc, f) => acc + (f.members || 0),

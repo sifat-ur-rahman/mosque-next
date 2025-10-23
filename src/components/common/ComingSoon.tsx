@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { IoMoonSharp } from 'react-icons/io5';
 
-const ComingSoon = () => {
+const ComingSoon = ({ title }: { title?: string }) => {
     return (
         <section className="flex min-h-screen items-center justify-center bg-[#29173F] px-6 text-center">
             <div className="max-w-2xl">
@@ -25,7 +25,7 @@ const ComingSoon = () => {
                     transition={{ delay: 0.2, duration: 1 }}
                     className="mb-4 text-4xl font-bold text-[#D4AF37] md:text-5xl"
                 >
-                    শীঘ্রই আসছে
+                    {title ? `${title}` : 'শীঘ্রই আসছে'}
                 </motion.h1>
 
                 {/* Subheading */}
