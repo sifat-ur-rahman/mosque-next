@@ -42,7 +42,7 @@ function HomeServices() {
                                 loading="lazy"
                                 width={500}
                                 height={500}
-                                src="/qurbani-cow.png"
+                                src="/qurbani.png"
                                 alt="নামাজ শিক্ষা"
                                 className="h-48 w-full rounded-lg object-cover"
                             />

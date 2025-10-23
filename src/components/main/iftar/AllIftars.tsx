@@ -1,5 +1,6 @@
 'use client';
 
+import ComingSoon from '@/components/common/ComingSoon';
 import { IIftar } from '@/server/model/iftar/IftarType';
 import { ISlot } from '@/server/model/slots/slotType';
 import { motion } from 'framer-motion';
@@ -14,15 +15,12 @@ function AllIftarComponent({
     if (!allIftars || allIftars.length === 0) {
         return (
             <div className="min-h-screen bg-[#29173F] p-6 text-white">
-                <div className="mb-6 flex items-center justify-between">
-                    <h1 className="text-center text-xl font-bold md:text-3xl">
-                        {slot?.title} -{' '}
-                        <span className="font-roboto"> {slot.year}</span>
-                    </h1>
-                </div>
-                <p className="text-center text-2xl font-semibold">
-                    ইফতার তালিকা পাওয়া যায়নি
-                </p>
+                <h1 className="text-center text-xl font-bold md:text-3xl">
+                    {slot?.title} -{' '}
+                    <span className="font-roboto"> {slot.year}</span>
+                </h1>
+
+                <ComingSoon title="ইফতার তালিকা তৈরি হচ্ছে" />
             </div>
         );
     }
