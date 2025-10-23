@@ -5,7 +5,7 @@ import connectMongo from '@/server/utils/connection';
 import { Types } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
-export async function deleteIftar(id: string) {
+export async function deleteIftarAction(id: string) {
     try {
         await connectMongo();
 

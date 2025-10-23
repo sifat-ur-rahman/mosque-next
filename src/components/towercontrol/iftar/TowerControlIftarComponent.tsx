@@ -5,6 +5,7 @@ import { ISlot } from '@/server/model/slots/slotType';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
+import TowerControlIftarModal from './TowerControlIftarModal';
 
 function TowerControlIftarComponent({
     allIftars,
@@ -47,10 +48,10 @@ function TowerControlIftarComponent({
                         className="flex cursor-pointer flex-col gap-3 rounded-2xl border border-[#D4AF37] bg-[#3C245A] p-4 shadow-lg"
                     >
                         <div className="flex items-start gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D4AF37] font-roboto text-xl font-bold text-white">
+                            <div className="flex h-10 w-11 items-center justify-center rounded-full border-2 border-[#D4AF37] font-roboto text-xl font-bold text-white">
                                 {item.numbering}
                             </div>
-                            <div>
+                            <div className="w-full">
                                 <p className="mb-1 text-xl font-bold text-[#D4AF37]">
                                     {new Date(item.date).toLocaleDateString(
                                         'bn-BD',
@@ -60,9 +61,11 @@ function TowerControlIftarComponent({
                                     {item.day}
                                 </p>
                                 {item.names.length > 0 ? (
-                                    <ul className="mt-1 list-inside list-disc text-sm">
+                                    <ul className="mt-1 grid list-inside list-disc grid-cols-2 justify-between gap-10 text-sm">
                                         {item.names.map((name, idx) => (
-                                            <li key={idx}>{name}</li>
+                                            <li className="" key={idx}>
+                                                {name}
+                                            </li>
                                         ))}
                                     </ul>
                                 ) : (
@@ -76,14 +79,13 @@ function TowerControlIftarComponent({
                 ))}
             </div>
 
-            {/* Modal */}
-            {/* {selectedIftar && (
+            {selectedIftar && (
                 <TowerControlIftarModal
                     iftar={selectedIftar}
                     isOpen={!!selectedIftar}
                     onClose={() => setSelectedIftar(null)}
                 />
-            )} */}
+            )}
         </div>
     );
 }

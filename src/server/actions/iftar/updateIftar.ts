@@ -6,7 +6,10 @@ import connectMongo from '@/server/utils/connection';
 import { Types } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
-export async function updateIftar(id: string, updatedData: Partial<IIftar>) {
+export async function updateIftarAction(
+    id: string,
+    updatedData: Partial<IIftar>,
+) {
     try {
         await connectMongo();
 
@@ -46,7 +49,7 @@ export async function updateIftar(id: string, updatedData: Partial<IIftar>) {
     }
 }
 
-export async function updateIftarNames(id: string, names: string[]) {
+export async function updateIftarNamesAction(id: string, names: string[]) {
     try {
         await connectMongo();
 
