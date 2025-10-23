@@ -45,7 +45,7 @@ export default function DashboardIftarModal({
                 names: data.names,
             });
             if (res.success) {
-                toast.success('নাম তালিকা সফলভাবে আপডেট হয়েছে!');
+                toast.success('তালিকা সফলভাবে আপডেট হয়েছে!');
                 setIsEditing(false);
                 onClose();
             } else {

@@ -21,23 +21,19 @@ function QuickActions() {
 
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                 {/* Card */}
-                <ActionCard
-                    href="#" ///admin/members
-                    icon={<FaUsers />}
-                    title="আয়-ব্যয়"
-                />
+                <ActionCard href="#" icon={<FaUsers />} title="আয়-ব্যয়" />
                 <ActionCard
                     href="/dashboard/donation"
                     icon={<FaDonate />}
                     title="মাসিক টাকা আদায়"
                 />
                 <ActionCard
-                    href="#" ///admin/qurbani
+                    href="/dashboard/qurbani"
                     icon={<FaMosque />}
                     title="কোরবানির তালিকা"
                 />
                 <ActionCard
-                    href="#" ///admin/iftar
+                    href="/dashboard/iftar"
                     icon={<FaCalendarAlt />}
                     title="ইফতারির তালিকা"
                 />

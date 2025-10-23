@@ -2,19 +2,11 @@
 
 import Iftar from '@/server/model/iftar/IftarModal';
 import connectMongo from '@/server/utils/connection';
-import { Types } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
 export async function deleteIftarAction(id: string) {
     try {
         await connectMongo();
-
-        if (!Types.ObjectId.isValid(id)) {
-            return {
-                success: false,
-                message: 'Invalid Iftar ID',
-            };
-        }
 
         const deletedIftar = await Iftar.findByIdAndDelete(id);
 
@@ -26,7 +18,7 @@ export async function deleteIftarAction(id: string) {
         }
 
         // Optional: revalidate page cache
-        revalidatePath('/iftar'); // adjust path if needed
+        revalidatePath('/iftar');
 
         return {
             success: true,
