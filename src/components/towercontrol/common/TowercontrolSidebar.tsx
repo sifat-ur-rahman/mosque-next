@@ -112,18 +112,34 @@ const menuItems: MenuItem[] = [
             },
         ],
     },
-
     {
         id: '8',
-        label: 'সকল তথ্য',
+        label: 'পরিবার ব্যবস্থাপনা',
         subItems: [
             {
                 id: '8.1',
+                label: 'সকল পরিবার দেখুন',
+                link: '/towercontrol/family',
+            },
+            {
+                id: '8.2',
+                label: 'নতুন পরিবার যোগ করুন',
+                link: '/towercontrol/family/add',
+            },
+        ],
+    },
+
+    {
+        id: '9',
+        label: 'সকল তথ্য',
+        subItems: [
+            {
+                id: '9.1',
                 label: 'সমস্ত ডাটা দেখুন',
                 link: '/towercontrol/all-data',
             },
             {
-                id: '8.2',
+                id: '9.2',
                 label: 'ডাটা আপডেট করুন',
                 link: '/towercontrol/all-data/edit',
             },

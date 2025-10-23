@@ -76,3 +76,16 @@ export async function getFamilyByNumberingAction(numbering: number) {
         };
     }
 }
+
+// Get total family count
+export async function getFamilyCountAction() {
+    try {
+        await connectMongo();
+
+        const count = await Family.countDocuments().lean();
+
+        return count;
+    } catch (error: any) {
+        console.error('Get family count error:', error);
+    }
+}

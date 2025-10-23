@@ -19,7 +19,7 @@ const FamilySchema = new Schema<IFamily>(
         },
         phone: {
             type: String,
-            required: true,
+            default: '',
             trim: true,
         },
     },
