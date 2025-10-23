@@ -10,16 +10,9 @@ export async function getAllFamiliesAction() {
 
         const families = await Family.find().sort({ numbering: 1 }).lean();
 
-        return {
-            success: true,
-            families,
-        };
+        return families;
     } catch (error: any) {
         console.error('Get all families error:', error);
-        return {
-            success: false,
-            message: error.message || 'পরিবারের তথ্য আনা যায়নি।',
-        };
     }
 }
 
