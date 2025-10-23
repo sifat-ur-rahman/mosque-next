@@ -53,7 +53,7 @@ export default function ShotModal({
         try {
             // TODO: Replace this with your actual updateSlotAction()
             const res = await updateSlotAction(selectedSlot._id, data);
-            console.log('Updating slot with:', data);
+            // console.log('Updating slot with:', data);
             if (res.success) {
                 toast.success('স্লট সফলভাবে আপডেট হয়েছে!');
                 setIsEditing(false);

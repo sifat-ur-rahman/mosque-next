@@ -39,7 +39,7 @@ export async function getAllSlotsGroupedByType() {
 }
 
 // Fetch active slots by type Use=> //getActiveSlotsByType('Iftar')
-export async function getActiveSlotsByType(type: string) {
+export async function getActiveSlotByType(type: string) {
     try {
         await connectMongo();
 
@@ -47,33 +47,16 @@ export async function getActiveSlotsByType(type: string) {
             return { success: false, message: 'Slot type is required.' };
         }
 
-        const slots = await Slot.find({
+        const slots = await Slot.findOne({
             type,
             isActive: true,
         })
             .sort({ numbering: 1 })
             .lean();
 
-        if (!slots.length) {
-            return {
-                success: false,
-                message: `No active slots found for type: ${type}`,
-                data: [],
-            };
-        }
-
-        return {
-            success: true,
-            message: `Active slots for ${type}`,
-            data: slots,
-        };
+        return slots;
     } catch (error: any) {
         console.error('Error fetching slots by type:', error);
-        return {
-            success: false,
-            message: 'Failed to fetch slots.',
-            error: error.message,
-        };
     }
 }
 
