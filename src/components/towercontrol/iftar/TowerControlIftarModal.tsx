@@ -61,10 +61,14 @@ export default function TowerControlIftarModal({
 
     const handleDelete = async () => {
         try {
-            await deleteIftarAction(iftar._id);
-            toast.success('ইফতার সফলভাবে মুছে ফেলা হয়েছে!');
-            setShowDeleteModal(false);
-            onClose();
+            const res = await deleteIftarAction(iftar._id);
+            if (res.success) {
+                toast.success('ইফতার সফলভাবে মুছে ফেলা হয়েছে!');
+                setShowDeleteModal(false);
+                onClose();
+            } else {
+                toast.error('মুছে ফেলতে ব্যর্থ হয়েছে!');
+            }
         } catch {
             toast.error('ইফতার মুছে ফেলতে সমস্যা হয়েছে!');
         }
