@@ -1,13 +1,12 @@
 'use client';
 
-import { deleteIftarAction } from '@/server/actions/iftar/deleteIftar';
 import { updateIftarAction } from '@/server/actions/iftar/updateIftar';
 import { IIftar } from '@/server/model/iftar/IftarType';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { FaPen, FaRegTrashAlt } from 'react-icons/fa';
+import { FaPen } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 
@@ -17,13 +16,12 @@ interface IftarModalProps {
     onClose: () => void;
 }
 
-export default function TowerControlIftarModal({
+export default function DashboardIftarModal({
     iftar,
     isOpen,
     onClose,
 }: IftarModalProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const {
         register,
@@ -32,9 +30,6 @@ export default function TowerControlIftarModal({
         formState: { errors, isSubmitting },
     } = useForm<IIftar>({
         defaultValues: {
-            numbering: iftar.numbering,
-            date: iftar.date,
-            day: iftar.day,
             names: iftar.names,
         },
     });
@@ -46,9 +41,11 @@ export default function TowerControlIftarModal({
 
     const onSubmit = async (data: IIftar) => {
         try {
-            const res = await updateIftarAction(iftar._id, data);
+            const res = await updateIftarAction(iftar._id, {
+                names: data.names,
+            });
             if (res.success) {
-                toast.success('ইফতার সফলভাবে আপডেট হয়েছে!');
+                toast.success('নাম তালিকা সফলভাবে আপডেট হয়েছে!');
                 setIsEditing(false);
                 onClose();
             } else {
@@ -56,17 +53,6 @@ export default function TowerControlIftarModal({
             }
         } catch {
             toast.error('আপডেট ব্যর্থ হয়েছে!');
-        }
-    };
-
-    const handleDelete = async () => {
-        try {
-            await deleteIftarAction(iftar._id);
-            toast.success('ইফতার সফলভাবে মুছে ফেলা হয়েছে!');
-            setShowDeleteModal(false);
-            onClose();
-        } catch {
-            toast.error('ইফতার মুছে ফেলতে সমস্যা হয়েছে!');
         }
     };
 
@@ -107,9 +93,7 @@ export default function TowerControlIftarModal({
                                     <div className="flex justify-between">
                                         <p>
                                             <strong>নম্বর:</strong>{' '}
-                                            <span className="font-roboto">
-                                                {iftar.numbering}
-                                            </span>
+                                            {iftar.numbering}
                                         </p>
                                         <p>
                                             <strong>তারিখ:</strong>{' '}
@@ -142,18 +126,12 @@ export default function TowerControlIftarModal({
                                     </div>
                                 </div>
 
-                                <div className="mt-6 flex justify-between">
+                                <div className="mt-6 flex justify-center">
                                     <button
                                         onClick={() => setIsEditing(true)}
                                         className="flex items-center gap-1 rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-[#29173F] hover:opacity-90"
                                     >
-                                        <FaPen size={14} /> Edit
-                                    </button>
-                                    <button
-                                        onClick={() => setShowDeleteModal(true)}
-                                        className="flex items-center gap-1 rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
-                                    >
-                                        <FaRegTrashAlt size={14} /> Delete
+                                        <FaPen size={14} /> Edit Names
                                     </button>
                                 </div>
                             </>
@@ -163,67 +141,9 @@ export default function TowerControlIftarModal({
                                 className="flex flex-col gap-3"
                             >
                                 <h2 className="mb-4 text-center text-xl font-bold text-[#D4AF37]">
-                                    ইফতার আপডেট করুন
+                                    নাম তালিকা আপডেট করুন
                                 </h2>
 
-                                {/* numbering */}
-                                <div>
-                                    <label className="mb-1 block text-sm text-[#D4AF37]">
-                                        নম্বর
-                                    </label>
-                                    <input
-                                        {...register('numbering', {
-                                            required: true,
-                                        })}
-                                        className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-roboto text-sm text-white"
-                                    />
-                                </div>
-
-                                {/* date */}
-                                <div>
-                                    <label className="mb-1 block text-sm text-[#D4AF37]">
-                                        তারিখ
-                                    </label>
-                                    <input
-                                        type="date"
-                                        {...register('date', {
-                                            required: true,
-                                        })}
-                                        className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-roboto text-sm text-white"
-                                    />
-                                </div>
-
-                                {/* day */}
-                                <div>
-                                    <label className="mb-1 block text-sm text-[#D4AF37]">
-                                        বার
-                                    </label>
-                                    <select
-                                        {...register('day', { required: true })}
-                                        className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
-                                    >
-                                        <option value="শনিবার">শনিবার</option>
-                                        <option value="রবিবার">রবিবার</option>
-                                        <option value="সোমবার">সোমবার</option>
-                                        <option value="মঙ্গলবার">
-                                            মঙ্গলবার
-                                        </option>
-                                        <option value="বুধবার">বুধবার</option>
-                                        <option value="বৃহস্পতিবার">
-                                            বৃহস্পতিবার
-                                        </option>
-                                        <option value="শুক্রবার">
-                                            শুক্রবার
-                                        </option>
-                                    </select>
-                                    {errors.day && (
-                                        <p className="mt-1 text-xs text-red-400">
-                                            দিন নির্বাচন করতে হবে
-                                        </p>
-                                    )}
-                                </div>
-
-                                {/* Names */}
                                 <div>
                                     <label className="mb-1 flex items-center justify-between text-sm text-[#D4AF37]">
                                         নামসমূহ
@@ -295,38 +215,6 @@ export default function TowerControlIftarModal({
                             </form>
                         )}
                     </motion.div>
-
-                    {/* Delete Modal */}
-                    {showDeleteModal && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-                            <div className="w-80 rounded-lg bg-[#3C245A] p-6 text-[#F5F3F0] shadow-lg">
-                                <p className="mb-4 text-center">
-                                    আপনি কি নিশ্চিত আপনি{' '}
-                                    <strong className="text-[#D4AF37]">
-                                        {iftar.numbering}
-                                    </strong>{' '}
-                                    নম্বর ইফতারটি মুছে ফেলতে চান?
-                                </p>
-
-                                <div className="flex justify-between">
-                                    <button
-                                        onClick={handleDelete}
-                                        className="rounded-md bg-red-500 px-3 py-1 font-semibold text-white hover:opacity-90"
-                                    >
-                                        হ্যাঁ, মুছুন
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            setShowDeleteModal(false)
-                                        }
-                                        className="rounded-md bg-[#D4AF37] px-3 py-1 font-semibold text-black hover:opacity-90"
-                                    >
-                                        বাতিল
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </motion.div>
             )}
         </AnimatePresence>

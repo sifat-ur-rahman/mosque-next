@@ -150,7 +150,7 @@ export default function AddIftarForm() {
                         <input
                             type="date"
                             {...register('date', { required: true })}
-                            className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
+                            className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 font-roboto text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
                         />
                         {errors.date && (
                             <p className="mt-1 text-xs text-red-400">

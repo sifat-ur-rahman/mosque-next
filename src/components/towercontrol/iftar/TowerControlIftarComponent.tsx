@@ -61,7 +61,7 @@ function TowerControlIftarComponent({
                                     {item.day}
                                 </p>
                                 {item.names.length > 0 ? (
-                                    <ul className="mt-1 grid list-inside list-disc grid-cols-2 justify-between gap-10 text-sm">
+                                    <ul className="mt-1 grid list-inside list-disc grid-cols-2 justify-between text-sm">
                                         {item.names.map((name, idx) => (
                                             <li className="" key={idx}>
                                                 {name}
