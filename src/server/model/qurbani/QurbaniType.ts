@@ -22,3 +22,18 @@ export interface FamilyQurbaniInput {
     animalType: 'cow' | 'goat' | 'camel' | 'sheep' | 'other' | '';
     foreignMember?: number;
 }
+
+export interface QurbaniData {
+    _id: string;
+    name: string;
+    members: number;
+    phone: string;
+    numbering: number;
+    qurbani?: {
+        _id: string;
+        isQurbani: boolean;
+        animalType: string;
+        foreignMember: number | null;
+        isRead: boolean;
+    };
+}
