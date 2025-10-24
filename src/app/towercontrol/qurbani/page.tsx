@@ -10,7 +10,10 @@ async function AllQurbaniPage() {
     console.log(res.data);
     return (
         <div>
-            <TowerControlQurbaniComponent data={res.data} />
+            <TowerControlQurbaniComponent
+                data={res?.data}
+                slotId={slotId?._id}
+            />
         </div>
     );
 }

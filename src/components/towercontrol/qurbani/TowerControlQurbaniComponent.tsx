@@ -3,8 +3,15 @@
 import { QurbaniData } from '@/server/model/qurbani/QurbaniType';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import TowerControlQurbaniModal from './TowerControlQurbaniModal';
 
-function TowerControlQurbaniComponent({ data }: { data: QurbaniData[] }) {
+function TowerControlQurbaniComponent({
+    data,
+    slotId,
+}: {
+    data: QurbaniData[];
+    slotId: string;
+}) {
     const [selected, setSelected] = useState<QurbaniData | null>(null);
 
     if (!data || data.length === 0)
@@ -136,7 +143,17 @@ function TowerControlQurbaniComponent({ data }: { data: QurbaniData[] }) {
             </div>
 
             {/* Modal Placeholder */}
-            {selected && <></>}
+            {selected && (
+                <>
+                    <TowerControlQurbaniModal
+                        qurbani={selected.qurbani}
+                        familyId={selected?._id || ''}
+                        slotId={slotId}
+                        isOpen={!!selected}
+                        onClose={() => setSelected(null)}
+                    />
+                </>
+            )}
         </div>
     );
 }

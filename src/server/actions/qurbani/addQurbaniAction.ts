@@ -17,8 +17,8 @@ export async function addQurbaniAction(data: Partial<IQurbani>) {
 
         // Create a new Qurbani entry
         const qurbani = await Qurbani.create({
-            slotId: data.slotId,
-            familyId: data.familyId,
+            slotId: data.slotId?.toString(),
+            familyId: data.familyId?.toString(),
             isQurbani: data.isQurbani ?? false,
             animalType: data.animalType,
             foreignMember: data.foreignMember ?? 0,
