@@ -15,15 +15,27 @@ export async function addQurbaniAction(data: Partial<IQurbani>) {
     try {
         await connectMongo();
 
-        // Create a new Qurbani entry
-        const qurbani = await Qurbani.create({
-            slotId: data.slotId?.toString(),
-            familyId: data.familyId?.toString(),
-            isQurbani: data.isQurbani ?? false,
-            animalType: data.animalType,
-            foreignMember: data.foreignMember ?? 0,
-            isRead: data.isRead ?? false,
-        });
+        // Ensure slotId and familyId are strings
+        const slotId = data.slotId?.toString();
+        const familyId = data.familyId?.toString();
+
+        if (!slotId || !familyId) {
+            throw new Error('Slot ID and Family ID are required');
+        }
+
+        // Upsert: update if exists, otherwise create
+        const qurbani = await Qurbani.findOneAndUpdate(
+            { slotId, familyId }, // filter
+            {
+                $set: {
+                    isQurbani: data.isQurbani ?? false,
+                    animalType: data.animalType,
+                    foreignMember: data.foreignMember ?? 0,
+                    isRead: data.isRead ?? false,
+                },
+            },
+            { new: true, upsert: true }, // return updated doc, create if not exists
+        );
         revalidatePath('/qurbani');
 
         return {

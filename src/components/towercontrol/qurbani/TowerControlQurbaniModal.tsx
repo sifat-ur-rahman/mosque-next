@@ -33,7 +33,7 @@ export default function TowerControlQurbaniModal({
 }: IQurbaniModalProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    console.log(qurbani);
+
     const {
         register,
         handleSubmit,
@@ -57,6 +57,10 @@ export default function TowerControlQurbaniModal({
     }, [qurbani, reset]);
 
     const onSubmit = async (data: FormData) => {
+        if (data.isQurbani === false) {
+            data.animalType = '';
+        }
+
         try {
             const res = await addQurbaniAction({
                 ...data,
