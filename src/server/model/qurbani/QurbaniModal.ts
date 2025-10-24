@@ -19,8 +19,8 @@ const QurbaniSchema = new Schema<IQurbani>(
         },
         animalType: {
             type: String,
-            enum: ['cow', 'goat', 'camel', 'sheep', 'other'],
-            default: 'goat',
+            enum: ['cow', 'goat', 'camel', 'sheep', 'other', ''],
+            default: '',
         },
         foreignMember: {
             type: Number,

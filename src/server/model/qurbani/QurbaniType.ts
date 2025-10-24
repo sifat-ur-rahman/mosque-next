@@ -5,7 +5,7 @@ export interface IQurbani {
     slotId: Types.ObjectId;
     familyId: Types.ObjectId;
     isQurbani: boolean;
-    animalType: 'cow' | 'goat' | 'camel' | 'sheep' | 'other';
+    animalType: 'cow' | 'goat' | 'camel' | 'sheep' | 'other' | '';
     foreignMember: number;
     isRead: boolean;
     createdAt: Date;
@@ -19,6 +19,6 @@ export interface FamilyQurbaniInput {
     numbering?: number;
     isQurbani: boolean;
     slotId: string;
-    animalType: 'cow' | 'goat' | 'camel' | 'sheep' | 'other';
+    animalType: 'cow' | 'goat' | 'camel' | 'sheep' | 'other' | '';
     foreignMember?: number;
 }
