@@ -22,6 +22,10 @@ const FamilySchema = new Schema<IFamily>(
             default: '',
             trim: true,
         },
+        isRead: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

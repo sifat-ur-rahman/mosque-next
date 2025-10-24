@@ -4,6 +4,7 @@ export interface IFamily {
     name: string;
     members: number;
     phone: string;
+    isRead: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

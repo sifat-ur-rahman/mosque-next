@@ -7,6 +7,7 @@ export interface IIftar {
     names: string[];
     date: string;
     day: string;
+    isRead: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
