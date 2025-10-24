@@ -2,6 +2,7 @@
 
 import Qurbani from '@/server/model/qurbani/QurbaniModal';
 import connectMongo from '@/server/utils/connection';
+import { revalidatePath } from 'next/cache';
 import deleteFamilyAction from '../family/deleteFamilyAction';
 
 // Delete only Qurbani by ID
@@ -17,7 +18,7 @@ export async function deleteQurbaniAction(id: string) {
                 message: 'কোরবানি তথ্য খুঁজে পাওয়া যায়নি।',
             };
         }
-
+        revalidatePath('/qurbani');
         return {
             success: true,
             message: 'কোরবানি সফলভাবে মুছে ফেলা হয়েছে।',
@@ -55,6 +56,7 @@ export async function deleteQurbaniWithFamilyAction(qurbaniId: string) {
         // Delete the associated Family
         await deleteFamilyAction(familyId.toString());
 
+        revalidatePath('/qurbani');
         return {
             success: true,
             message: 'কোরবানি এবং পরিবার সফলভাবে মুছে ফেলা হয়েছে।',

@@ -4,6 +4,7 @@ import connectMongo from '@/server/utils/connection';
 
 import Qurbani from '@/server/model/qurbani/QurbaniModal';
 import { IQurbani } from '@/server/model/qurbani/QurbaniType';
+import { revalidatePath } from 'next/cache';
 
 export async function updateQurbaniAction(id: string, data: Partial<IQurbani>) {
     try {
@@ -25,7 +26,7 @@ export async function updateQurbaniAction(id: string, data: Partial<IQurbani>) {
                 message: 'কোরবানি তথ্য খুঁজে পাওয়া যায়নি।',
             };
         }
-
+        revalidatePath('/qurbani');
         return {
             success: true,
             message: 'কোরবানি তথ্য সফলভাবে হালনাগাদ হয়েছে।',

@@ -7,6 +7,7 @@ import {
     IQurbani,
 } from '@/server/model/qurbani/QurbaniType';
 import connectMongo from '@/server/utils/connection';
+import { revalidatePath } from 'next/cache';
 import { addFamilyAction } from '../family/addFamilyAction';
 import deleteFamilyAction from '../family/deleteFamilyAction';
 
@@ -23,6 +24,7 @@ export async function addQurbaniAction(data: Partial<IQurbani>) {
             foreignMember: data.foreignMember ?? 0,
             isRead: data.isRead ?? false,
         });
+        revalidatePath('/qurbani');
 
         return {
             success: true,
@@ -72,6 +74,7 @@ export async function addFamilyWithQurbaniAction(data: FamilyQurbaniInput) {
 
         // ✅ Step 4: Create Qurbani
         const qurbani = await Qurbani.create(qurbaniData);
+        revalidatePath('/qurbani');
 
         return {
             success: true,
