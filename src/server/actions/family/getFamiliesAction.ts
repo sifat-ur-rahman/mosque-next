@@ -2,6 +2,7 @@
 
 import Family from '@/server/model/family/FamilyModal';
 import connectMongo from '@/server/utils/connection';
+import mongoose from 'mongoose';
 
 // Get all families
 export async function getAllFamiliesAction() {
@@ -80,5 +81,94 @@ export async function getFamilyCountAction() {
         return count;
     } catch (error: any) {
         console.error('Get family count error:', error);
+    }
+}
+
+export async function getFamilyWithQurbaniBySlotId(slotId: string) {
+    try {
+        await connectMongo();
+
+        // Convert slotId to ObjectId
+        const slotObjectId = new mongoose.Types.ObjectId(slotId);
+
+        // Aggregation pipeline
+        const familiesWithQurbani = await Family.aggregate([
+            {
+                // Fetch all families (remove $match or add filter if needed)
+                $match: {},
+            },
+            {
+                // Lookup Qurbani for this family and slotId
+                $lookup: {
+                    from: 'qurbanis',
+                    let: { familyId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        { $eq: ['$familyId', '$$familyId'] },
+                                        { $eq: ['$slotId', slotObjectId] },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                animalType: 1,
+                                foreignMember: 1,
+                                isQurbani: 1,
+                                isRead: 1,
+                            },
+                        },
+                    ],
+                    as: 'qurbani',
+                },
+            },
+            {
+                // Flatten the qurbani array to single object or null
+                $addFields: {
+                    qurbani: { $arrayElemAt: ['$qurbani', 0] },
+                },
+            },
+            {
+                // Sort families by members descending
+                $sort: { members: -1 },
+            },
+            {
+                // Only include required fields
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    members: 1,
+                    phone: 1,
+                    qurbani: 1,
+                },
+            },
+        ]);
+
+        // Add sequential numbering to families only
+        const familiesWithNumbering = familiesWithQurbani.map(
+            (family, index) => ({
+                ...family,
+                numbering: index + 1, // 1, 2, 3...
+            }),
+        );
+
+        return {
+            success: true,
+            message: `${familiesWithNumbering.length} টি পরিবার পাওয়া গেছে।`,
+            data: familiesWithNumbering,
+        };
+    } catch (error: any) {
+        console.error('Get Family with Qurbani by Slot error:', error);
+        return {
+            success: false,
+            message:
+                error.message ||
+                'ফ্যামিলি এবং কোরবানি তথ্য আনতে সমস্যা হয়েছে।',
+            data: [],
+        };
     }
 }
