@@ -7,7 +7,7 @@ async function QurbaniPage() {
     const res = await getFamilyWithQurbaniBySlotId(
         slotId ? slotId._id.toString() : '',
     );
-    console.log({ res });
+    // console.log({ res });
     return (
         <div>
             <QurbaniComponent data={res?.data} slotId={slotId} />

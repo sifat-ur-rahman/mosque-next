@@ -14,12 +14,6 @@ function QurbaniComponent({
 }) {
     const [openSummary, setOpenSummary] = useState(false);
 
-    if (!data || data.length === 0)
-        return (
-            <div className="flex h-screen items-center justify-center">
-                <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div>
-            </div>
-        );
     //  Optimized calculations using useMemo
     const summary = useMemo(() => {
         const totalFamilies = data.length;
@@ -63,6 +57,14 @@ function QurbaniComponent({
             qurbaniFalseFamilies,
         };
     }, [data]);
+
+    if (!data || data.length === 0)
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div>
+            </div>
+        );
+
     return (
         <div className="min-h-screen bg-[#29173F] p-6 text-white">
             {/* Header */}
@@ -125,7 +127,7 @@ function QurbaniComponent({
                                     </div>
 
                                     <div className="flex justify-between border-t border-[#D4AF37]/30 pt-2">
-                                        <span>কুরবানি দিচ্ছে পরিবার:</span>
+                                        <span>✅ কুরবানি দিচ্ছে পরিবার:</span>
                                         <span className="font-roboto text-[#D4AF37]">
                                             {summary.totalQurbani} পরিবার
                                         </span>

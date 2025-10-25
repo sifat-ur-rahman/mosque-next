@@ -67,7 +67,7 @@ export default function TowerControlQurbaniModal({
                 familyId: familyId as any,
                 slotId: slotId as any,
             });
-            console.log(res);
+            // console.log(res);
             if (!res.success) {
                 toast.error(res.message || 'কোরবানি আপডেট ব্যর্থ হয়েছে!');
                 return;
