@@ -26,6 +26,10 @@ const IftarSchema = new Schema<IIftar>(
             required: true,
             trim: true,
         },
+        isRead: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

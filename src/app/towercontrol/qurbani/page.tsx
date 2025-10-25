@@ -1,18 +1,21 @@
-import QurbaniComponent from '@/components/main/qurbani/QurbaniComponent';
+import TowerControlQurbaniComponent from '@/components/towercontrol/qurbani/TowerControlQurbaniComponent';
 import { getFamilyWithQurbaniBySlotId } from '@/server/actions/family/getFamiliesAction';
 import { getActiveSlotByType } from '@/server/actions/slots/getSoltAction';
 
-async function QurbaniPage() {
+async function AllQurbaniPage() {
     const slotId: any = await getActiveSlotByType('Qurbani');
     const res = await getFamilyWithQurbaniBySlotId(
         slotId ? slotId._id.toString() : '',
     );
-    // console.log({ res });
+    console.log(res.data);
     return (
         <div>
-            <QurbaniComponent data={res?.data} slotId={slotId} />
+            <TowerControlQurbaniComponent
+                data={res?.data}
+                slotId={slotId?._id}
+            />
         </div>
     );
 }
 
-export default QurbaniPage;
+export default AllQurbaniPage;
