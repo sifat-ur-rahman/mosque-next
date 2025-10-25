@@ -1,4 +1,4 @@
-import ComingSoon from '@/components/common/ComingSoon';
+import QurbaniComponent from '@/components/main/qurbani/QurbaniComponent';
 import { getFamilyWithQurbaniBySlotId } from '@/server/actions/family/getFamiliesAction';
 import { getActiveSlotByType } from '@/server/actions/slots/getSoltAction';
 
@@ -10,7 +10,7 @@ async function QurbaniPage() {
     console.log({ res });
     return (
         <div>
-            <ComingSoon />
+            <QurbaniComponent data={res?.data} slotId={slotId} />
         </div>
     );
 }
