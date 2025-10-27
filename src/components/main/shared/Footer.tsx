@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="relative overflow-hidden border-t border-[#D4AF37]/20 bg-[#1A0F2E] px-6 pb-10 pt-16 text-[#F5F3F0]">
             {/* Decorative Background Pattern */}
-            <div className="absolute inset-0 bg-[url('/islamic-geometric-pattern-gold.png')] bg-repeat opacity-10"></div>
+            <div className="absolute inset-0 bg-[url('https://d13mnxosmylakr.cloudfront.net/contents/products/6508abef-8e16-4dfa-b639-a5c19fcf3c09/1761540899134_islamic-geometric-pattern-gold.png')] bg-repeat opacity-10"></div>
 
             <div className="relative mx-auto max-w-5xl text-center">
                 {/* Mosque Name */}

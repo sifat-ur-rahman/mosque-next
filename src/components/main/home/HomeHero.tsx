@@ -8,7 +8,7 @@ function HomeHero() {
                 <div
                     className="absolute inset-0"
                     style={{
-                        backgroundImage: `url('/islamic-geometric-pattern-gold.png')`,
+                        backgroundImage: `url('https://d13mnxosmylakr.cloudfront.net/contents/products/6508abef-8e16-4dfa-b639-a5c19fcf3c09/1761540899134_islamic-geometric-pattern-gold.png')`,
                         backgroundSize: '400px 400px',
                         backgroundRepeat: 'repeat',
                     }}
