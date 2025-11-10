@@ -127,7 +127,7 @@ function QurbaniComponent({
                                     </div>
 
                                     <div className="flex justify-between border-t border-[#D4AF37]/30 pt-2">
-                                        <span>✅ কুরবানি দিচ্ছে পরিবার:</span>
+                                        <span>কুরবানি দিচ্ছে পরিবার:</span>
                                         <span className="font-roboto text-[#D4AF37]">
                                             {summary.totalQurbani} পরিবার
                                         </span>

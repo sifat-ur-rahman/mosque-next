@@ -7,7 +7,7 @@ async function AllQurbaniPage() {
     const res = await getFamilyWithQurbaniBySlotId(
         slotId ? slotId._id.toString() : '',
     );
-    console.log(res.data);
+    //  console.log(res.data);
     return (
         <div>
             <TowerControlQurbaniComponent
