@@ -41,7 +41,7 @@ const Footer = () => {
                     </p>
                     <p>
                         <Link
-                            href="https://sifat-4e9bc.web.app/"
+                            href="https://sifat-ur-rahman.vercel.app"
                             target="_blank"
                             className="font-roboto font-medium text-[#F5F3F0] transition-all duration-300 hover:text-[#D4AF37]"
                         >
