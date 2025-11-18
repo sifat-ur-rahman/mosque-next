@@ -13,7 +13,7 @@ function AllFamilyComponent({ allFamilies }: { allFamilies: IFamily[] }) {
     if (!allFamilies || allFamilies.length === 0)
         return (
             <div className="flex h-screen items-center justify-center">
-                <ComingSoon title="কোরবানি তালিকা তৈরি হচ্ছে" />
+                <ComingSoon title="পরিবারের তালিকা তৈরি হচ্ছে" />
 
                 {/* <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div> */}
             </div>
