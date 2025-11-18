@@ -1,5 +1,6 @@
 'use client';
 
+import ComingSoon from '@/components/common/ComingSoon';
 import { QurbaniData } from '@/server/model/qurbani/QurbaniType';
 import { ISlot } from '@/server/model/slots/slotType';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -61,7 +62,8 @@ function QurbaniComponent({
     if (!data || data.length === 0)
         return (
             <div className="flex h-screen items-center justify-center">
-                <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div>
+                {/* <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-[#3C245A] border-t-[#D4AF37]"></div> */}
+                <ComingSoon title="কোরবানি তালিকা তৈরি হচ্ছে" />
             </div>
         );
 
