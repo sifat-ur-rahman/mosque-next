@@ -82,7 +82,7 @@ function AllDonationsComponent({
                         whileInView={{ opacity: 1, y: 0 }}
                         whileHover={{ scale: 1.05 }}
                         transition={{
-                            delay: index * 0.1,
+                            delay:  0.1,
                             duration: 0.5,
                             type: 'spring',
                         }}
