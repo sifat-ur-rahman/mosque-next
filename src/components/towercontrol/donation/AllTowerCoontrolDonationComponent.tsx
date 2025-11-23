@@ -119,6 +119,20 @@ function AllTowerControlDonationComponent({
                                         </strong>{' '}
                                         ৳
                                     </p>
+                                    {/* দানের ধরন দেখানো — শুধুমাত্র monthly না হলে */}
+                                    {item.type && item.type !== 'monthly' && (
+                                        <p className="mt-1 text-sm">
+                                            <strong className="">
+                                                {item.type === 'one-time'
+                                                    ? 'এককালীন'
+                                                    : item.type === 'yearly'
+                                                      ? 'বাৎসরিক'
+                                                      : item.type === 'other'
+                                                        ? 'অন্যান্য'
+                                                        : ''}
+                                            </strong>
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
