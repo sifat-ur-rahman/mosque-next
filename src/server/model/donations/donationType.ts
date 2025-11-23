@@ -1,6 +1,7 @@
 export interface IDonation {
     _id: string;
     numbering: number;
+    type: string;
     name: string;
     amount: number;
     isRead: boolean;
