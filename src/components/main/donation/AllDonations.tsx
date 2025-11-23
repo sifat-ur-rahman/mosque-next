@@ -74,7 +74,7 @@ function AllDonationsComponent({
                     </div>
                 </div>
             </motion.div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:mb-7 md:grid-cols-3">
                 {allDonations.map((item, index) => (
                     <motion.div
                         key={item._id}

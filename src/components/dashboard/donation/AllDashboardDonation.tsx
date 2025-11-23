@@ -20,7 +20,7 @@ function AllDashboardDonationComponent({
     const [selected, setSelected] = useState<IDonation | null>(null);
 
     return (
-        <div className="min-h-screen bg-[#29173F] p-6 text-white">
+        <div className="min-h-screen bg-[#29173F] p-6 text-white md:mb-7">
             <div className="mb-6 flex items-center justify-between">
                 {' '}
                 <h1 className="text-xl font-bold md:text-3xl">
