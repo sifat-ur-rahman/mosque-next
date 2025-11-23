@@ -10,6 +10,8 @@ interface UpdateDonationInput {
     amount?: number;
     numbering?: number;
     due?: number;
+    isRead?: boolean;
+    type?: string;
 }
 
 export default async function updateDonationAction(data: UpdateDonationInput) {
@@ -30,6 +32,7 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
         donation.name = name ?? donation.name;
         donation.amount = amount ?? donation.amount;
         donation.due = due ?? donation.due;
+        donation.type = data.type ?? donation.type;
         donation.isRead = false;
         await donation.save();
         revalidatePath('/dashboard/donation');
@@ -61,6 +64,7 @@ export default async function updateDonationAction(data: UpdateDonationInput) {
     donation.amount = amount ?? donation.amount;
     donation.due = due ?? donation.due;
     donation.numbering = numbering;
+    donation.type = data.type ?? donation.type;
     donation.isRead = false;
     await donation.save();
     revalidatePath('/dashboard/donation');

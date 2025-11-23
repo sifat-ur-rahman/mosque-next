@@ -30,11 +30,59 @@ export async function getDonationSummaryAction() {
     try {
         const [summary] = await Donation.aggregate([
             {
+                // one-time & other বাদ
+                $match: {
+                    $or: [
+                        { type: { $exists: false } }, // no type → treat as monthly
+                        { type: 'monthly' },
+                        { type: 'yearly' },
+                    ],
+                },
+            },
+            {
+                $project: {
+                    type: {
+                        // যদি type না থাকে → monthly
+                        $ifNull: ['$type', 'monthly'],
+                    },
+                    amount: 1,
+                    due: 1,
+
+                    // yearly → amount / 12
+                    monthlyAmount: {
+                        $cond: [
+                            {
+                                $eq: [
+                                    { $ifNull: ['$type', 'monthly'] },
+                                    'yearly',
+                                ],
+                            },
+                            { $divide: ['$amount', 12] },
+                            '$amount',
+                        ],
+                    },
+
+                    // yearly due → unchanged
+                    monthlyDue: {
+                        $cond: [
+                            {
+                                $eq: [
+                                    { $ifNull: ['$type', 'monthly'] },
+                                    'yearly',
+                                ],
+                            },
+                            '$due',
+                            '$due',
+                        ],
+                    },
+                },
+            },
+            {
                 $group: {
                     _id: null,
                     totalCount: { $sum: 1 },
-                    totalAmount: { $sum: '$amount' },
-                    totalDue: { $sum: '$due' },
+                    totalAmount: { $sum: '$monthlyAmount' },
+                    totalDue: { $sum: '$monthlyDue' },
                 },
             },
         ]);

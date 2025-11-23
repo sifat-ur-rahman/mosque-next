@@ -48,6 +48,7 @@ export default function AddDonationForm() {
             name: data.name,
             amount: +data.amount,
             numbering: +data.numbering,
+            type: data.type || 'monthly',
         };
 
         try {
@@ -140,7 +141,31 @@ export default function AddDonationForm() {
                             </p>
                         )}
                     </div>
+                    {/* দানের ধরন */}
+                    <div>
+                        <label className="mb-1 block text-sm text-[#D4AF37]">
+                            দানের ধরন
+                        </label>
 
+                        <select
+                            {...register('type', {
+                                required: 'দানের ধরন নির্বাচন করুন',
+                            })}
+                            defaultValue="monthly"
+                            className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
+                        >
+                            <option value="monthly">মাসিক</option>
+                            <option value="one-time">এককালীন</option>
+                            <option value="yearly">বাৎসরিক</option>
+                            <option value="other">অন্যান্য</option>
+                        </select>
+
+                        {errors.type && (
+                            <p className="mt-1 text-xs text-red-400">
+                                {errors.type.message}
+                            </p>
+                        )}
+                    </div>
                     {/* সিরিয়াল নাম্বার */}
                     <div>
                         <label className="mb-1 block text-sm text-[#D4AF37]">

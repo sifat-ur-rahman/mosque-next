@@ -74,7 +74,7 @@ function AllDonationsComponent({
                     </div>
                 </div>
             </motion.div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:mb-7 md:grid-cols-3">
                 {allDonations.map((item, index) => (
                     <motion.div
                         key={item._id}
@@ -112,6 +112,19 @@ function AllDonationsComponent({
                                         </strong>{' '}
                                         ৳
                                     </p>
+                                    {item.type && item.type !== 'monthly' && (
+                                        <p className="mt-1 text-sm">
+                                            <strong className="">
+                                                {item.type === 'one-time'
+                                                    ? 'এককালীন'
+                                                    : item.type === 'yearly'
+                                                      ? 'বাৎসরিক'
+                                                      : item.type === 'other'
+                                                        ? 'অন্যান্য'
+                                                        : ''}
+                                            </strong>
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
