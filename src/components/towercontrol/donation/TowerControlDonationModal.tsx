@@ -22,6 +22,7 @@ type FormData = {
     amount: number;
     due: number;
     numbering: number;
+    type: string;
 };
 
 export default function TowerControlDonationModal({
@@ -44,6 +45,7 @@ export default function TowerControlDonationModal({
             amount: donation.amount,
             due: donation.due,
             numbering: donation.numbering,
+            type: donation.type,
         },
     });
     useEffect(() => {
@@ -66,6 +68,7 @@ export default function TowerControlDonationModal({
                 amount: +data.amount,
                 due: +data.due,
                 numbering: +data.numbering,
+                type: data.type,
             });
 
             if (!res.success) {
@@ -136,6 +139,18 @@ export default function TowerControlDonationModal({
                                         বকেয়াঃ{' '}
                                         <span className="font-roboto font-bold">
                                             {donation.due || 0} ৳
+                                        </span>
+                                    </p>
+                                    <p>
+                                        দাতার ধরণ:{' '}
+                                        <span className="font-bold">
+                                            {donation.type === 'one-time'
+                                                ? 'এককালীন'
+                                                : donation.type === 'other'
+                                                  ? 'অন্যান্য'
+                                                  : donation.type === 'yearly'
+                                                    ? 'বাৎসরিক'
+                                                    : 'মাসিক'}
                                         </span>
                                     </p>
                                 </div>
@@ -228,6 +243,32 @@ export default function TowerControlDonationModal({
                                         </p>
                                     )}
                                 </div>
+                                <div>
+                                    <label className="mb-1 block text-sm text-[#D4AF37]">
+                                        দান এর ধরণ
+                                    </label>
+                                    <select
+                                        {...register('type', {
+                                            required: 'ধরণ নির্বাচন করুন',
+                                        })}
+                                        defaultValue={donation.type}
+                                        className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
+                                    >
+                                        <option value="monthly">মাসিক</option>
+                                        <option value="yearly">বাৎসরিক</option>
+                                        <option value="one-time">
+                                            এককালীন
+                                        </option>
+
+                                        <option value="other">অন্যান্য</option>
+                                    </select>
+                                    {errors.type && (
+                                        <p className="mt-1 text-xs text-red-400">
+                                            {errors.type.message}
+                                        </p>
+                                    )}
+                                </div>
+
                                 <div>
                                     <label className="mb-1 block text-sm text-[#D4AF37]">
                                         সিরিয়াল নাম্বার (যদি পরিবর্তন করতে চান)
