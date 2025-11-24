@@ -32,7 +32,7 @@ export default function AllUsersComponent({ users }: AllUsersProps) {
                         key={user._id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.4 }}
+                        transition={{ delay: 0.3, duration: 0.4 }}
                         onClick={() => setSelectedUser(user)}
                         className={`no-select flex cursor-pointer flex-col gap-3 rounded-2xl bg-[#3C245A] p-4 shadow-lg transition-transform hover:scale-105 ${user.isDeleted ? 'border border-red-400' : ''}`}
                     >
