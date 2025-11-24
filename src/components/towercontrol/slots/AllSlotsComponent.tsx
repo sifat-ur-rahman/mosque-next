@@ -68,7 +68,7 @@ export default function AllSlotsComponent({
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{
-                                    delay: index * 0.1,
+                                    delay: 0.3,
                                     duration: 0.4,
                                 }}
                                 onClick={() => setSelectedSlot(slot)}
