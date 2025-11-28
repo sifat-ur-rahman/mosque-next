@@ -100,10 +100,25 @@ function AllTowerControlDonationComponent({
                             <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D4AF37] font-roboto text-xl font-bold text-white">
                                 {item.numbering}
                             </div>
-                            <div>
-                                <h2 className="text-lg font-semibold">
-                                    {item.name || 'নাম পাওয়া যায়নি'}
-                                </h2>
+                            <div className="flex-1">
+                                <div className="grid grid-cols-2 gap-8">
+                                    <h2 className="text-lg font-semibold">
+                                        {item.name || 'নাম পাওয়া যায়নি'}
+                                    </h2>
+                                    {item.type && item.type !== 'monthly' && (
+                                        <p className="mt-1 text-sm">
+                                            <strong className="">
+                                                {item.type === 'one-time'
+                                                    ? 'এককালীন'
+                                                    : item.type === 'yearly'
+                                                      ? 'বাৎসরিক'
+                                                      : item.type === 'other'
+                                                        ? 'অন্যান্য'
+                                                        : ''}
+                                            </strong>
+                                        </p>
+                                    )}
+                                </div>
                                 <div className="mt-1 flex w-full items-center justify-between gap-8">
                                     <p className="text-sm">
                                         নির্ধারিত:{' '}
@@ -119,20 +134,6 @@ function AllTowerControlDonationComponent({
                                         </strong>{' '}
                                         ৳
                                     </p>
-                                    {/* দানের ধরন দেখানো — শুধুমাত্র monthly না হলে */}
-                                    {item.type && item.type !== 'monthly' && (
-                                        <p className="mt-1 text-sm">
-                                            <strong className="">
-                                                {item.type === 'one-time'
-                                                    ? 'এককালীন'
-                                                    : item.type === 'yearly'
-                                                      ? 'বাৎসরিক'
-                                                      : item.type === 'other'
-                                                        ? 'অন্যান্য'
-                                                        : ''}
-                                            </strong>
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                         </div>

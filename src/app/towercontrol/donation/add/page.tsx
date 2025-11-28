@@ -155,8 +155,8 @@ export default function AddDonationForm() {
                             className="min-h-[2.44rem] w-full appearance-none rounded-md border border-[#D4AF37]/40 bg-[#29173F] px-4 py-2 text-sm text-white focus:border-[#D4AF37] focus:outline-none"
                         >
                             <option value="monthly">মাসিক</option>
-                            <option value="one-time">এককালীন</option>
                             <option value="yearly">বাৎসরিক</option>
+                            <option value="one-time">এককালীন</option>
                             <option value="other">অন্যান্য</option>
                         </select>
 
