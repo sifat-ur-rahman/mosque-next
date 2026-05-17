@@ -16,6 +16,10 @@ interface IftarModalProps {
     onClose: () => void;
 }
 
+interface IftarEditForm {
+    names: { value: string }[];
+}
+
 export default function DashboardIftarModal({
     iftar,
     isOpen,
@@ -28,21 +32,21 @@ export default function DashboardIftarModal({
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<IIftar>({
+    } = useForm<IftarEditForm>({
         defaultValues: {
-            names: iftar.names,
+            names: iftar.names.map((n) => ({ value: n })),
         },
     });
 
-    const { fields, append, remove } = useFieldArray<any>({
+    const { fields, append, remove } = useFieldArray<IftarEditForm>({
         control,
         name: 'names',
     });
 
-    const onSubmit = async (data: IIftar) => {
+    const onSubmit = async (data: IftarEditForm) => {
         try {
             const res = await updateIftarAction(iftar._id, {
-                names: data.names,
+                names: data.names.map((n) => n.value),
             });
             if (res.success) {
                 toast.success('তালিকা সফলভাবে আপডেট হয়েছে!');
@@ -150,7 +154,9 @@ export default function DashboardIftarModal({
                                         <button
                                             type="button"
                                             disabled={fields.length >= 10}
-                                            onClick={() => append('')}
+                                            onClick={() =>
+                                                append({ value: '' })
+                                            }
                                             className={`text-green-400 hover:text-green-300 ${
                                                 fields.length >= 10
                                                     ? 'cursor-not-allowed opacity-50'
@@ -168,7 +174,7 @@ export default function DashboardIftarModal({
                                         >
                                             <input
                                                 {...register(
-                                                    `names.${index}` as const,
+                                                    `names.${index}.value` as const,
                                                     { required: true },
                                                 )}
                                                 className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
