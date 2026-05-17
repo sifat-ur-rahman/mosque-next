@@ -10,13 +10,13 @@ import { IoArrowBack } from 'react-icons/io5';
 import { addIftarAction } from '@/server/actions/iftar/addIftarAction';
 import { getActiveSlotByType } from '@/server/actions/slots/getSoltAction';
 import { ISlot } from '@/server/model/slots/slotType';
-import mongoose, { Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { toast } from 'sonner';
 
 interface IftarFormValues {
     numbering: string;
     slotId: Types.ObjectId;
-    names: string[];
+    names: { value: string }[];
     date: string;
     day: string;
 }
@@ -36,19 +36,17 @@ export default function AddIftarForm() {
     } = useForm<IftarFormValues>({
         defaultValues: {
             numbering: '',
-            slotId: new mongoose.Types.ObjectId(),
-            names: [''],
+            slotId: slots?._id,
+            names: [{ value: '' }],
             date: '',
             day: '',
         },
     });
 
-    const { fields, append, remove } = useFieldArray<any>({
+    const { fields, append, remove } = useFieldArray<IftarFormValues>({
         control,
         name: 'names',
     });
-
-    const watchNames = watch('names');
 
     useEffect(() => {
         async function fetchSlots() {
@@ -78,15 +76,16 @@ export default function AddIftarForm() {
 
     const onSubmit = async (data: IftarFormValues) => {
         try {
-            const reqData: IftarFormValues = {
+            const res = await addIftarAction({
                 numbering: data.numbering,
                 slotId: slots._id as any,
-                names: data.names.filter((n) => n.trim() !== ''),
+                names: data.names
+                    .map((n) => n.value)
+                    .filter((n) => n.trim() !== ''), // ← string[]
                 date: data.date,
                 day: data.day,
-            };
+            });
 
-            const res = await addIftarAction(reqData);
             if (res.success) {
                 toast.success('ইফতার সফলভাবে যোগ করা হয়েছে');
                 reset();
@@ -190,7 +189,7 @@ export default function AddIftarForm() {
                             <button
                                 type="button"
                                 disabled={fields.length >= 10}
-                                onClick={() => append('')}
+                                onClick={() => append({ value: '' })}
                                 className={`text-green-400 hover:text-green-300 ${
                                     fields.length >= 10
                                         ? 'cursor-not-allowed opacity-50'
@@ -207,9 +206,10 @@ export default function AddIftarForm() {
                                 className="mb-2 flex items-center gap-2"
                             >
                                 <input
-                                    {...register(`names.${index}` as const, {
-                                        required: true,
-                                    })}
+                                    {...register(
+                                        `names.${index}.value` as const,
+                                        { required: true },
+                                    )}
                                     className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
                                     placeholder={`নাম ${index + 1}`}
                                 />
