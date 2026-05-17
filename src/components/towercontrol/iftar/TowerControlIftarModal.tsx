@@ -17,6 +17,13 @@ interface IftarModalProps {
     onClose: () => void;
 }
 
+interface IftarEditForm {
+    numbering: string;
+    date: string;
+    day: string;
+    names: { value: string }[];
+}
+
 export default function TowerControlIftarModal({
     iftar,
     isOpen,
@@ -30,23 +37,28 @@ export default function TowerControlIftarModal({
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<IIftar>({
+    } = useForm<IftarEditForm>({
         defaultValues: {
             numbering: iftar.numbering,
             date: iftar.date,
             day: iftar.day,
-            names: iftar.names,
+            names: iftar.names.map((n) => ({ value: n })),
         },
     });
 
-    const { fields, append, remove } = useFieldArray<any>({
+    const { fields, append, remove } = useFieldArray<IftarEditForm>({
         control,
         name: 'names',
     });
 
-    const onSubmit = async (data: IIftar) => {
+    const onSubmit = async (data: IftarEditForm) => {
         try {
-            const res = await updateIftarAction(iftar._id, data);
+            const res = await updateIftarAction(iftar._id, {
+                numbering: data.numbering,
+                date: data.date,
+                day: data.day,
+                names: data.names.map((n) => n.value),
+            });
             if (res.success) {
                 toast.success('ইফতার সফলভাবে আপডেট হয়েছে!');
                 setIsEditing(false);
@@ -234,7 +246,9 @@ export default function TowerControlIftarModal({
                                         <button
                                             type="button"
                                             disabled={fields.length >= 10}
-                                            onClick={() => append('')}
+                                            onClick={() =>
+                                                append({ value: '' })
+                                            }
                                             className={`text-green-400 hover:text-green-300 ${
                                                 fields.length >= 10
                                                     ? 'cursor-not-allowed opacity-50'
@@ -252,7 +266,7 @@ export default function TowerControlIftarModal({
                                         >
                                             <input
                                                 {...register(
-                                                    `names.${index}` as const,
+                                                    `names.${index}.value` as const,
                                                     { required: true },
                                                 )}
                                                 className="w-full rounded-lg border border-[#D4AF37]/40 bg-[#29173F] px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-[#D4AF37] focus:outline-none"
