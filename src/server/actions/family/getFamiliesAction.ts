@@ -134,11 +134,12 @@ export async function getFamilyWithQurbaniBySlotId(slotId: string) {
             },
             {
                 // Sort families by members descending
-                $sort: { members: -1 },
+                $sort: { numbering: -1 },
             },
             {
                 // Only include required fields
                 $project: {
+                    numbering: 1,
                     _id: 1,
                     name: 1,
                     members: 1,
@@ -152,7 +153,6 @@ export async function getFamilyWithQurbaniBySlotId(slotId: string) {
         const familiesWithNumbering = familiesWithQurbani.map(
             (family, index) => ({
                 ...family,
-                numbering: index + 1, // 1, 2, 3...
             }),
         );
 
