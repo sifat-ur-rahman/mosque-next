@@ -134,7 +134,7 @@ export async function getFamilyWithQurbaniBySlotId(slotId: string) {
             },
             {
                 // Sort families by members descending
-                $sort: { numbering: -1 },
+                $sort: { numbering: 1 },
             },
             {
                 // Only include required fields
